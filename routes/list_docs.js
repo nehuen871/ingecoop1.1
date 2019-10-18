@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 // GET An list_docs
-router.get('/list_docs/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const { id } = req.params;
   mysqlConnection.query('SELECT * FROM list_docs WHERE id = ?', [id], (err, rows, fields) => {
     if (!err) {
@@ -27,7 +27,7 @@ router.get('/list_docs/:id', (req, res) => {
 });
 
 // DELETE An list_docs
-router.delete('/list_docs/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const { id } = req.params;
   mysqlConnection.query('DELETE FROM list_docs WHERE id = ?', [id], (err, rows, fields) => {
     if(!err) {
@@ -39,7 +39,7 @@ router.delete('/list_docs/:id', (req, res) => {
 });
 
 // INSERT An list_docs
-router.post('/list_docs/', (req, res) => {
+router.post('/', (req, res) => {
   const {CUIT, Calle, DNI, Observaciones, Infracciones} = req.body;
   console.log(CUIT, Calle, DNI, Observaciones, Infracciones);
   const query = `
@@ -61,7 +61,7 @@ router.post('/list_docs/', (req, res) => {
 
 });
 
-router.put('/list_docs/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   const { CUIT, Calle, DNI, Observaciones, Infracciones } = req.body;
   const { id } = req.params;
   const query = `

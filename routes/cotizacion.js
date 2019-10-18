@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 // GET An cotizacion
-router.get('/cotizacion/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const { id } = req.params;
   mysqlConnection.query('SELECT * FROM cotizacion WHERE id = ?', [id], (err, rows, fields) => {
     if (!err) {
@@ -27,7 +27,7 @@ router.get('/cotizacion/:id', (req, res) => {
 });
 
 // DELETE An cotizacion
-router.delete('/cotizacion/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const { id } = req.params;
   mysqlConnection.query('DELETE FROM cotizacion WHERE id = ?', [id], (err, rows, fields) => {
     if(!err) {
@@ -39,7 +39,7 @@ router.delete('/cotizacion/:id', (req, res) => {
 });
 
 // INSERT An cotizacion
-router.post('/cotizacion/', (req, res) => {
+router.post('/', (req, res) => {
   const {CUIT, Calle, DNI, Observaciones, Infracciones} = req.body;
   console.log(CUIT, Calle, DNI, Observaciones, Infracciones);
   const query = `
@@ -61,7 +61,7 @@ router.post('/cotizacion/', (req, res) => {
 
 });
 
-router.put('/cotizacion/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   const { CUIT, Calle, DNI, Observaciones, Infracciones } = req.body;
   const { id } = req.params;
   const query = `

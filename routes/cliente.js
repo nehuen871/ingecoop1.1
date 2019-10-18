@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
 });
 
 // DELETE An cliente
-router.delete('/cliente/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const { id } = req.params;
   mysqlConnection.query('DELETE FROM cliente WHERE id = ?', [id], (err, rows, fields) => {
     if(!err) {
@@ -39,7 +39,7 @@ router.delete('/cliente/:id', (req, res) => {
 });
 
 // INSERT An cliente
-router.post('/cliente/', (req, res) => {
+router.post('/', (req, res) => {
   const {CUIT, Calle, DNI, Observaciones, Infracciones} = req.body;
   console.log(CUIT, Calle, DNI, Observaciones, Infracciones);
   const query = `
@@ -49,7 +49,7 @@ router.post('/cliente/', (req, res) => {
     SET @DNI = ?;
     SET @Observaciones = ?;
     SET @Infracciones = ?;
-    CALL ComercioAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    CALL clienteAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
   `;
   mysqlConnection.query(query, [CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
     if(!err) {
@@ -61,7 +61,7 @@ router.post('/cliente/', (req, res) => {
 
 });
 
-router.put('/cliente/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   const { CUIT, Calle, DNI, Observaciones, Infracciones } = req.body;
   const { id } = req.params;
   const query = `

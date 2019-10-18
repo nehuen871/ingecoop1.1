@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 // GET An control
-router.get('/control/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const { id } = req.params;
   mysqlConnection.query('SELECT * FROM control WHERE id = ?', [id], (err, rows, fields) => {
     if (!err) {
@@ -27,7 +27,7 @@ router.get('/control/:id', (req, res) => {
 });
 
 // DELETE An control
-router.delete('/control/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const { id } = req.params;
   mysqlConnection.query('DELETE FROM control WHERE id = ?', [id], (err, rows, fields) => {
     if(!err) {
@@ -39,7 +39,7 @@ router.delete('/control/:id', (req, res) => {
 });
 
 // INSERT An control
-router.post('/control/', (req, res) => {
+router.post('/', (req, res) => {
   const {CUIT, Calle, DNI, Observaciones, Infracciones} = req.body;
   console.log(CUIT, Calle, DNI, Observaciones, Infracciones);
   const query = `
@@ -61,7 +61,7 @@ router.post('/control/', (req, res) => {
 
 });
 
-router.put('/control/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   const { CUIT, Calle, DNI, Observaciones, Infracciones } = req.body;
   const { id } = req.params;
   const query = `

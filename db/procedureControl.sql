@@ -3,7 +3,7 @@ USE ingecoop;
 DELIMITER $$
 USE `multeo`$$
 
-CREATE PROCEDURE `CertificacionAddOrEdit` (
+CREATE PROCEDURE `controlAddOrEdit` (
   IN _id INT,
   IN _CUIT VARCHAR(255),
   IN _Calle VARCHAR(255),
@@ -13,7 +13,7 @@ CREATE PROCEDURE `CertificacionAddOrEdit` (
 )
 BEGIN 
   IF _id = 0 THEN
-    INSERT INTO Certificacion (CUIT,Calle,DNI,Observaciones,Infracciones)
+    INSERT INTO control (CUIT,Calle,DNI,Observaciones,Infracciones)
     VALUES (_CUIT, _Calle, _DNI, _Observaciones, _Infracciones);
 
     SET _id = LAST_INSERT_ID();
