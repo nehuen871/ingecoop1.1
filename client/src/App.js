@@ -23,13 +23,7 @@ class App extends Component {
   };
   handleSubmit = async e => {
     e.preventDefault();
-    const response = await fetch('/cliente', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ post: this.state.post }),
-    });
+    const response = await fetch('/cliente');
     const body = await response.text();
 
     this.setState({ responseToPost: body });
