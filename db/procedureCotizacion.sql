@@ -1,30 +1,30 @@
 USE ingecoop;
 
 DELIMITER $$
-USE `multeo`$$
+USE `ingecoop`$$
 
 CREATE PROCEDURE `cotizacionAddOrEdit` (
   IN _id INT,
-  IN _CUIT VARCHAR(255),
-  IN _Calle VARCHAR(255),
-  IN _DNI VARCHAR(255),
-  IN _Observaciones VARCHAR(255),
-  IN _Infracciones VARCHAR(255)
+  IN _cantidadCotiazaciones INT(11),
+  IN _cliente_id INT(10),
+  IN _fecha DATE,
+  IN _proyecto_id INT(10),
+  IN _fin_cotizacion DATE
 )
 BEGIN 
   IF _id = 0 THEN
-    INSERT INTO cotizacion (CUIT,Calle,DNI,Observaciones,Infracciones)
-    VALUES (_CUIT, _Calle, _DNI, _Observaciones, _Infracciones);
+    INSERT INTO cotizacion (cantidadCotiazaciones, cliente_id, fecha, proyecto_id, fin_cotizacion)
+    VALUES (_cantidadCotiazaciones,_cliente_id,_fecha,_proyecto_id,_fin_cotizacion);
 
     SET _id = LAST_INSERT_ID();
   ELSE
-    UPDATE Cerficacion
+    UPDATE cotizacion
     SET
-    CUIT = _CUIT,
-    Calle = _Calle,
-    DNI = _DNI,
-    Observaciones = _Observaciones,
-    Infracciones = _Infracciones
+    cantidadCotiazaciones, = _cantidadCotiazaciones,
+    cliente_id, = _cliente_id,
+    fecha, = _fecha,
+    proyecto_id, = _proyecto_id,
+    fin_cotizacion = _fin_cotizacion
     WHERE id = _id;
   END IF;
 
