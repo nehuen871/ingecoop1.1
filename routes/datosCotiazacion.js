@@ -40,18 +40,25 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An datosCotiazacion
 router.post('/', (req, res) => {
-  const {CUIT, Calle, DNI, Observaciones, Infracciones} = req.body;
-  console.log(CUIT, Calle, DNI, Observaciones, Infracciones);
+  const {numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id} = req.body;
   const query = `
     SET @id = 0;
-    SET @CUIT = ?;
-    SET @Calle = ?;
-    SET @DNI = ?;
-    SET @Observaciones = ?;
-    SET @Infracciones = ?;
-    CALL ComercioAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    SET @numeroRecotizacion = ?;
+    SET @cotizacion_id = ?;
+    SET @descripcion_doc = ?;
+    SET @revicion_inicial = ?;
+    SET @cantidad_doc = ?;
+    SET @HHUnidades = ?;
+    SET @total = ?;
+    SET @revision_unica = ?;
+    SET @observacion = ?;
+    SET @modificar_lista = ?;
+    SET @proveerdor = ?;
+    SET @viatico = ?;
+    SET @list_docs_i = ?;
+    CALL ComercioAddOrEdit(@id, @numeroRecotizacion,@cotizacion_id,@descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveerdor,@viatico,@list_docs_id);
   `;
-  mysqlConnection.query(query, [CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
+  mysqlConnection.query(query, [numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosCotiazacion Saved'});
     } else {
@@ -62,18 +69,26 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { CUIT, Calle, DNI, Observaciones, Infracciones } = req.body;
+  const { numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id } = req.body;
   const { id } = req.params;
   const query = `
     SET @id = ?;
-    SET @CUIT = ?;
-    SET @Calle = ?;
-    SET @DNI = ?;
-    SET @Observaciones = ?;
-    SET @Infracciones = ?;
-    CALL datosCotiazacionAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    SET @numeroRecotizacion = ?;
+    SET @cotizacion_id = ?;
+    SET @descripcion_doc = ?;
+    SET @revicion_inicial = ?;
+    SET @cantidad_doc = ?;
+    SET @HHUnidades = ?;
+    SET @total = ?;
+    SET @revision_unica = ?;
+    SET @observacion = ?;
+    SET @modificar_lista = ?;
+    SET @proveerdor = ?;
+    SET @viatico = ?;
+    SET @list_docs_i = ?;
+    CALL datosCotiazacionAddOrEdit(@id, @numeroRecotizacion,@cotizacion_id,@descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveerdor,@viatico,@list_docs_id);
   `;
-  mysqlConnection.query(query, [id, CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosCotiazacion Updated'});
     } else {
@@ -82,8 +97,5 @@ router.put('/:id', (req, res) => {
   });
 
 });
-
-
-
 
 module.exports = router;

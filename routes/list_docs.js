@@ -40,18 +40,17 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An list_docs
 router.post('/', (req, res) => {
-  const {CUIT, Calle, DNI, Observaciones, Infracciones} = req.body;
-  console.log(CUIT, Calle, DNI, Observaciones, Infracciones);
+  const {nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable} = req.body;
   const query = `
-    SET @id = 0;
-    SET @CUIT = ?;
-    SET @Calle = ?;
-    SET @DNI = ?;
-    SET @Observaciones = ?;
-    SET @Infracciones = ?;
-    CALL ComercioAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    SET @id = ?;
+    SET @nombre = ?;
+    SET @cantidad_de_doc = ?;
+    SET @total_hh = ?;
+    SET @especialidad = ?;
+    SET @ista_de_cable = ?;
+    CALL ComercioAddOrEdit(@id, @nombre,@cantidad_de_doc,@total_hh,@especialidad,@lista_de_cable);
   `;
-  mysqlConnection.query(query, [CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
+  mysqlConnection.query(query, [nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'list_docs Saved'});
     } else {
@@ -62,18 +61,18 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { CUIT, Calle, DNI, Observaciones, Infracciones } = req.body;
+  const { nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable } = req.body;
   const { id } = req.params;
   const query = `
     SET @id = ?;
-    SET @CUIT = ?;
-    SET @Calle = ?;
-    SET @DNI = ?;
-    SET @Observaciones = ?;
-    SET @Infracciones = ?;
-    CALL list_docsAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    SET @nombre = ?;
+    SET @cantidad_de_doc = ?;
+    SET @total_hh = ?;
+    SET @especialidad = ?;
+    SET @ista_de_cable = ?;
+    CALL list_docsAddOrEdit(@id, @nombre,@cantidad_de_doc,@total_hh,@especialidad,@lista_de_cable);
   `;
-  mysqlConnection.query(query, [id, CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'list_docs Updated'});
     } else {
@@ -82,8 +81,5 @@ router.put('/:id', (req, res) => {
   });
 
 });
-
-
-
 
 module.exports = router;

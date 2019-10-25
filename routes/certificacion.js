@@ -40,18 +40,30 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An certificacion
 router.post('/', (req, res) => {
-  const {CUIT, Calle, DNI, Observaciones, Infracciones} = req.body;
-  console.log(CUIT, Calle, DNI, Observaciones, Infracciones);
+  const {control_id, control_cotizacion_id, control_cotizacion_proyecto_id, proveedor, cuit, numeroInternoProveedor, numeroDePedido, nombre, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, cetifiacacionInterna_id, total_certificacion} = req.body;
   const query = `
     SET @id = 0;
-    SET @CUIT = ?;
-    SET @Calle = ?;
-    SET @DNI = ?;
-    SET @Observaciones = ?;
-    SET @Infracciones = ?;
-    CALL ComercioAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    SET @control_id = ?;
+    SET @control_cotizacion_id = ?;
+    SET @control_cotizacion_proyecto_id = ?;
+    SET @proveedor = ?;
+    SET @cuit = ?;
+    SET @numeroInternoProveedor = ?;
+    SET @numeroDePedido = ?;
+    SET @nombre = ?;
+    SET @especialidad = ?;
+    SET @fechaDeEmision = ?;
+    SET @moneda = ?;
+    SET @costoHoraDoc = ?;
+    SET @cantdeHs = ?;
+    SET @cantdeDocs = ?;
+    SET @porcentajeAvance = ?;
+    SET @horasCertificadas = ?;
+    SET @cetifiacacionInterna_id = ?;
+    SET @total_certificacion = ?;
+    CALL ComercioAddOrEdit(@id, @control_id,@control_cotizacion_id,@control_cotizacion_proyecto_id,@proveedor,@cuit,@numeroInternoProveedor,@numeroDePedido,@nombre,@especialidad,@fechaDeEmision,@moneda,@costoHoraDoc,@cantdeHs,@cantdeDocs,@porcentajeAvance,@horasCertificadas,@cetifiacacionInterna_id,@total_certificacion);
   `;
-  mysqlConnection.query(query, [CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
+  mysqlConnection.query(query, [control_id, control_cotizacion_id, control_cotizacion_proyecto_id, proveedor, cuit, numeroInternoProveedor, numeroDePedido, nombre, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, cetifiacacionInterna_id, total_certificacion], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'certificacion Saved'});
     } else {
@@ -62,18 +74,30 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { CUIT, Calle, DNI, Observaciones, Infracciones } = req.body;
+  const { control_id, control_cotizacion_id, control_cotizacion_proyecto_id, proveedor, cuit, numeroInternoProveedor, numeroDePedido, nombre, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, cetifiacacionInterna_id, total_certificacion } = req.body;
   const { id } = req.params;
   const query = `
-    SET @id = ?;
-    SET @CUIT = ?;
-    SET @Calle = ?;
-    SET @DNI = ?;
-    SET @Observaciones = ?;
-    SET @Infracciones = ?;
-    CALL certificacionAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    SET @control_id = ?;
+    SET @control_cotizacion_id = ?;
+    SET @control_cotizacion_proyecto_id = ?;
+    SET @proveedor = ?;
+    SET @cuit = ?;
+    SET @numeroInternoProveedor = ?;
+    SET @numeroDePedido = ?;
+    SET @nombre = ?;
+    SET @especialidad = ?;
+    SET @fechaDeEmision = ?;
+    SET @moneda = ?;
+    SET @costoHoraDoc = ?;
+    SET @cantdeHs = ?;
+    SET @cantdeDocs = ?;
+    SET @porcentajeAvance = ?;
+    SET @horasCertificadas = ?;
+    SET @cetifiacacionInterna_id = ?;
+    SET @total_certificacion = ?;
+    CALL certificacionAddOrEdit(@control_id,@control_cotizacion_id,@control_cotizacion_proyecto_id,@proveedor,@cuit,@numeroInternoProveedor,@numeroDePedido,@nombre,@especialidad,@fechaDeEmision,@moneda,@costoHoraDoc,@cantdeHs,@cantdeDocs,@porcentajeAvance,@horasCertificadas,@cetifiacacionInterna_id,@total_certificacion);
   `;
-  mysqlConnection.query(query, [id, CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, control_id, control_cotizacion_id, control_cotizacion_proyecto_id, proveedor, cuit, numeroInternoProveedor, numeroDePedido, nombre, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, cetifiacacionInterna_id, total_certificacion], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'certificacion Updated'});
     } else {

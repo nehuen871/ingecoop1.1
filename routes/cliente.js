@@ -40,18 +40,15 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An cliente
 router.post('/', (req, res) => {
-  const {CUIT, Calle, DNI, Observaciones, Infracciones} = req.body;
-  console.log(CUIT, Calle, DNI, Observaciones, Infracciones);
+  const {nombre,codigoCliente} = req.body;
   const query = `
     SET @id = 0;
-    SET @CUIT = ?;
-    SET @Calle = ?;
-    SET @DNI = ?;
-    SET @Observaciones = ?;
-    SET @Infracciones = ?;
-    CALL clienteAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    SET @id = ?;
+    @nombre = ?;
+    @codigoCliente = ?;
+    CALL clienteAddOrEdit(@id, @nombre,@codigoCliente);
   `;
-  mysqlConnection.query(query, [CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
+  mysqlConnection.query(query, [nombre,codigoCliente], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cliente Saved'});
     } else {
@@ -62,18 +59,15 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { CUIT, Calle, DNI, Observaciones, Infracciones } = req.body;
+  const { nombre,codigoCliente } = req.body;
   const { id } = req.params;
   const query = `
     SET @id = ?;
-    SET @CUIT = ?;
-    SET @Calle = ?;
-    SET @DNI = ?;
-    SET @Observaciones = ?;
-    SET @Infracciones = ?;
-    CALL clienteAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    @nombre = ?;
+    @codigoCliente = ?;
+    CALL clienteAddOrEdit(@id, @nombre,@codigoCliente);
   `;
-  mysqlConnection.query(query, [id, CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, nombre,codigoCliente], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cliente Updated'});
     } else {
@@ -82,8 +76,5 @@ router.put('/:id', (req, res) => {
   });
 
 });
-
-
-
 
 module.exports = router;

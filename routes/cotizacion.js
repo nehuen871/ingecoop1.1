@@ -40,18 +40,18 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An cotizacion
 router.post('/', (req, res) => {
-  const {CUIT, Calle, DNI, Observaciones, Infracciones} = req.body;
-  console.log(CUIT, Calle, DNI, Observaciones, Infracciones);
+  const {cantidadCotiazaciones,cliente_id, fecha, proyecto_id, fin_cotizacion} = req.body;
   const query = `
     SET @id = 0;
-    SET @CUIT = ?;
-    SET @Calle = ?;
-    SET @DNI = ?;
-    SET @Observaciones = ?;
-    SET @Infracciones = ?;
-    CALL ComercioAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    SET @cantidadCotiazaciones = ?;
+    SET @cliente_id = ?;
+    SET @fecha = ?;
+    SET @proyecto_id = ?;
+    SET @fin_cotizacion = ?;
+
+    CALL ComercioAddOrEdit(@id, @cantidadCotiazaciones,@cliente_id,@fecha,@proyecto_id,@fin_cotizacion);
   `;
-  mysqlConnection.query(query, [CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
+  mysqlConnection.query(query, [cantidadCotiazaciones,cliente_id, fecha, proyecto_id, fin_cotizacion], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cotizacion Saved'});
     } else {
@@ -62,18 +62,19 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { CUIT, Calle, DNI, Observaciones, Infracciones } = req.body;
+  const { cantidadCotiazaciones,cliente_id, fecha, proyecto_id, fin_cotizacion } = req.body;
   const { id } = req.params;
   const query = `
     SET @id = ?;
-    SET @CUIT = ?;
-    SET @Calle = ?;
-    SET @DNI = ?;
-    SET @Observaciones = ?;
-    SET @Infracciones = ?;
-    CALL cotizacionAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    SET @cantidadCotiazaciones = ?;
+    SET @cliente_id = ?;
+    SET @fecha = ?;
+    SET @proyecto_id = ?;
+    SET @fin_cotizacion = ?;
+
+    CALL cotizacionAddOrEdit(@id, @cantidadCotiazaciones,@cliente_id,@fecha,@proyecto_id,@fin_cotizacion);
   `;
-  mysqlConnection.query(query, [id, CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, cantidadCotiazaciones,cliente_id, fecha, proyecto_id, fin_cotizacion], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cotizacion Updated'});
     } else {
@@ -82,8 +83,5 @@ router.put('/:id', (req, res) => {
   });
 
 });
-
-
-
 
 module.exports = router;

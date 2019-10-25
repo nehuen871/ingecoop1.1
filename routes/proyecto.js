@@ -40,18 +40,17 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An proyecto
 router.post('/', (req, res) => {
-  const {CUIT, Calle, DNI, Observaciones, Infracciones} = req.body;
-  console.log(CUIT, Calle, DNI, Observaciones, Infracciones);
+  const {nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin} = req.body;
   const query = `
     SET @id = 0;
-    SET @CUIT = ?;
-    SET @Calle = ?;
-    SET @DNI = ?;
-    SET @Observaciones = ?;
-    SET @Infracciones = ?;
-    CALL ComercioAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    SET @nombre = ?;
+    SET @numero_proyecto = ?;
+    SET @cliente = ?;
+    SET @fehca_inicio = ?;
+    SET @fecha_fin = ?;
+    CALL ComercioAddOrEdit(@id, @nombre,@numero_proyecto,@cliente,@fehca_inicio,@fecha_fin);
   `;
-  mysqlConnection.query(query, [CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
+  mysqlConnection.query(query, [nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'proyecto Saved'});
     } else {
@@ -62,18 +61,18 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { CUIT, Calle, DNI, Observaciones, Infracciones } = req.body;
+  const { nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin } = req.body;
   const { id } = req.params;
   const query = `
     SET @id = ?;
-    SET @CUIT = ?;
-    SET @Calle = ?;
-    SET @DNI = ?;
-    SET @Observaciones = ?;
-    SET @Infracciones = ?;
-    CALL proyectoAddOrEdit(@id, @CUIT, @Calle, @DNI, @Observaciones, @Infracciones);
+    SET @nombre = ?;
+    SET @numero_proyecto = ?;
+    SET @cliente = ?;
+    SET @fehca_inicio = ?;
+    SET @fecha_fin = ?;
+    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente,@fehca_inicio,@fecha_fin);
   `;
-  mysqlConnection.query(query, [id, CUIT, Calle, DNI, Observaciones, Infracciones], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'proyecto Updated'});
     } else {
@@ -82,8 +81,5 @@ router.put('/:id', (req, res) => {
   });
 
 });
-
-
-
 
 module.exports = router;
