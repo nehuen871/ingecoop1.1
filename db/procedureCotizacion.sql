@@ -20,10 +20,10 @@ BEGIN
   ELSE
     UPDATE cotizacion
     SET
-    cantidadCotiazaciones, = _cantidadCotiazaciones,
-    cliente_id, = _cliente_id,
-    fecha, = _fecha,
-    proyecto_id, = _proyecto_id,
+    cantidadCotiazaciones = _cantidadCotiazaciones,
+    cliente_id = _cliente_id,
+    fecha = _fecha,
+    proyecto_id = _proyecto_id,
     fin_cotizacion = _fin_cotizacion
     WHERE id = _id;
   END IF;

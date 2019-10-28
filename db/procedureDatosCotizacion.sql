@@ -31,13 +31,13 @@ BEGIN
     cotizacion_id = _cotizacion_id,
     descripcion_doc = _descripcion_doc,
     revicion_inicial = _revicion_inicial,
-    cantidad_doc = _cantidad_doc
-    HHUnidades = _HHUnidades
-    total = _total
-    revision_unica = _revision_unica
-    modificar_lista = _modificar_lista
-    proveerdor = _proveerdor
-    viatico = _viatico
+    cantidad_doc = _cantidad_doc,
+    HHUnidades = _HHUnidades,
+    total = _total,
+    revision_unica = _revision_unica,
+    modificar_lista = _modificar_lista,
+    proveerdor = _proveerdor,
+    viatico = _viatico,
     list_docs_id = _list_docs_id
     WHERE id = _id;
   END IF;

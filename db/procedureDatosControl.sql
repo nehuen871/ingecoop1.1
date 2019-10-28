@@ -30,9 +30,9 @@ BEGIN
     UPDATE Cerficacion
     SET
     descripcion_doc = _descripcion_doc,
-    revicion_inicial = _revicion_inicial
+    revicion_inicial = _revicion_inicial,
     cantidad_doc = _cantidad_doc,
-    HHUnidades = _HHUnidades
+    HHUnidades = _HHUnidades,
     total = _total,
     revision_unica = _revision_unica,
     observacion = _observacion,

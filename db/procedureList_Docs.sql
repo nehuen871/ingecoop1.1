@@ -5,7 +5,7 @@ USE `multeo`$$
 
 CREATE PROCEDURE `list_docsAddOrEdit` (
   IN _id INT,
-  in _nombre VARCHAR(255)
+  in _nombre VARCHAR(255),
   IN _cantidad_de_doc INT(11),
   IN _total_hh FLOAT,
   IN _especialidad VARCHAR(255),
