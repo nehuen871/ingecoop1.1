@@ -1,42 +1,10 @@
 import React, { Component } from 'react';
 import '../styles/SideBar.css';
-class SideBar extends Component {
+import {Link} from "react-router-dom";
+
+export default class SideBar extends Component {
     constructor(props) {
         super(props);
-        this.handleClickProyecto = this.handleClickProyecto.bind(this);
-        this.handleClickCliente = this.handleClickCliente.bind(this);
-        this.handleClickCotizacion = this.handleClickCotizacion.bind(this);
-        this.handleClickControl = this.handleClickControl.bind(this);
-        this.handleClickCertificacion = this.handleClickCertificacion.bind(this);
-        this.handleClickDContizacion = this.handleClickDContizacion.bind(this);
-        this.handleClickDControl = this.handleClickDControl.bind(this);
-        this.handleClickListoDocs = this.handleClickListoDocs.bind(this);
-    }
-    handleClickProyecto(e) {
-        e.preventDefault();
-        console.log('The link was clicked.');
-        //this.setState(state => ({}));
-    }
-    handleClickCliente() {
-        this.setState(state => ({}));
-    }
-    handleClickCotizacion() {
-        this.setState(state => ({}));
-    }
-    handleClickControl() {
-        this.setState(state => ({}));
-    }
-    handleClickCertificacion() {
-        this.setState(state => ({}));
-    }
-    handleClickDContizacion() {
-        this.setState(state => ({}));
-    }
-    handleClickDControl() {
-        this.setState(state => ({}));
-    }
-    handleClickListoDocs() {
-        this.setState(state => ({}));
     }
 
     render() {
@@ -48,75 +16,73 @@ class SideBar extends Component {
             <ul class="sidebar-navigation">
                 <li class="header">Navigation</li>
                 <li>
-                <a href="#" onClick={this.handleClickProyecto}>
-                    <i class="fa fa-home" aria-hidden="true"></i> Proyecto
-                </a>
+                    <Link to="/">
+                        <i class="fa fa-home" aria-hidden="true"></i> Proyecto
+                    </Link>
                 </li>
                 <li>
-                <a href="#" onClick={this.handleClickCliente}>
-                    <i class="fa fa-tachometer" aria-hidden="true"></i> Cliente
-                </a>
+                    <Link to="/Cliente">
+                        <i class="fa fa-tachometer" aria-hidden="true"></i> Cliente
+                    </Link>
                 </li>
                 <li>
-                <a href="#" onClick={this.handleClickCotizacion}>
-                    <i class="fa fa-users" aria-hidden="true"></i> Cotizacion
-                </a>
+                    <Link to="/Cotizacion">
+                        <i class="fa fa-users" aria-hidden="true"></i> Cotizacion
+                    </Link>
                 </li>
                 <li>
-                <a href="#" onClick={this.handleClickControl}>
-                    <i class="fa fa-cog" aria-hidden="true"></i> Control
-                </a>
+                    <Link to="/Control">
+                        <i class="fa fa-cog" aria-hidden="true"></i> Control
+                    </Link>
                 </li>
                 <li>
-                <a href="#" onClick={this.handleClickCertificacion}>
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> Certificacion
-                </a>
+                    <Link to="/Certificacion">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i> Certificacion
+                    </Link>
                 </li>
                 <li>
-                <a href="#" onClick={this.handleClickDContizacion}>
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> Datos de Contizacion
-                </a>
+                    <Link to="/DatosCotiazacion">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i> Datos de Contizacion
+                    </Link>
                 </li>
                 <li>
-                <a href="#" onClick={this.handleClickDControl}>
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> Datos de Control
-                </a>
+                    <Link to="/DatosControl">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i> Datos de Control
+                    </Link>
                 </li>
                 <li>
-                <a href="#" onClick={this.handleClickListoDocs}>
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> Lista de documentos
-                </a>
+                    <Link to="/ListDocs">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i> Lista de documentos
+                    </Link>
                 </li>
                 <li class="header">Busquedas</li>
                 <li>
-                <a href="#" onClick={this.handleClickListoDocs}>
+                <Link to="/">
                     <i class="fa fa-info-circle" aria-hidden="true"></i> Proyecto
-                </a>
+                </Link>
                 </li>
                 <li>
-                <a href="#" onClick={this.handleClickListoDocs}>
+                <Link to="/">
                     <i class="fa fa-info-circle" aria-hidden="true"></i> Cliente
-                </a>
+                </Link>
                 </li>
                 <li>
-                <a href="#" onClick={this.handleClickListoDocs}>
+                <Link to="/">
                     <i class="fa fa-info-circle" aria-hidden="true"></i> Cotizacion
-                </a>
+                </Link>
                 </li>
                 <li>
-                <a href="#" onClick={this.handleClickListoDocs}>
+                <Link to="/">
                     <i class="fa fa-info-circle" aria-hidden="true"></i> Control
-                </a>
+                </Link>
                 </li>
                 <li>
-                <a href="#" onClick={this.handleClickListoDocs}>
+                <Link to="/">
                     <i class="fa fa-info-circle" aria-hidden="true"></i> Certificacion
-                </a>
+                </Link>
                 </li>
             </ul>
             </div>
       );
     }
 }
-
-  export default SideBar;

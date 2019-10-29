@@ -1,66 +1,38 @@
 import React, { Component } from 'react';
+import SideBar from './components/SideBar';
+import Cliente from './components/Cliente';
+import Certificacion from './components/Certificacion';
+import Control from './components/Control';
+import Cotizacion from './components/Cotizacion';
+import DatosControl from './components/DatosControl';
+import DatosCotiazacion from './components/DatosCotiazacion';
+import List_docs from './components/List_docs';
+import Proyecto from './components/Proyecto';
+import {
+  Switch,
+  Route
+} from "react-router-dom";
 
-import logo from './logo.svg';
-
-import './App.css';
-
-class App extends Component {
-  state = {
-    response: '',
-    post: '',
-    responseToPost: '',
-  };
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
-  }
-  callApi = async () => {
-    const response = await fetch('/cliente');
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    return body;
-  };
-  handleSubmit = async e => {
-    e.preventDefault();
-    const response = await fetch('/cliente');
-    const body = await response.text();
-
-    this.setState({ responseToPost: body });
-  };
+export default class App extends Component {
 render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        <p>{this.state.response}</p>
-        <form onSubmit={this.handleSubmit}>
-          <p>
-            <strong>Post to Server:</strong>
-          </p>
-          <input
-            type="text"
-            value={this.state.post}
-            onChange={e => this.setState({ post: e.target.value })}
-          />
-          <button type="submit">Submit</button>
-        </form>
-        <p>{this.state.responseToPost}</p>
+      <div class="container-fluid h-100">
+      <div class="row">
+        <div id="sideBar" class="col-sm-2"><SideBar /></div>
+        <div id="Container" class="col-md-10">
+        <Switch>
+          <Route exact path="/" component={Proyecto} />
+          <Route path="/Cliente" component={Cliente} />
+          <Route path="/Certificacion" component={Certificacion} />
+          <Route path="/Control" component={Control} />
+          <Route path="/Cotizacion" component={Cotizacion} />
+          <Route path="/DatosControl" component={DatosControl} />
+          <Route path="/DatosCotiazacion" component={DatosCotiazacion} />
+          <Route path="/ListDocs" component={List_docs} />
+        </Switch>
+        </div>
       </div>
+    </div>
     );
   }
 }
-
-export default App;
