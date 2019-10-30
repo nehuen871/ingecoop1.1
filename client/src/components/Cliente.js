@@ -9,11 +9,32 @@ const jobs = [];
 
 const cellEditProp = {
   mode: 'click',
-  blurToSave: true
+  blurToSave: true,
+  afterSaveCell: onAfterSaveCell
 };
 const selectRowProp = {
   mode: 'checkbox'
 };
+
+async function onAfterSaveCell(row, cellName, cellValue) {
+  const settings = {
+    method: 'PUT',
+    body: JSON.stringify(row),
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    }
+  };
+  let url = "/cliente/" + row.id;
+  try {
+      const fetchResponse = await fetch(url, settings);
+      const data = await fetchResponse.json();
+      console.log(data);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 
 async function onAfterInsertRow(row) {
   const settings = {
@@ -76,7 +97,6 @@ const options = {
   // hidePageListOnlyOnePage: true > Hide the page list if only one page.
   afterDeleteRow: onAfterDeleteRow,
   afterInsertRow: onAfterInsertRow
-  //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
 
 export default class EditCellClassNameTable extends React.Component {
@@ -118,9 +138,9 @@ export default class EditCellClassNameTable extends React.Component {
 
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } }>Nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='codigoCliente' editable={ { type: 'input', attrs: attrs } }>codigoCliente</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true } dataSort={ true } defaultASC>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>Nombre</TableHeaderColumn>
+        <TableHeaderColumn dataField='codigoCliente' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>codigoCliente</TableHeaderColumn>
       </BootstrapTable>
     );
   }

@@ -128,21 +128,21 @@ export default class EditCellClassNameTable extends React.Component {
     };
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='descripcion_doc' editable={ { type: 'input', attrs: attrs } }>descripcion_doc</TableHeaderColumn>
-        <TableHeaderColumn dataField='revicion_inicial' editable={ { type: 'input', attrs: attrs } }>revicion_inicial</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantidad_doc' editable={ { type: 'input', attrs: attrs } }>cantidad_doc</TableHeaderColumn>
-        <TableHeaderColumn dataField='HHUnidades' editable={ { type: 'input', attrs: attrs } }>HHUnidades</TableHeaderColumn>
-        <TableHeaderColumn dataField='total' editable={ { type: 'input', attrs: attrs } }>total</TableHeaderColumn>
-        <TableHeaderColumn dataField='revision_unica' editable={ { type: 'input', attrs: attrs } }>revision_unica</TableHeaderColumn>
-        <TableHeaderColumn dataField='observacion' editable={ { type: 'input', attrs: attrs } }>observacion</TableHeaderColumn>
-        <TableHeaderColumn dataField='modificar_lista' editable={ { type: 'input', attrs: attrs } }>modificar_lista</TableHeaderColumn>
-        <TableHeaderColumn dataField='proveedor' editable={ { type: 'input', attrs: attrs } }>proveedor</TableHeaderColumn>
-        <TableHeaderColumn dataField='viatico' editable={ { type: 'input', attrs: attrs } }>viatico</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { type: 'input', attrs: attrs } }>control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'input', attrs: attrs } }>control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_proyecto_id' editable={ { type: 'input', attrs: attrs } }>control_cotizacion_proyecto_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='list_docs_id' editable={ { type: 'input', attrs: attrs } }>list_docs_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true } dataSort={ true } defaultASC>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='descripcion_doc' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>descripcion_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='revicion_inicial' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>revicion_inicial</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantidad_doc' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>cantidad_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='HHUnidades' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>HHUnidades</TableHeaderColumn>
+        <TableHeaderColumn dataField='total' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>total</TableHeaderColumn>
+        <TableHeaderColumn dataField='revision_unica' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>revision_unica</TableHeaderColumn>
+        <TableHeaderColumn dataField='observacion' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>observacion</TableHeaderColumn>
+        <TableHeaderColumn dataField='modificar_lista' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>modificar_lista</TableHeaderColumn>
+        <TableHeaderColumn dataField='proveedor' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>proveedor</TableHeaderColumn>
+        <TableHeaderColumn dataField='viatico' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>viatico</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_id' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_cotizacion_proyecto_id' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>control_cotizacion_proyecto_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='list_docs_id' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>list_docs_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }
