@@ -42,11 +42,10 @@ router.delete('/:id', (req, res) => {
 router.post('/', (req, res) => {
   const {nombre,codigoCliente} = req.body;
   const query = `
-    SET @id = 0;
-    SET @id = ?;
-    @nombre = ?;
-    @codigoCliente = ?;
-    CALL clienteAddOrEdit(@id, @nombre,@codigoCliente);
+    SET @id=0;
+    SET @nombre=?;
+    SET @codigoCliente=?;
+    CALL clienteAddOrEdit(@id,@nombre,@codigoCliente);
   `;
   mysqlConnection.query(query, [nombre,codigoCliente], (err, rows, fields) => {
     if(!err) {
@@ -55,7 +54,6 @@ router.post('/', (req, res) => {
       console.log(err);
     }
   });
-
 });
 
 router.put('/:id', (req, res) => {
@@ -63,9 +61,9 @@ router.put('/:id', (req, res) => {
   const { id } = req.params;
   const query = `
     SET @id = ?;
-    @nombre = ?;
-    @codigoCliente = ?;
-    CALL clienteAddOrEdit(@id, @nombre,@codigoCliente);
+    SET @nombre = ?;
+    SET @codigoCliente = ?;
+    CALL clienteAddOrEdit(@id,@nombre,@codigoCliente);
   `;
   mysqlConnection.query(query, [id, nombre,codigoCliente], (err, rows, fields) => {
     if(!err) {

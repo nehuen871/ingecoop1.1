@@ -3,82 +3,78 @@ import '../styles/SideBar.css';
 import {Link} from "react-router-dom";
 
 export default class SideBar extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
-            <div class="sidebar-container sticky-top">
-                <div class="sidebar-logo">
+            <div className="sidebar-container sticky-top">
+                <div className="sidebar-logo">
                     Ingecoop Alpha
                 </div>
-            <ul class="sidebar-navigation">
-                <li class="header">Navigation</li>
+            <ul className="sidebar-navigation">
+                <li className="header">Navigation</li>
                 <li>
                     <Link to="/">
-                        <i class="fa fa-home" aria-hidden="true"></i> Proyecto
+                        <i className="fa fa-home" aria-hidden="true"></i> Proyecto
                     </Link>
                 </li>
                 <li>
                     <Link to="/Cliente">
-                        <i class="fa fa-tachometer" aria-hidden="true"></i> Cliente
+                        <i className="fa fa-tachometer" aria-hidden="true"></i> Cliente
                     </Link>
                 </li>
                 <li>
                     <Link to="/Cotizacion">
-                        <i class="fa fa-users" aria-hidden="true"></i> Cotizacion
+                        <i className="fa fa-users" aria-hidden="true"></i> Cotizacion
                     </Link>
                 </li>
                 <li>
                     <Link to="/Control">
-                        <i class="fa fa-cog" aria-hidden="true"></i> Control
+                        <i className="fa fa-cog" aria-hidden="true"></i> Control
                     </Link>
                 </li>
                 <li>
                     <Link to="/Certificacion">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i> Certificacion
+                        <i className="fa fa-info-circle" aria-hidden="true"></i> Certificacion
                     </Link>
                 </li>
                 <li>
                     <Link to="/DatosCotiazacion">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i> Datos de Contizacion
+                        <i className="fa fa-info-circle" aria-hidden="true"></i> Datos de Contizacion
                     </Link>
                 </li>
                 <li>
                     <Link to="/DatosControl">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i> Datos de Control
+                        <i className="fa fa-info-circle" aria-hidden="true"></i> Datos de Control
                     </Link>
                 </li>
                 <li>
                     <Link to="/ListDocs">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i> Lista de documentos
+                        <i className="fa fa-info-circle" aria-hidden="true"></i> Lista de documentos
                     </Link>
                 </li>
-                <li class="header">Busquedas</li>
+                <li className="header">Busquedas</li>
                 <li>
                 <Link to="/">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> Proyecto
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Proyecto
                 </Link>
                 </li>
                 <li>
                 <Link to="/">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> Cliente
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Cliente
                 </Link>
                 </li>
                 <li>
                 <Link to="/">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> Cotizacion
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Cotizacion
                 </Link>
                 </li>
                 <li>
                 <Link to="/">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> Control
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Control
                 </Link>
                 </li>
                 <li>
                 <Link to="/">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> Certificacion
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Certificacion
                 </Link>
                 </li>
             </ul>

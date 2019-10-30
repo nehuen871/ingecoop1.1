@@ -16,10 +16,10 @@ import {
 export default class App extends Component {
 render() {
     return (
-      <div class="container-fluid h-100">
-      <div class="row">
-        <div id="sideBar" class="col-sm-2"><SideBar /></div>
-        <div id="Container" class="col-md-10">
+      <div className="container-fluid h-100">
+      <div className="row">
+        <div id="sideBar" className="col-sm-2"><SideBar /></div>
+        <div id="Container" className="col-md-10">
         <Switch>
           <Route exact path="/" component={Proyecto} />
           <Route path="/Cliente" component={Cliente} />

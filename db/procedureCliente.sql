@@ -8,9 +8,9 @@ CREATE PROCEDURE `clienteAddOrEdit` (
   IN _nombre VARCHAR(45),
   IN _codigoCliente VARCHAR(45)
 )
-BEGIN 
+BEGIN
   IF _id = 0 THEN
-    INSERT INTO cliente (nombre,_codigoCliente)
+    INSERT INTO cliente (nombre,codigoCliente)
     VALUES (_nombre,_codigoCliente);
 
     SET _id = LAST_INSERT_ID();
