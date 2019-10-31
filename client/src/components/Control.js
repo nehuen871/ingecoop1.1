@@ -9,11 +9,30 @@ const jobs = [];
 
 const cellEditProp = {
   mode: 'click',
-  blurToSave: true
+  blurToSave: true,
+  afterSaveCell: onAfterSaveCell
 };
 const selectRowProp = {
   mode: 'checkbox'
 };
+async function onAfterSaveCell(row, cellName, cellValue) {
+  const settings = {
+    method: 'PUT',
+    body: JSON.stringify(row),
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    }
+  };
+  let url = "/control/" + row.id;
+  try {
+      const fetchResponse = await fetch(url, settings);
+      const data = await fetchResponse.json();
+      console.log(data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 async function onAfterInsertRow(row) {
   const settings = {
     method: 'POST',
@@ -154,45 +173,45 @@ export default class EditCellClassNameTable extends React.Component {
     };
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp } >
-        <TableHeaderColumn dataField='id' isKey={ true } dataSort={ true } defaultASC>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_proyecto_id' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>cotizacion_proyecto_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_emision_proyectada' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_emision_proyectada</TableHeaderColumn>
-        <TableHeaderColumn dataField='revision' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>revision</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_envio_1' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_envio_1</TableHeaderColumn>
-        <TableHeaderColumn dataField='remito_1' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>remito_1</TableHeaderColumn>
-        <TableHeaderColumn dataField='calificaion_1' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>calificaion_1</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_calificaion' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_calificaion</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_documento' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>numero_documento</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_control' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>numero_control</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>numero_doc</TableHeaderColumn>
-        <TableHeaderColumn dataField='remito_2' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>remito_2</TableHeaderColumn>
-        <TableHeaderColumn dataField='remito_3' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>remito_3</TableHeaderColumn>
-        <TableHeaderColumn dataField='remito_4' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>remito_4</TableHeaderColumn>
-        <TableHeaderColumn dataField='remito_5' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>remito_5</TableHeaderColumn>
-        <TableHeaderColumn dataField='remito_6' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>remito_6</TableHeaderColumn>
-        <TableHeaderColumn dataField='remito_7' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>remito_7</TableHeaderColumn>
-        <TableHeaderColumn dataField='remito_8' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>remito_8</TableHeaderColumn>
-        <TableHeaderColumn dataField='remito_9' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>remito_9</TableHeaderColumn>
-        <TableHeaderColumn dataField='remito_10' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>remito_10</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_envio_2' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_envio_2</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_envio_3' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_envio_3</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_envio_4' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_envio_4</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_envio_5' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_envio_5</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_envio_6' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_envio_6</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_envio_7' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_envio_7</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_envio_8' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_envio_8</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_envio_9' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_envio_9</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_envio_10' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_envio_10</TableHeaderColumn>
-        <TableHeaderColumn dataField='calificaion_2' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>calificaion_2</TableHeaderColumn>
-        <TableHeaderColumn dataField='calificaion_3' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>calificaion_3</TableHeaderColumn>
-        <TableHeaderColumn dataField='calificaion_4' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>calificaion_4</TableHeaderColumn>
-        <TableHeaderColumn dataField='calificaion_5' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>calificaion_5</TableHeaderColumn>
-        <TableHeaderColumn dataField='calificaion_6' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>calificaion_6</TableHeaderColumn>
-        <TableHeaderColumn dataField='calificaion_7' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>calificaion_7</TableHeaderColumn>
-        <TableHeaderColumn dataField='calificaion_8' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>calificaion_8</TableHeaderColumn>
-        <TableHeaderColumn dataField='calificaion_9' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>calificaion_9</TableHeaderColumn>
-        <TableHeaderColumn dataField='calificaion_10' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>calificaion_10</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'input', attrs: attrs } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_proyecto_id' editable={ { type: 'input', attrs: attrs } }>cotizacion_proyecto_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_emision_proyectada' editable={ { type: 'input', attrs: attrs } }>fecha_emision_proyectada</TableHeaderColumn>
+        <TableHeaderColumn dataField='revision' editable={ { type: 'input', attrs: attrs } }>revision</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_envio_1' editable={ { type: 'input', attrs: attrs } }>fecha_envio_1</TableHeaderColumn>
+        <TableHeaderColumn dataField='remito_1' editable={ { type: 'input', attrs: attrs } }>remito_1</TableHeaderColumn>
+        <TableHeaderColumn dataField='calificaion_1' editable={ { type: 'input', attrs: attrs } }>calificaion_1</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_calificaion' editable={ { type: 'input', attrs: attrs } }>fecha_calificaion</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_documento' editable={ { type: 'input', attrs: attrs } }>numero_documento</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_control' editable={ { type: 'input', attrs: attrs } }>numero_control</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input', attrs: attrs } }>numero_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='remito_2' editable={ { type: 'input', attrs: attrs } }>remito_2</TableHeaderColumn>
+        <TableHeaderColumn dataField='remito_3' editable={ { type: 'input', attrs: attrs } }>remito_3</TableHeaderColumn>
+        <TableHeaderColumn dataField='remito_4' editable={ { type: 'input', attrs: attrs } }>remito_4</TableHeaderColumn>
+        <TableHeaderColumn dataField='remito_5' editable={ { type: 'input', attrs: attrs } }>remito_5</TableHeaderColumn>
+        <TableHeaderColumn dataField='remito_6' editable={ { type: 'input', attrs: attrs } }>remito_6</TableHeaderColumn>
+        <TableHeaderColumn dataField='remito_7' editable={ { type: 'input', attrs: attrs } }>remito_7</TableHeaderColumn>
+        <TableHeaderColumn dataField='remito_8' editable={ { type: 'input', attrs: attrs } }>remito_8</TableHeaderColumn>
+        <TableHeaderColumn dataField='remito_9' editable={ { type: 'input', attrs: attrs } }>remito_9</TableHeaderColumn>
+        <TableHeaderColumn dataField='remito_10' editable={ { type: 'input', attrs: attrs } }>remito_10</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_envio_2' editable={ { type: 'input', attrs: attrs } }>fecha_envio_2</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_envio_3' editable={ { type: 'input', attrs: attrs } }>fecha_envio_3</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_envio_4' editable={ { type: 'input', attrs: attrs } }>fecha_envio_4</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_envio_5' editable={ { type: 'input', attrs: attrs } }>fecha_envio_5</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_envio_6' editable={ { type: 'input', attrs: attrs } }>fecha_envio_6</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_envio_7' editable={ { type: 'input', attrs: attrs } }>fecha_envio_7</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_envio_8' editable={ { type: 'input', attrs: attrs } }>fecha_envio_8</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_envio_9' editable={ { type: 'input', attrs: attrs } }>fecha_envio_9</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_envio_10' editable={ { type: 'input', attrs: attrs } }>fecha_envio_10</TableHeaderColumn>
+        <TableHeaderColumn dataField='calificaion_2' editable={ { type: 'input', attrs: attrs } }>calificaion_2</TableHeaderColumn>
+        <TableHeaderColumn dataField='calificaion_3' editable={ { type: 'input', attrs: attrs } }>calificaion_3</TableHeaderColumn>
+        <TableHeaderColumn dataField='calificaion_4' editable={ { type: 'input', attrs: attrs } }>calificaion_4</TableHeaderColumn>
+        <TableHeaderColumn dataField='calificaion_5' editable={ { type: 'input', attrs: attrs } }>calificaion_5</TableHeaderColumn>
+        <TableHeaderColumn dataField='calificaion_6' editable={ { type: 'input', attrs: attrs } }>calificaion_6</TableHeaderColumn>
+        <TableHeaderColumn dataField='calificaion_7' editable={ { type: 'input', attrs: attrs } }>calificaion_7</TableHeaderColumn>
+        <TableHeaderColumn dataField='calificaion_8' editable={ { type: 'input', attrs: attrs } }>calificaion_8</TableHeaderColumn>
+        <TableHeaderColumn dataField='calificaion_9' editable={ { type: 'input', attrs: attrs } }>calificaion_9</TableHeaderColumn>
+        <TableHeaderColumn dataField='calificaion_10' editable={ { type: 'input', attrs: attrs } }>calificaion_10</TableHeaderColumn>
       </BootstrapTable>
     );
   }

@@ -8,11 +8,30 @@ const jobs = [];
 
 const cellEditProp = {
   mode: 'click',
-  blurToSave: true
+  blurToSave: true,
+  afterSaveCell: onAfterSaveCell
 };
 const selectRowProp = {
   mode: 'checkbox'
 };
+async function onAfterSaveCell(row, cellName, cellValue) {
+  const settings = {
+    method: 'PUT',
+    body: JSON.stringify(row),
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    }
+  };
+  let url = "/proyecto/" + row.id;
+  try {
+      const fetchResponse = await fetch(url, settings);
+      const data = await fetchResponse.json();
+      console.log(data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 async function onAfterInsertRow(row) {
   const settings = {
     method: 'POST',
@@ -120,12 +139,12 @@ export default class EditCellClassNameTable extends React.Component {
     };
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true } dataSort={ true } defaultASC>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>numero_proyecto</TableHeaderColumn>
-        <TableHeaderColumn dataField='cliente' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>cliente</TableHeaderColumn>
-        <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fehca_inicio</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fecha_fin</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } }>nombre</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'input', attrs: attrs } }>numero_proyecto</TableHeaderColumn>
+        <TableHeaderColumn dataField='cliente' editable={ { type: 'input', attrs: attrs } }>cliente</TableHeaderColumn>
+        <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'input', attrs: attrs } }>fehca_inicio</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'input', attrs: attrs } }>fecha_fin</TableHeaderColumn>
       </BootstrapTable>
     );
   }

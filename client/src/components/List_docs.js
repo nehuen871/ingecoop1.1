@@ -7,11 +7,30 @@ import '../styles/react-bootstrap-table.css';
 const jobs = [];
 const cellEditProp = {
   mode: 'click',
-  blurToSave: true
+  blurToSave: true,
+  afterSaveCell: onAfterSaveCell
 };
 const selectRowProp = {
   mode: 'checkbox'
 };
+async function onAfterSaveCell(row, cellName, cellValue) {
+  const settings = {
+    method: 'PUT',
+    body: JSON.stringify(row),
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    }
+  };
+  let url = "/list_docs/" + row.id;
+  try {
+      const fetchResponse = await fetch(url, settings);
+      const data = await fetchResponse.json();
+      console.log(data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 async function onAfterInsertRow(row) {
   const settings = {
     method: 'POST',
@@ -118,12 +137,12 @@ export default class EditCellClassNameTable extends React.Component {
     };
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true } dataSort={ true } defaultASC>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantidad_de_doc' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>cantidad_de_doc</TableHeaderColumn>
-        <TableHeaderColumn dataField='total_hh' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>total_hh</TableHeaderColumn>
-        <TableHeaderColumn dataField='especialidad' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>especialidad</TableHeaderColumn>
-        <TableHeaderColumn dataField='lista_de_cable' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>lista_de_cable</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } }>nombre</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantidad_de_doc' editable={ { type: 'input', attrs: attrs } }>cantidad_de_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='total_hh' editable={ { type: 'input', attrs: attrs } }>total_hh</TableHeaderColumn>
+        <TableHeaderColumn dataField='especialidad' editable={ { type: 'input', attrs: attrs } }>especialidad</TableHeaderColumn>
+        <TableHeaderColumn dataField='lista_de_cable' editable={ { type: 'input', attrs: attrs } }>lista_de_cable</TableHeaderColumn>
       </BootstrapTable>
     );
   }

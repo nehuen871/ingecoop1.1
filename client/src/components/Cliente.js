@@ -138,9 +138,9 @@ export default class EditCellClassNameTable extends React.Component {
 
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true } dataSort={ true } defaultASC>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>Nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='codigoCliente' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>codigoCliente</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } }>Nombre</TableHeaderColumn>
+        <TableHeaderColumn dataField='codigoCliente' editable={ { type: 'input', attrs: attrs } }>codigoCliente</TableHeaderColumn>
       </BootstrapTable>
     );
   }

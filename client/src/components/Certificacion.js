@@ -8,11 +8,31 @@ const jobs = [];
 
 const cellEditProp = {
   mode: 'click',
-  blurToSave: true
+  blurToSave: true,
+  afterSaveCell: onAfterSaveCell
 };
 const selectRowProp = {
   mode: 'checkbox'
 };
+
+async function onAfterSaveCell(row, cellName, cellValue) {
+  const settings = {
+    method: 'PUT',
+    body: JSON.stringify(row),
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    }
+  };
+  let url = "/certificacion/" + row.id;
+  try {
+      const fetchResponse = await fetch(url, settings);
+      const data = await fetchResponse.json();
+      console.log(data);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 async function onAfterInsertRow(row) {
   const settings = {
@@ -138,25 +158,25 @@ export default class EditCellClassNameTable extends React.Component {
     };
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true } dataSort={ true } defaultASC>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_proyecto_id' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>control_cotizacion_proyecto_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='proveedor' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>proveedor></TableHeaderColumn>
-        <TableHeaderColumn dataField='cuit' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>cuit</TableHeaderColumn>
-        <TableHeaderColumn dataField='numeroInternoProveedor' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>numeroInternoProveedor</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_id' editable={ { type: 'input', attrs: attrs } }>control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'input', attrs: attrs } }>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_cotizacion_proyecto_id' editable={ { type: 'input', attrs: attrs } }>control_cotizacion_proyecto_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='proveedor' editable={ { type: 'input', attrs: attrs } }>proveedor></TableHeaderColumn>
+        <TableHeaderColumn dataField='cuit' editable={ { type: 'input', attrs: attrs } }>cuit</TableHeaderColumn>
+        <TableHeaderColumn dataField='numeroInternoProveedor' editable={ { type: 'input', attrs: attrs } }>numeroInternoProveedor</TableHeaderColumn>
         <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input', attrs: attrs } }>numeroDePedido</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>nombre></TableHeaderColumn>
-        <TableHeaderColumn dataField='especialidad' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>especialidad</TableHeaderColumn>
-        <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>fechaDeEmision</TableHeaderColumn>
-        <TableHeaderColumn dataField='moneda' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>moneda</TableHeaderColumn>
-        <TableHeaderColumn dataField='costoHoraDoc' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>costoHoraDoc</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantdeHs' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>cantdeHs</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantdeDocs' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>cantdeDocs</TableHeaderColumn>
-        <TableHeaderColumn dataField='porcentajeAvance' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>porcentajeAvance</TableHeaderColumn>
-        <TableHeaderColumn dataField='horasCertificadas' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>horasCertificadas</TableHeaderColumn>
-        <TableHeaderColumn dataField='cetifiacacionInterna_id' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>cetifiacacionInterna_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='total_certificacion' editable={ { type: 'input', attrs: attrs } } dataSort={ true } defaultASC>total_certificacion</TableHeaderColumn>
+        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } }>nombre></TableHeaderColumn>
+        <TableHeaderColumn dataField='especialidad' editable={ { type: 'input', attrs: attrs } }>especialidad</TableHeaderColumn>
+        <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'input', attrs: attrs } }>fechaDeEmision</TableHeaderColumn>
+        <TableHeaderColumn dataField='moneda' editable={ { type: 'input', attrs: attrs } }>moneda</TableHeaderColumn>
+        <TableHeaderColumn dataField='costoHoraDoc' editable={ { type: 'input', attrs: attrs } }>costoHoraDoc</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantdeHs' editable={ { type: 'input', attrs: attrs } }>cantdeHs</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantdeDocs' editable={ { type: 'input', attrs: attrs } }>cantdeDocs</TableHeaderColumn>
+        <TableHeaderColumn dataField='porcentajeAvance' editable={ { type: 'input', attrs: attrs } }>porcentajeAvance</TableHeaderColumn>
+        <TableHeaderColumn dataField='horasCertificadas' editable={ { type: 'input', attrs: attrs } }>horasCertificadas</TableHeaderColumn>
+        <TableHeaderColumn dataField='cetifiacacionInterna_id' editable={ { type: 'input', attrs: attrs } }>cetifiacacionInterna_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='total_certificacion' editable={ { type: 'input', attrs: attrs } }>total_certificacion</TableHeaderColumn>
       </BootstrapTable>
     );
   }
