@@ -1,7 +1,7 @@
 USE ingecoop;
 
 DELIMITER $$
-USE `multeo`$$
+USE `ingecoop`$$
 
 CREATE PROCEDURE `list_docsAddOrEdit` (
   IN _id INT,

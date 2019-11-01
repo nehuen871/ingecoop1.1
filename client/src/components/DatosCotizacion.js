@@ -131,7 +131,7 @@ export default class EditCellClassNameTable extends React.Component {
         modificar_lista: data[i].modificar_lista,
         proveerdor: data[i].proveerdor,
         viatico: data[i].viatico,
-        list_docs_i: data[i].list_docs_i
+        list_docs_id: data[i].list_docs_id
       });
     }
   }

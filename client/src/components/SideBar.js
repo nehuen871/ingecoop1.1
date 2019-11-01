@@ -37,8 +37,8 @@ export default class SideBar extends Component {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/DatosCotiazacion">
-                        <i className="fa fa-info-circle" aria-hidden="true"></i> Datos de Contizacion
+                    <Link to="/DatosCotizacion">
+                        <i className="fa fa-info-circle" aria-hidden="true"></i> Datos de Cotizacion
                     </Link>
                 </li>
                 <li>
@@ -53,7 +53,7 @@ export default class SideBar extends Component {
                 </li>
                 <li className="header">Busquedas</li>
                 <li>
-                <Link to="/">
+                <Link to="/diagramaProyecto">
                     <i className="fa fa-info-circle" aria-hidden="true"></i> Proyecto
                 </Link>
                 </li>

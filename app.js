@@ -9,7 +9,7 @@ var clienteRouter = require('./routes/cliente');
 var controlRouter = require('./routes/control');
 var cotizacionRouter = require('./routes/cotizacion');
 var datosControlRouter = require('./routes/datosControl');
-var datosCotiazacionRouter = require('./routes/datosCotiazacion');
+var datosCotiazacionRouter = require('./routes/datosCotizacion');
 var list_docsRouter = require('./routes/list_docs');
 var proyectoRouter = require('./routes/proyecto');
 var usersRouter = require('./routes/users');
@@ -29,7 +29,7 @@ app.use('/cliente', clienteRouter);
 app.use('/control', controlRouter);
 app.use('/cotizacion', cotizacionRouter);
 app.use('/datosControl', datosControlRouter);
-app.use('/datosCotiazacion', datosCotiazacionRouter);
+app.use('/datosCotizacion', datosCotiazacionRouter);
 app.use('/list_docs', list_docsRouter);
 app.use('/proyecto', proyectoRouter);
 

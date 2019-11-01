@@ -3,9 +3,9 @@ const router = express.Router();
 
 const mysqlConnection  = require('../db/database.js');
 
-// GET all datosCotiazacion
+// GET all datosCotizacion
 router.get('/', (req, res) => {
-  mysqlConnection.query('SELECT * FROM datosCotiazacion', (err, rows, fields) => {
+  mysqlConnection.query('SELECT * FROM datosCotizacion', (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {
@@ -14,10 +14,10 @@ router.get('/', (req, res) => {
   });
 });
 
-// GET An datosCotiazacion
+// GET An datosCotizacion
 router.get('/:id', (req, res) => {
   const { id } = req.params;
-  mysqlConnection.query('SELECT * FROM datosCotiazacion WHERE id = ?', [id], (err, rows, fields) => {
+  mysqlConnection.query('SELECT * FROM datosCotizacion WHERE id = ?', [id], (err, rows, fields) => {
     if (!err) {
       res.json(rows[0]);
     } else {
@@ -26,19 +26,19 @@ router.get('/:id', (req, res) => {
   });
 });
 
-// DELETE An datosCotiazacion
+// DELETE An datosCotizacion
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
-  mysqlConnection.query('DELETE FROM datosCotiazacion WHERE id = ?', [id], (err, rows, fields) => {
+  mysqlConnection.query('DELETE FROM datosCotizacion WHERE id = ?', [id], (err, rows, fields) => {
     if(!err) {
-      res.json({status: 'datosCotiazacion Deleted'});
+      res.json({status: 'datosCotizacion Deleted'});
     } else {
       console.log(err);
     }
   });
 });
 
-// INSERT An datosCotiazacion
+// INSERT An datosCotizacion
 router.post('/', (req, res) => {
   const {numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id} = req.body;
   const query = `
@@ -56,11 +56,11 @@ router.post('/', (req, res) => {
     SET @proveerdor = ?;
     SET @viatico = ?;
     SET @list_docs_i = ?;
-    CALL ComercioAddOrEdit(@id, @numeroRecotizacion,@cotizacion_id,@descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveerdor,@viatico,@list_docs_id);
+    CALL datosCotizacionAddOrEdit(@id, @numeroRecotizacion,@cotizacion_id,@descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveerdor,@viatico,@list_docs_id);
   `;
   mysqlConnection.query(query, [numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id], (err, rows, fields) => {
     if(!err) {
-      res.json({status: 'datosCotiazacion Saved'});
+      res.json({status: 'datosCotizacion Saved'});
     } else {
       console.log(err);
     }
@@ -86,11 +86,11 @@ router.put('/:id', (req, res) => {
     SET @proveerdor = ?;
     SET @viatico = ?;
     SET @list_docs_i = ?;
-    CALL datosCotiazacionAddOrEdit(@id, @numeroRecotizacion,@cotizacion_id,@descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveerdor,@viatico,@list_docs_id);
+    CALL datosCotizacionAddOrEdit(@id, @numeroRecotizacion,@cotizacion_id,@descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveerdor,@viatico,@list_docs_id);
   `;
   mysqlConnection.query(query, [id, numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id], (err, rows, fields) => {
     if(!err) {
-      res.json({status: 'datosCotiazacion Updated'});
+      res.json({status: 'datosCotizacion Updated'});
     } else {
       console.log(err);
     }

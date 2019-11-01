@@ -8,11 +8,8 @@ CREATE PROCEDURE `certificacionAddOrEdit` (
   IN _control_id INT(10),
   IN _control_cotizacion_id INT(10),
   IN _control_cotizacion_proyecto_id INT(10),
-  IN _proveedor VARCHAR(255),
-  IN _cuit VARCHAR(255),
-  IN _numeroInternoProveedor INT(11),
   IN _numeroDePedido INT(11),
-  IN _nombre VARCHAR(255),
+  IN _proyecto VARCHAR(255),
   IN _especialidad VARCHAR(255),
   IN _fechaDeEmision DATE,
   IN _moneda VARCHAR(45),
@@ -26,8 +23,8 @@ CREATE PROCEDURE `certificacionAddOrEdit` (
 )
 BEGIN
   IF _id = 0 THEN
-    INSERT INTO certificacion (control_id, control_cotizacion_id, control_cotizacion_proyecto_id, proveedor, cuit, numeroInternoProveedor, numeroDePedido, nombre, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, cetifiacacionInterna_id, total_certificacion)
-    VALUES (_control_id,_control_cotizacion_id,_control_cotizacion_proyecto_id,_proveedor,_cuit,_numeroInternoProveedor,_numeroDePedido,_nombre,_especialidad,_fechaDeEmision,_moneda,_costoHoraDoc,_cantdeHs,_cantdeDocs,_porcentajeAvance,_horasCertificadas,_cetifiacacionInterna_id,_total_certificacion);
+    INSERT INTO certificacion (control_id, control_cotizacion_id, control_cotizacion_proyecto_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, cetifiacacionInterna_id, total_certificacion)
+    VALUES (_control_id,_control_cotizacion_id,_control_cotizacion_proyecto_id,_numeroDePedido,_proyecto,_especialidad,_fechaDeEmision,_moneda,_costoHoraDoc,_cantdeHs,_cantdeDocs,_porcentajeAvance,_horasCertificadas,_cetifiacacionInterna_id,_total_certificacion);
 
     SET _id = LAST_INSERT_ID();
   ELSE
@@ -36,11 +33,8 @@ BEGIN
     control_id = _control_id,
     control_cotizacion_id = _control_cotizacion_id,
     control_cotizacion_proyecto_id = _control_cotizacion_proyecto_id,
-    proveedor = _proveedor,
-    cuit = _cuit,
-    numeroInternoProveedor = _numeroInternoProveedor,
     numeroDePedido = _numeroDePedido,
-    nombre = _nombre,
+    proyecto = _proyecto,
     especialidad = _especialidad,
     fechaDeEmision = _fechaDeEmision,
     moneda = _moneda,

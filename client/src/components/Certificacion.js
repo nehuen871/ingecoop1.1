@@ -115,10 +115,6 @@ export default class EditCellClassNameTable extends React.Component {
       .catch(err => console.log(err));
   }
 
-  formatType(cell) {
-    return `TYPE_${cell}`;
-  }
-
   callApi = async () => {
     const response = await fetch('/certificacion');
     var data = await response.json();
@@ -129,11 +125,8 @@ export default class EditCellClassNameTable extends React.Component {
         control_id: data[i].control_id,
         control_cotizacion_id: data[i].control_cotizacion_id,
         control_cotizacion_proyecto_id: data[i].control_cotizacion_proyecto_id,
-        proveedor: data[i].proveedor,
-        cuit: data[i].cuit,
-        numeroInternoProveedor: data[i].numeroInternoProveedor,
         numeroDePedido: data[i].numeroDePedido,
-        nombre: data[i].nombre,
+        proyecto: data[i].proyecto,
         especialidad: data[i].especialidad,
         fechaDeEmision: data[i].fechaDeEmision,
         moneda: data[i].moneda,
@@ -158,15 +151,12 @@ export default class EditCellClassNameTable extends React.Component {
     };
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='control_id' editable={ { type: 'input', attrs: attrs } }>control_id</TableHeaderColumn>
         <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'input', attrs: attrs } }>control_cotizacion_id</TableHeaderColumn>
         <TableHeaderColumn dataField='control_cotizacion_proyecto_id' editable={ { type: 'input', attrs: attrs } }>control_cotizacion_proyecto_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='proveedor' editable={ { type: 'input', attrs: attrs } }>proveedor></TableHeaderColumn>
-        <TableHeaderColumn dataField='cuit' editable={ { type: 'input', attrs: attrs } }>cuit</TableHeaderColumn>
-        <TableHeaderColumn dataField='numeroInternoProveedor' editable={ { type: 'input', attrs: attrs } }>numeroInternoProveedor</TableHeaderColumn>
         <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input', attrs: attrs } }>numeroDePedido</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } }>nombre></TableHeaderColumn>
+        <TableHeaderColumn dataField='proyecto' editable={ { type: 'input', attrs: attrs } }>proyecto></TableHeaderColumn>
         <TableHeaderColumn dataField='especialidad' editable={ { type: 'input', attrs: attrs } }>especialidad</TableHeaderColumn>
         <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'input', attrs: attrs } }>fechaDeEmision</TableHeaderColumn>
         <TableHeaderColumn dataField='moneda' editable={ { type: 'input', attrs: attrs } }>moneda</TableHeaderColumn>

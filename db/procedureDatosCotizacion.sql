@@ -3,7 +3,7 @@ USE ingecoop;
 DELIMITER $$
 USE `ingecoop`$$
 
-CREATE PROCEDURE `datoCotizacionAddOrEdit` (
+CREATE PROCEDURE `datosCotizacionAddOrEdit` (
   IN _id INT,
   IN _numeroRecotizacion INT(11),
   IN _cotizacion_id INT(10),
@@ -13,6 +13,7 @@ CREATE PROCEDURE `datoCotizacionAddOrEdit` (
   IN _HHUnidades INT(11),
   IN _total INT(11),
   IN _revision_unica VARCHAR(255),
+  IN _observacion VARCHAR(255),
   IN _modificar_lista TINYINT(1),
   IN _proveerdor TINYINT(1),
   IN _viatico TINYINT(1),
@@ -20,12 +21,12 @@ CREATE PROCEDURE `datoCotizacionAddOrEdit` (
 )
 BEGIN 
   IF _id = 0 THEN
-    INSERT INTO datoCotizacion (numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id)
-    VALUES (_numeroRecotizacion, _cotizacion_id, _descripcion_doc, _revicion_inicial, _cantidad_doc,_HHUnidades,_total,_revision_unica,_modificar_lista,_proveerdor,_viatico,_list_docs_id);
+    INSERT INTO datosCotizacion (numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id)
+    VALUES (_numeroRecotizacion, _cotizacion_id, _descripcion_doc, _revicion_inicial, _cantidad_doc,_HHUnidades,_total,_revision_unica,_observacion,_modificar_lista,_proveerdor,_viatico,_list_docs_id);
 
     SET _id = LAST_INSERT_ID();
   ELSE
-    UPDATE datoCotizacion
+    UPDATE datosCotizacion
     SET
     numeroRecotizacion = _numeroRecotizacion,
     cotizacion_id = _cotizacion_id,
@@ -35,6 +36,7 @@ BEGIN
     HHUnidades = _HHUnidades,
     total = _total,
     revision_unica = _revision_unica,
+    observacion = _observacion,
     modificar_lista = _modificar_lista,
     proveerdor = _proveerdor,
     viatico = _viatico,

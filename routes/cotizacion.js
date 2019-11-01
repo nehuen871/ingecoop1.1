@@ -49,7 +49,7 @@ router.post('/', (req, res) => {
     SET @proyecto_id = ?;
     SET @fin_cotizacion = ?;
 
-    CALL ComercioAddOrEdit(@id, @cantidadCotiazaciones,@cliente_id,@fecha,@proyecto_id,@fin_cotizacion);
+    CALL cotizacionAddOrEdit(@id, @cantidadCotiazaciones,@cliente_id,@fecha,@proyecto_id,@fin_cotizacion);
   `;
   mysqlConnection.query(query, [cantidadCotiazaciones,cliente_id, fecha, proyecto_id, fin_cotizacion], (err, rows, fields) => {
     if(!err) {
