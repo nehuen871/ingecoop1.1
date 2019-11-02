@@ -99,7 +99,7 @@ const options = {
   afterInsertRow: onAfterInsertRow
 };
 
-export default class EditCellClassNameTable extends React.Component {
+export default class cliente extends React.Component {
   constructor(props) {
     super(props);
     this.formatType = this.formatType.bind(this);
@@ -122,25 +122,19 @@ export default class EditCellClassNameTable extends React.Component {
       jobs.push({
         id: data[i].id,
         nombre: data[i].nombre,
+        cotizacion_id: data[i].cotizacion_id,
         codigoCliente: data[i].codigoCliente
       });
     }
   }
 
   render() {
-    // custom attributes on editor
-    const attrs = {
-      rows: 10,
-      onKeyDown: function() {
-        console.log('keydown event trigger');
-      }
-    };
-
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } }>Nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='codigoCliente' editable={ { type: 'input', attrs: attrs } }>codigoCliente</TableHeaderColumn>
+        <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } }>Nombre</TableHeaderColumn>
+        <TableHeaderColumn dataField='codigoCliente' editable={ { type: 'input' } }>codigoCliente</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'input' } }>cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

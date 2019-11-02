@@ -40,18 +40,16 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An cotizacion
 router.post('/', (req, res) => {
-  const {cantidadCotiazaciones,cliente_id, fecha, proyecto_id, fin_cotizacion} = req.body;
+  const {cantidadCotiazaciones, fecha, fin_cotizacion} = req.body;
   const query = `
     SET @id = 0;
     SET @cantidadCotiazaciones = ?;
-    SET @cliente_id = ?;
     SET @fecha = ?;
-    SET @proyecto_id = ?;
     SET @fin_cotizacion = ?;
 
-    CALL cotizacionAddOrEdit(@id, @cantidadCotiazaciones,@cliente_id,@fecha,@proyecto_id,@fin_cotizacion);
+    CALL cotizacionAddOrEdit(@id, @cantidadCotiazaciones,@fecha,@fin_cotizacion);
   `;
-  mysqlConnection.query(query, [cantidadCotiazaciones,cliente_id, fecha, proyecto_id, fin_cotizacion], (err, rows, fields) => {
+  mysqlConnection.query(query, [cantidadCotiazaciones, fecha, fin_cotizacion], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cotizacion Saved'});
     } else {
@@ -62,19 +60,17 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { cantidadCotiazaciones,cliente_id, fecha, proyecto_id, fin_cotizacion } = req.body;
+  const { cantidadCotiazaciones, fecha, fin_cotizacion } = req.body;
   const { id } = req.params;
   const query = `
     SET @id = ?;
     SET @cantidadCotiazaciones = ?;
-    SET @cliente_id = ?;
     SET @fecha = ?;
-    SET @proyecto_id = ?;
     SET @fin_cotizacion = ?;
 
-    CALL cotizacionAddOrEdit(@id, @cantidadCotiazaciones,@cliente_id,@fecha,@proyecto_id,@fin_cotizacion);
+    CALL cotizacionAddOrEdit(@id, @cantidadCotiazaciones,@fecha,@fin_cotizacion);
   `;
-  mysqlConnection.query(query, [id, cantidadCotiazaciones,cliente_id, fecha, proyecto_id, fin_cotizacion], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, cantidadCotiazaciones, fecha, fin_cotizacion], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cotizacion Updated'});
     } else {

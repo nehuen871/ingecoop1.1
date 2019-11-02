@@ -48,7 +48,7 @@ router.post('/', (req, res) => {
     SET @total_hh = ?;
     SET @especialidad = ?;
     SET @ista_de_cable = ?;
-    CALL ComercioAddOrEdit(@id, @nombre,@cantidad_de_doc,@total_hh,@especialidad,@lista_de_cable);
+    CALL list_docsAddOrEdit(@id, @nombre,@cantidad_de_doc,@total_hh,@especialidad,@lista_de_cable);
   `;
   mysqlConnection.query(query, [nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable], (err, rows, fields) => {
     if(!err) {

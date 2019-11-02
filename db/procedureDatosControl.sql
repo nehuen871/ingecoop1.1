@@ -17,13 +17,12 @@ CREATE PROCEDURE `datoControlAddOrEdit` (
   IN _viatico TINYINT(1),
   IN _control_id INT(10),
   IN _control_cotizacion_id INT(10),
-  IN _control_cotizacion_proyecto_id INT(10),
   IN _list_docs_id INT(11)
 )
 BEGIN 
   IF _id = 0 THEN
-    INSERT INTO datoControl (descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, control_cotizacion_proyecto_id, list_docs_id)
-    VALUES (_descripcion_doc,_revicion_inicial_cantidad_doc,_HHUnidades_total,_revision_unica,_observacion,_modificar_lista,_proveedor,_viatico,_control_id,_control_cotizacion_id,_control_cotizacion_proyecto_id,_list_docs_id);
+    INSERT INTO datoControl (descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id)
+    VALUES (_descripcion_doc,_revicion_inicial_cantidad_doc,_HHUnidades_total,_revision_unica,_observacion,_modificar_lista,_proveedor,_viatico,_control_id,_control_cotizacion_id,_list_docs_id);
 
     SET _id = LAST_INSERT_ID();
   ELSE
@@ -41,7 +40,6 @@ BEGIN
     viatico = _viatico,
     control_id = _control_id,
     control_cotizacion_id = _control_cotizacion_id,
-    control_cotizacion_proyecto_id = _control_cotizacion_proyecto_id,
     list_docs_id = _list_docs_id
   WHERE id = _id;
   END IF;

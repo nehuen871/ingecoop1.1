@@ -99,7 +99,7 @@ const options = {
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
 
-export default class EditCellClassNameTable extends React.Component {
+export default class certificacion extends React.Component {
   constructor(props) {
     super(props);
     this.formatType = this.formatType.bind(this);
@@ -124,7 +124,6 @@ export default class EditCellClassNameTable extends React.Component {
         id: data[i].id,
         control_id: data[i].control_id,
         control_cotizacion_id: data[i].control_cotizacion_id,
-        control_cotizacion_proyecto_id: data[i].control_cotizacion_proyecto_id,
         numeroDePedido: data[i].numeroDePedido,
         proyecto: data[i].proyecto,
         especialidad: data[i].especialidad,
@@ -143,30 +142,23 @@ export default class EditCellClassNameTable extends React.Component {
 
   render() {
     // custom attributes on editor
-    const attrs = {
-      rows: 10,
-      onKeyDown: function() {
-        console.log('keydown event trigger');
-      }
-    };
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { type: 'input', attrs: attrs } }>control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'input', attrs: attrs } }>control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_proyecto_id' editable={ { type: 'input', attrs: attrs } }>control_cotizacion_proyecto_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input', attrs: attrs } }>numeroDePedido</TableHeaderColumn>
-        <TableHeaderColumn dataField='proyecto' editable={ { type: 'input', attrs: attrs } }>proyecto></TableHeaderColumn>
-        <TableHeaderColumn dataField='especialidad' editable={ { type: 'input', attrs: attrs } }>especialidad</TableHeaderColumn>
-        <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'input', attrs: attrs } }>fechaDeEmision</TableHeaderColumn>
-        <TableHeaderColumn dataField='moneda' editable={ { type: 'input', attrs: attrs } }>moneda</TableHeaderColumn>
-        <TableHeaderColumn dataField='costoHoraDoc' editable={ { type: 'input', attrs: attrs } }>costoHoraDoc</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantdeHs' editable={ { type: 'input', attrs: attrs } }>cantdeHs</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantdeDocs' editable={ { type: 'input', attrs: attrs } }>cantdeDocs</TableHeaderColumn>
-        <TableHeaderColumn dataField='porcentajeAvance' editable={ { type: 'input', attrs: attrs } }>porcentajeAvance</TableHeaderColumn>
-        <TableHeaderColumn dataField='horasCertificadas' editable={ { type: 'input', attrs: attrs } }>horasCertificadas</TableHeaderColumn>
-        <TableHeaderColumn dataField='cetifiacacionInterna_id' editable={ { type: 'input', attrs: attrs } }>cetifiacacionInterna_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='total_certificacion' editable={ { type: 'input', attrs: attrs } }>total_certificacion</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_id' editable={ { type: 'input' } }>control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'input' } }>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input' } }>numeroDePedido</TableHeaderColumn>
+        <TableHeaderColumn dataField='proyecto' editable={ { type: 'input' } }>proyecto</TableHeaderColumn>
+        <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } }>especialidad</TableHeaderColumn>
+        <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'input' } }>fechaDeEmision</TableHeaderColumn>
+        <TableHeaderColumn dataField='moneda' editable={ { type: 'input' } }>moneda</TableHeaderColumn>
+        <TableHeaderColumn dataField='costoHoraDoc' editable={ { type: 'input' } }>costoHoraDoc</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantdeHs' editable={ { type: 'input' } }>cantdeHs</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantdeDocs' editable={ { type: 'input' } }>cantdeDocs</TableHeaderColumn>
+        <TableHeaderColumn dataField='porcentajeAvance' editable={ { type: 'input' } }>porcentajeAvance</TableHeaderColumn>
+        <TableHeaderColumn dataField='horasCertificadas' editable={ { type: 'input' } }>horasCertificadas</TableHeaderColumn>
+        <TableHeaderColumn dataField='cetifiacacionInterna_id' editable={ { type: 'input' } }>cetifiacacionInterna_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='total_certificacion' editable={ { type: 'input' } }>total_certificacion</TableHeaderColumn>
       </BootstrapTable>
     );
   }

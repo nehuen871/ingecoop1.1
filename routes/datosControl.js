@@ -40,7 +40,7 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An datosControl
 router.post('/', (req, res) => {
-  const {descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, control_cotizacion_proyecto_id, list_docs_id} = req.body;
+  const {descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id} = req.body;
   const query = `
     SET @id = 0;
     SET @descripcion_doc = ?;
@@ -55,11 +55,10 @@ router.post('/', (req, res) => {
     SET @viatico = ?;
     SET @control_id = ?;
     SET @control_cotizacion_id = ?;
-    SET @control_cotizacion_proyecto_id = ?;
     SET @list_docs_id = ?;
-    CALL ComercioAddOrEdit(@id, @descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveedor,@viatico,@control_id,@control_cotizacion_id,@control_cotizacion_proyecto_id,@list_docs_id);
+    CALL datosControlAddOrEdit(@id, @descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveedor,@viatico,@control_id,@control_cotizacion_id,@list_docs_id);
   `;
-  mysqlConnection.query(query, [descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, control_cotizacion_proyecto_id, list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosControl Saved'});
     } else {
@@ -70,7 +69,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, control_cotizacion_proyecto_id, list_docs_id } = req.body;
+  const { descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id } = req.body;
   const { id } = req.params;
   const query = `
     SET @id = ?;
@@ -86,11 +85,10 @@ router.put('/:id', (req, res) => {
     SET @viatico = ?;
     SET @control_id = ?;
     SET @control_cotizacion_id = ?;
-    SET @control_cotizacion_proyecto_id = ?;
     SET @list_docs_id = ?;
-    CALL datosControlAddOrEdit(@id, @descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveedor,@viatico,@control_id,@control_cotizacion_id,@control_cotizacion_proyecto_id,@list_docs_id);
+    CALL datosControlAddOrEdit(@id, @descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveedor,@viatico,@control_id,@control_cotizacion_id,@list_docs_id);
   `;
-  mysqlConnection.query(query, [id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, control_cotizacion_proyecto_id, list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosControl Updated'});
     } else {

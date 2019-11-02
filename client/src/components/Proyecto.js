@@ -97,7 +97,7 @@ const options = {
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
 
-export default class EditCellClassNameTable extends React.Component {
+export default class proyecto extends React.Component {
   constructor(props) {
     super(props);
     this.formatType = this.formatType.bind(this);
@@ -121,6 +121,7 @@ export default class EditCellClassNameTable extends React.Component {
       jobs.push({
         id: data[i].id,
         nombre: data[i].nombre,
+        cotizacion_id: data[i].cotizacion_id,
         numero_proyecto: data[i].numero_proyecto,
         cliente: data[i].cliente,
         fehca_inicio: data[i].fehca_inicio,
@@ -130,21 +131,15 @@ export default class EditCellClassNameTable extends React.Component {
   }
 
   render() {
-    // custom attributes on editor
-    const attrs = {
-      rows: 10,
-      onKeyDown: function() {
-        console.log('keydown event trigger');
-      }
-    };
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } }>nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'input', attrs: attrs } }>numero_proyecto</TableHeaderColumn>
-        <TableHeaderColumn dataField='cliente' editable={ { type: 'input', attrs: attrs } }>cliente</TableHeaderColumn>
-        <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'input', attrs: attrs } }>fehca_inicio</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'input', attrs: attrs } }>fecha_fin</TableHeaderColumn>
+        <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } }>nombre</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'input' } }>numero_proyecto</TableHeaderColumn>
+        <TableHeaderColumn dataField='cliente' editable={ { type: 'input' } }>cliente</TableHeaderColumn>
+        <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'input' } }>fehca_inicio</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'input' } }>fecha_fin</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'input' } }>cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

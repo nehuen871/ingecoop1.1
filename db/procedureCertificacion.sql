@@ -7,7 +7,6 @@ CREATE PROCEDURE `certificacionAddOrEdit` (
   IN _id INT(10),
   IN _control_id INT(10),
   IN _control_cotizacion_id INT(10),
-  IN _control_cotizacion_proyecto_id INT(10),
   IN _numeroDePedido INT(11),
   IN _proyecto VARCHAR(255),
   IN _especialidad VARCHAR(255),
@@ -23,8 +22,8 @@ CREATE PROCEDURE `certificacionAddOrEdit` (
 )
 BEGIN
   IF _id = 0 THEN
-    INSERT INTO certificacion (control_id, control_cotizacion_id, control_cotizacion_proyecto_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, cetifiacacionInterna_id, total_certificacion)
-    VALUES (_control_id,_control_cotizacion_id,_control_cotizacion_proyecto_id,_numeroDePedido,_proyecto,_especialidad,_fechaDeEmision,_moneda,_costoHoraDoc,_cantdeHs,_cantdeDocs,_porcentajeAvance,_horasCertificadas,_cetifiacacionInterna_id,_total_certificacion);
+    INSERT INTO certificacion (control_id, control_cotizacion_id,numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, cetifiacacionInterna_id, total_certificacion)
+    VALUES (_control_id,_control_cotizacion_id,_numeroDePedido,_proyecto,_especialidad,_fechaDeEmision,_moneda,_costoHoraDoc,_cantdeHs,_cantdeDocs,_porcentajeAvance,_horasCertificadas,_cetifiacacionInterna_id,_total_certificacion);
 
     SET _id = LAST_INSERT_ID();
   ELSE
@@ -32,7 +31,6 @@ BEGIN
     SET
     control_id = _control_id,
     control_cotizacion_id = _control_cotizacion_id,
-    control_cotizacion_proyecto_id = _control_cotizacion_proyecto_id,
     numeroDePedido = _numeroDePedido,
     proyecto = _proyecto,
     especialidad = _especialidad,

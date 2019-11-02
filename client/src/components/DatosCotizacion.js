@@ -96,7 +96,7 @@ const options = {
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
 
-export default class EditCellClassNameTable extends React.Component {
+export default class datosCotizacion extends React.Component {
   constructor(props) {
     super(props);
     this.formatType = this.formatType.bind(this);
@@ -137,29 +137,22 @@ export default class EditCellClassNameTable extends React.Component {
   }
 
   render() {
-    // custom attributes on editor
-    const attrs = {
-      rows: 10,
-      onKeyDown: function() {
-        console.log('keydown event trigger');
-      }
-    };
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='numeroRecotizacion'  editable={ { type: 'input', attrs: attrs } }>numeroRecotizacion</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id'  editable={ { type: 'input', attrs: attrs } }>cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='descripcion_doc'  editable={ { type: 'input', attrs: attrs } }>descripcion_doc</TableHeaderColumn>
-        <TableHeaderColumn dataField='revicion_inicial'  editable={ { type: 'input', attrs: attrs } }>revicion_inicial</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantidad_doc'  editable={ { type: 'input', attrs: attrs } }>cantidad_doc</TableHeaderColumn>
-        <TableHeaderColumn dataField='HHUnidades'  editable={ { type: 'input', attrs: attrs } }>HHUnidades</TableHeaderColumn>
-        <TableHeaderColumn dataField='total'  editable={ { type: 'input', attrs: attrs } }>total</TableHeaderColumn>
-        <TableHeaderColumn dataField='revision_unica'  editable={ { type: 'input', attrs: attrs } }>revision_unica</TableHeaderColumn>
-        <TableHeaderColumn dataField='observacion'  editable={ { type: 'input', attrs: attrs } }>observacion</TableHeaderColumn>
-        <TableHeaderColumn dataField='modificar_lista'  editable={ { type: 'input', attrs: attrs } }>modificar_lista</TableHeaderColumn>
-        <TableHeaderColumn dataField='proveerdor'  editable={ { type: 'input', attrs: attrs } }>proveerdor</TableHeaderColumn>
-        <TableHeaderColumn dataField='viatico'  editable={ { type: 'input', attrs: attrs } }>viatico</TableHeaderColumn>
-        <TableHeaderColumn dataField='list_docs_i'  editable={ { type: 'input', attrs: attrs } }>list_docs_i</TableHeaderColumn>
+        <TableHeaderColumn dataField='numeroRecotizacion'  editable={ { type: 'input' } }>numeroRecotizacion</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id'  editable={ { type: 'input' } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='descripcion_doc'  editable={ { type: 'input' } }>descripcion_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='revicion_inicial'  editable={ { type: 'input' } }>revicion_inicial</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantidad_doc'  editable={ { type: 'input' } }>cantidad_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='HHUnidades'  editable={ { type: 'input' } }>HHUnidades</TableHeaderColumn>
+        <TableHeaderColumn dataField='total'  editable={ { type: 'input' } }>total</TableHeaderColumn>
+        <TableHeaderColumn dataField='revision_unica'  editable={ { type: 'input' } }>revision_unica</TableHeaderColumn>
+        <TableHeaderColumn dataField='observacion'  editable={ { type: 'input' } }>observacion</TableHeaderColumn>
+        <TableHeaderColumn dataField='modificar_lista'  editable={ { type: 'input' } }>modificar_lista</TableHeaderColumn>
+        <TableHeaderColumn dataField='proveerdor'  editable={ { type: 'input' } }>proveerdor</TableHeaderColumn>
+        <TableHeaderColumn dataField='viatico'  editable={ { type: 'input' } }>viatico</TableHeaderColumn>
+        <TableHeaderColumn dataField='list_docs_i'  editable={ { type: 'input' } }>list_docs_i</TableHeaderColumn>
       </BootstrapTable>
     );
   }

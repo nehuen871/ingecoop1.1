@@ -40,14 +40,15 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An cliente
 router.post('/', (req, res) => {
-  const {nombre,codigoCliente} = req.body;
+  const {nombre,codigoCliente,cotizacion_id} = req.body;
   const query = `
     SET @id=0;
     SET @nombre=?;
     SET @codigoCliente=?;
-    CALL clienteAddOrEdit(@id,@nombre,@codigoCliente);
+    SET @cotizacion_id=?;
+    CALL clienteAddOrEdit(@id,@nombre,@codigoCliente,@cotizacion_id);
   `;
-  mysqlConnection.query(query, [nombre,codigoCliente], (err, rows, fields) => {
+  mysqlConnection.query(query, [nombre,codigoCliente,cotizacion_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cliente Saved'});
     } else {
@@ -63,9 +64,10 @@ router.put('/:id', (req, res) => {
     SET @id = ?;
     SET @nombre = ?;
     SET @codigoCliente = ?;
-    CALL clienteAddOrEdit(@id,@nombre,@codigoCliente);
+    SET @cotizacion_id = ?;
+    CALL clienteAddOrEdit(@id,@nombre,@codigoCliente,@cotizacion_id);
   `;
-  mysqlConnection.query(query, [id, nombre,codigoCliente], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, nombre,codigoCliente,cotizacion_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cliente Updated'});
     } else {

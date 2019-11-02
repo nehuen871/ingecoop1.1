@@ -98,7 +98,7 @@ const options = {
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
 
-export default class EditCellClassNameTable extends React.Component {
+export default class control extends React.Component {
   constructor(props) {
     super(props);
     this.formatType = this.formatType.bind(this);
@@ -122,7 +122,6 @@ export default class EditCellClassNameTable extends React.Component {
       jobs.push({
         id: data[i].id,
         cotizacion_id: data[i].cotizacion_id,
-        cotizacion_proyecto_id: data[i].cotizacion_proyecto_id,
         fecha_emision_proyectada: data[i].fecha_emision_proyectada,
         revision: data[i].revision,
         fecha_envio_1: data[i].fecha_envio_1,
@@ -175,7 +174,6 @@ export default class EditCellClassNameTable extends React.Component {
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp } >
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'input', attrs: attrs } }>cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_proyecto_id' editable={ { type: 'input', attrs: attrs } }>cotizacion_proyecto_id</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_emision_proyectada' editable={ { type: 'input', attrs: attrs } }>fecha_emision_proyectada</TableHeaderColumn>
         <TableHeaderColumn dataField='revision' editable={ { type: 'input', attrs: attrs } }>revision</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_envio_1' editable={ { type: 'input', attrs: attrs } }>fecha_envio_1</TableHeaderColumn>

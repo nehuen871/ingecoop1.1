@@ -95,7 +95,7 @@ const options = {
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
 
-export default class EditCellClassNameTable extends React.Component {
+export default class list_docs extends React.Component {
   constructor(props) {
     super(props);
     this.formatType = this.formatType.bind(this);
@@ -128,21 +128,14 @@ export default class EditCellClassNameTable extends React.Component {
   }
 
   render() {
-    // custom attributes on editor
-    const attrs = {
-      rows: 10,
-      onKeyDown: function() {
-        console.log('keydown event trigger');
-      }
-    };
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombre' editable={ { type: 'input', attrs: attrs } }>nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantidad_de_doc' editable={ { type: 'input', attrs: attrs } }>cantidad_de_doc</TableHeaderColumn>
-        <TableHeaderColumn dataField='total_hh' editable={ { type: 'input', attrs: attrs } }>total_hh</TableHeaderColumn>
-        <TableHeaderColumn dataField='especialidad' editable={ { type: 'input', attrs: attrs } }>especialidad</TableHeaderColumn>
-        <TableHeaderColumn dataField='lista_de_cable' editable={ { type: 'input', attrs: attrs } }>lista_de_cable</TableHeaderColumn>
+        <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } }>nombre</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantidad_de_doc' editable={ { type: 'input' } }>cantidad_de_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='total_hh' editable={ { type: 'input' } }>total_hh</TableHeaderColumn>
+        <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } }>especialidad</TableHeaderColumn>
+        <TableHeaderColumn dataField='lista_de_cable' editable={ { type: 'input' } }>lista_de_cable</TableHeaderColumn>
       </BootstrapTable>
     );
   }
