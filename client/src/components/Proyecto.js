@@ -4,7 +4,7 @@ import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../styles/react-bootstrap-table.css';
 
-const jobs = [];
+let jobs = [];
 
 const cellEditProp = {
   mode: 'click',
@@ -29,7 +29,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
       const data = await fetchResponse.json();
       console.log(data);
   } catch (e) {
-    console.log(e);
+      console.log(e);
   }
 }
 async function onAfterInsertRow(row) {
@@ -46,7 +46,7 @@ async function onAfterInsertRow(row) {
       const data = await fetchResponse.json();
       console.log(data);
   } catch (e) {
-    console.log(e);
+      console.log(e);
   }
 }
 
@@ -114,6 +114,7 @@ export default class proyecto extends React.Component {
   }
 
   callApi = async () => {
+    jobs = [];
     const response = await fetch('/proyecto');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);

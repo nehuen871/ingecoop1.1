@@ -4,7 +4,7 @@ import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../styles/react-bootstrap-table.css';
 
-const jobs = [];
+let jobs = [];
 
 const cellEditProp = {
   mode: 'click',
@@ -116,6 +116,7 @@ export default class certificacion extends React.Component {
   }
 
   callApi = async () => {
+    jobs = [];
     const response = await fetch('/certificacion');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
