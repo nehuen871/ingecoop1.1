@@ -153,7 +153,7 @@ export default class datosCotizacion extends React.Component {
         <TableHeaderColumn dataField='modificar_lista'  editable={ { type: 'input' } }>modificar_lista</TableHeaderColumn>
         <TableHeaderColumn dataField='proveerdor'  editable={ { type: 'input' } }>proveerdor</TableHeaderColumn>
         <TableHeaderColumn dataField='viatico'  editable={ { type: 'input' } }>viatico</TableHeaderColumn>
-        <TableHeaderColumn dataField='list_docs_i'  editable={ { type: 'input' } }>list_docs_i</TableHeaderColumn>
+        <TableHeaderColumn dataField='list_docs_id'  editable={ { type: 'input' } }>list_docs_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }
