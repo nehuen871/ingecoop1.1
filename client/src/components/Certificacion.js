@@ -3,6 +3,8 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../styles/react-bootstrap-table.css';
+import moment from 'moment';
+
 
 let jobs = [];
 
@@ -16,6 +18,9 @@ const selectRowProp = {
 };
 
 async function onAfterSaveCell(row, cellName, cellValue) {
+  if(cellName === "fechaDeEmision"){
+    row.fechaDeEmision = moment(cellValue).format('YYYY-MM-DD');
+  }
   const settings = {
     method: 'PUT',
     body: JSON.stringify(row),
@@ -71,9 +76,9 @@ async function onAfterDeleteRow(rowKeys,rows) {
 const options = {
   page: 1,  // which page you want to show as default
   sizePerPageList: [ {
-    text: '5', value: 5
+    text: 5, value: 5
   }, {
-    text: '10', value: 10
+    text: 10, value: 10
   }, {
     text: 'All', value: jobs.length
   } ], // you can change the dropdown list for size per page
@@ -121,6 +126,7 @@ export default class certificacion extends React.Component {
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
+      let fecha1 = moment(data[i].fechaDeEmision).format('YYYY-MM-DD');
       jobs.push({
         id: data[i].id,
         control_id: data[i].control_id,
@@ -128,7 +134,7 @@ export default class certificacion extends React.Component {
         numeroDePedido: data[i].numeroDePedido,
         proyecto: data[i].proyecto,
         especialidad: data[i].especialidad,
-        fechaDeEmision: data[i].fechaDeEmision,
+        fechaDeEmision: fecha1,
         moneda: data[i].moneda,
         costoHoraDoc: data[i].costoHoraDoc,
         cantdeHs: data[i].cantdeHs,
@@ -151,7 +157,7 @@ export default class certificacion extends React.Component {
         <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input' } }>numeroDePedido</TableHeaderColumn>
         <TableHeaderColumn dataField='proyecto' editable={ { type: 'input' } }>proyecto</TableHeaderColumn>
         <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } }>especialidad</TableHeaderColumn>
-        <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'input' } }>fechaDeEmision</TableHeaderColumn>
+        <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'date' } }>fechaDeEmision</TableHeaderColumn>
         <TableHeaderColumn dataField='moneda' editable={ { type: 'input' } }>moneda</TableHeaderColumn>
         <TableHeaderColumn dataField='costoHoraDoc' editable={ { type: 'input' } }>costoHoraDoc</TableHeaderColumn>
         <TableHeaderColumn dataField='cantdeHs' editable={ { type: 'input' } }>cantdeHs</TableHeaderColumn>

@@ -72,9 +72,9 @@ async function onAfterDeleteRow(rowKeys,rows) {
 const options = {
   page: 1,  // which page you want to show as default
   sizePerPageList: [ {
-    text: '5', value: 5
+    text: 5, value: 5
   }, {
-    text: '10', value: 10
+    text: 10, value: 10
   }, {
     text: 'All', value: jobs.length
   } ], // you can change the dropdown list for size per page

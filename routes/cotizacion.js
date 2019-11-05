@@ -40,7 +40,10 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An cotizacion
 router.post('/', (req, res) => {
-  const {cantidadCotiazaciones, fecha, fin_cotizacion} = req.body;
+  let {cantidadCotiazaciones, fecha, fin_cotizacion} = req.body;
+  if(fecha === ''){fecha = null};
+  if(cantidadCotiazaciones === ''){cantidadCotiazaciones = null};
+  if(fin_cotizacion === ''){fin_cotizacion = null};
   const query = `
     SET @id = 0;
     SET @cantidadCotiazaciones = ?;
@@ -60,7 +63,10 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { cantidadCotiazaciones, fecha, fin_cotizacion } = req.body;
+  let { cantidadCotiazaciones, fecha, fin_cotizacion } = req.body;
+  if(fecha === ''){fecha = null};
+  if(cantidadCotiazaciones === ''){cantidadCotiazaciones = null};
+  if(fin_cotizacion === ''){fin_cotizacion = null};
   const { id } = req.params;
   const query = `
     SET @id = ?;

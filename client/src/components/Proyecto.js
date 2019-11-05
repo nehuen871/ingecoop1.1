@@ -3,6 +3,7 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../styles/react-bootstrap-table.css';
+import moment from 'moment';
 
 let jobs = [];
 
@@ -15,6 +16,11 @@ const selectRowProp = {
   mode: 'checkbox'
 };
 async function onAfterSaveCell(row, cellName, cellValue) {
+  if(cellName === "fecha_fin"){
+    row.fecha_fin = moment(cellValue).format('YYYY-MM-DD');
+  }else if(cellName === "fecha_inicio"){
+    row.fehca_inicio = moment(cellValue).format('YYYY-MM-DD');
+  }
   const settings = {
     method: 'PUT',
     body: JSON.stringify(row),
@@ -61,7 +67,7 @@ async function onAfterDeleteRow(rowKeys,rows) {
         const data = await fetchResponse.json();
         console.log(data);
     } catch (e) {
-      console.log(e);
+        console.log(e);
     }
   }
 }
@@ -69,9 +75,9 @@ async function onAfterDeleteRow(rowKeys,rows) {
 const options = {
   page: 1,  // which page you want to show as default
   sizePerPageList: [ {
-    text: '5', value: 5
+    text: 5, value: 5
   }, {
-    text: '10', value: 10
+    text: 10, value: 10
   }, {
     text: 'All', value: jobs.length
   } ], // you can change the dropdown list for size per page
@@ -119,14 +125,16 @@ export default class proyecto extends React.Component {
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
+      let fecha1 = moment(data[i].fehca_inicio).format('YYYY-MM-DD');
+      let fecha2 = moment(data[i].fecha_fin).format('YYYY-MM-DD');
       jobs.push({
         id: data[i].id,
         nombre: data[i].nombre,
         cotizacion_id: data[i].cotizacion_id,
         numero_proyecto: data[i].numero_proyecto,
         cliente: data[i].cliente,
-        fehca_inicio: data[i].fehca_inicio,
-        fecha_fin: data[i].fecha_fin
+        fehca_inicio: fecha1,
+        fecha_fin: fecha2
       });
     }
   }
@@ -138,8 +146,8 @@ export default class proyecto extends React.Component {
         <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } }>nombre</TableHeaderColumn>
         <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'input' } }>numero_proyecto</TableHeaderColumn>
         <TableHeaderColumn dataField='cliente' editable={ { type: 'input' } }>cliente</TableHeaderColumn>
-        <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'input' } }>fehca_inicio</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'input' } }>fecha_fin</TableHeaderColumn>
+        <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'date' } }>fecha_inicio</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'date' } }>fecha_fin</TableHeaderColumn>
         <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'input' } }>cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );

@@ -40,7 +40,12 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An list_docs
 router.post('/', (req, res) => {
-  const {nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable} = req.body;
+  let {nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable} = req.body;
+  if(nombre===''){nombre=null};
+  if(cantidad_de_doc===''){cantidad_de_doc=null};
+  if(total_hh===''){total_hh=null};
+  if(especialidad===''){especialidad=null};
+  if(lista_de_cable===''){lista_de_cable=null};
   const query = `
     SET @id = ?;
     SET @nombre = ?;
@@ -61,7 +66,12 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable } = req.body;
+  let { nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable } = req.body;
+  if(nombre===''){nombre=null};
+  if(cantidad_de_doc===''){cantidad_de_doc=null};
+  if(total_hh===''){total_hh=null};
+  if(especialidad===''){especialidad=null};
+  if(lista_de_cable===''){lista_de_cable=null};
   const { id } = req.params;
   const query = `
     SET @id = ?;

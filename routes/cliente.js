@@ -40,7 +40,9 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An cliente
 router.post('/', (req, res) => {
-  const {nombre,codigoCliente,cotizacion_id} = req.body;
+  let {nombre,codigoCliente,cotizacion_id} = req.body;
+  if(nombre === ''){nombre=null};
+  if(codigoCliente === ''){codigoCliente=null};
   const query = `
     SET @id=0;
     SET @nombre=?;
@@ -58,7 +60,9 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { nombre,codigoCliente } = req.body;
+  let { nombre,codigoCliente,cotizacion_id } = req.body;
+  if(nombre === ''){nombre=null};
+  if(codigoCliente === ''){codigoCliente=null};
   const { id } = req.params;
   const query = `
     SET @id = ?;

@@ -40,7 +40,18 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An datosCotizacion
 router.post('/', (req, res) => {
-  const {numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id} = req.body;
+  let {numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id} = req.body;
+  if(numeroRecotizacion===''){numeroRecotizacion=null};
+  if(descripcion_doc===''){descripcion_doc=null};
+  if(revicion_inicial===''){revicion_inicial=null};
+  if(cantidad_doc===''){cantidad_doc=null};
+  if(HHUnidades===''){HHUnidades=null};
+  if(total===''){total=null};
+  if(revision_unica===''){revision_unica=null};
+  if(observacion===''){observacion=null};
+  if(modificar_lista===''){modificar_lista=null};
+  if(proveerdor===''){proveerdor=null};
+  if(viatico===''){viatico=null};
   const query = `
     SET @id = 0;
     SET @numeroRecotizacion = ?;
@@ -69,7 +80,18 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id } = req.body;
+  let { numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id } = req.body;
+  if(numeroRecotizacion===''){numeroRecotizacion=null};
+  if(descripcion_doc===''){descripcion_doc=null};
+  if(revicion_inicial===''){revicion_inicial=null};
+  if(cantidad_doc===''){cantidad_doc=null};
+  if(HHUnidades===''){HHUnidades=null};
+  if(total===''){total=null};
+  if(revision_unica===''){revision_unica=null};
+  if(observacion===''){observacion=null};
+  if(modificar_lista===''){modificar_lista=null};
+  if(proveerdor===''){proveerdor=null};
+  if(viatico===''){viatico=null};
   const { id } = req.params;
   const query = `
     SET @id = ?;

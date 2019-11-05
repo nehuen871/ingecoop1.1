@@ -40,7 +40,17 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An datosControl
 router.post('/', (req, res) => {
-  const {descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id} = req.body;
+  let {descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id} = req.body;
+  if(descripcion_doc===''){descripcion_doc=null};
+  if(revicion_inicial===''){revicion_inicial=null};
+  if(cantidad_doc===''){cantidad_doc=null};
+  if(HHUnidades===''){HHUnidades=null};
+  if(total===''){total=null};
+  if(revision_unica===''){revision_unica=null};
+  if(observacion===''){observacion=null};
+  if(modificar_lista===''){modificar_lista=null};
+  if(proveedor===''){proveedor=null};
+  if(viatico===''){viatico=null};
   const query = `
     SET @id = 0;
     SET @descripcion_doc = ?;
@@ -70,6 +80,16 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   const { descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id } = req.body;
+  if(descripcion_doc===''){descripcion_doc=null};
+  if(revicion_inicial===''){revicion_inicial=null};
+  if(cantidad_doc===''){cantidad_doc=null};
+  if(HHUnidades===''){HHUnidades=null};
+  if(total===''){total=null};
+  if(revision_unica===''){revision_unica=null};
+  if(observacion===''){observacion=null};
+  if(modificar_lista===''){modificar_lista=null};
+  if(proveedor===''){proveedor=null};
+  if(viatico===''){viatico=null};
   const { id } = req.params;
   const query = `
     SET @id = ?;

@@ -12,7 +12,7 @@ CREATE PROCEDURE `cotizacionAddOrEdit` (
 BEGIN 
   IF _id = 0 THEN
     INSERT INTO cotizacion (cantidadCotiazaciones, fecha, fin_cotizacion)
-    VALUES (_cantidadCotiazaciones,_fecha, fin_cotizacion);
+    VALUES (_cantidadCotiazaciones,_fecha, _fin_cotizacion);
 
     SET _id = LAST_INSERT_ID();
   ELSE
