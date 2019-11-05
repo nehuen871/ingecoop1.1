@@ -66,7 +66,7 @@ router.post('/', (req, res) => {
     SET @modificar_lista = ?;
     SET @proveerdor = ?;
     SET @viatico = ?;
-    SET @list_docs_i = ?;
+    SET @list_docs_id = ?;
     CALL datosCotizacionAddOrEdit(@id, @numeroRecotizacion,@cotizacion_id,@descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveerdor,@viatico,@list_docs_id);
   `;
   mysqlConnection.query(query, [numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id], (err, rows, fields) => {
@@ -107,7 +107,7 @@ router.put('/:id', (req, res) => {
     SET @modificar_lista = ?;
     SET @proveerdor = ?;
     SET @viatico = ?;
-    SET @list_docs_i = ?;
+    SET @list_docs_id = ?;
     CALL datosCotizacionAddOrEdit(@id, @numeroRecotizacion,@cotizacion_id,@descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveerdor,@viatico,@list_docs_id);
   `;
   mysqlConnection.query(query, [id, numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id], (err, rows, fields) => {
