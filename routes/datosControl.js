@@ -66,7 +66,7 @@ router.post('/', (req, res) => {
     SET @control_id = ?;
     SET @control_cotizacion_id = ?;
     SET @list_docs_id = ?;
-    CALL datosControlAddOrEdit(@id, @descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveedor,@viatico,@control_id,@control_cotizacion_id,@list_docs_id);
+    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveedor,@viatico,@control_id,@control_cotizacion_id,@list_docs_id);
   `;
   mysqlConnection.query(query, [descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id], (err, rows, fields) => {
     if(!err) {
@@ -106,7 +106,7 @@ router.put('/:id', (req, res) => {
     SET @control_id = ?;
     SET @control_cotizacion_id = ?;
     SET @list_docs_id = ?;
-    CALL datosControlAddOrEdit(@id, @descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveedor,@viatico,@control_id,@control_cotizacion_id,@list_docs_id);
+    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveedor,@viatico,@control_id,@control_cotizacion_id,@list_docs_id);
   `;
   mysqlConnection.query(query, [id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id], (err, rows, fields) => {
     if(!err) {
