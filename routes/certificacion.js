@@ -66,7 +66,6 @@ router.post('/', (req, res) => {
     SET @cantdeDocs = ?;
     SET @porcentajeAvance = ?;
     SET @horasCertificadas = ?;
-    SET @cetifiacacionInterna_id = ?;
     SET @total_certificacion = ?;
     CALL certificacionAddOrEdit(@id, @control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda,@costoHoraDoc,@cantdeHs,@cantdeDocs,@porcentajeAvance,@horasCertificadas,@cetifiacacionInterna_id,@total_certificacion);
   `;
@@ -92,7 +91,6 @@ router.put('/:id', (req, res) => {
   if(cantdeDocs === ''){cantdeDocs=null};
   if(porcentajeAvance === ''){porcentajeAvance=null};
   if(horasCertificadas === ''){horasCertificadas=null};
-  if(cetifiacacionInterna_id === ''){cetifiacacionInterna_id=null};
   if(total_certificacion === ''){total_certificacion=null};
   const { id } = req.params;
   const query = `
@@ -108,11 +106,10 @@ router.put('/:id', (req, res) => {
     SET @cantdeDocs = ?;
     SET @porcentajeAvance = ?;
     SET @horasCertificadas = ?;
-    SET @cetifiacacionInterna_id = ?;
     SET @total_certificacion = ?;
-    CALL certificacionAddOrEdit(@control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda,@costoHoraDoc,@cantdeHs,@cantdeDocs,@porcentajeAvance,@horasCertificadas,@cetifiacacionInterna_id,@total_certificacion);
+    CALL certificacionAddOrEdit(@id,@control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda,@costoHoraDoc,@cantdeHs,@cantdeDocs,@porcentajeAvance,@horasCertificadas,@total_certificacion);
   `;
-  mysqlConnection.query(query, [id, control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, cetifiacacionInterna_id, total_certificacion], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'certificacion Updated'});
     } else {

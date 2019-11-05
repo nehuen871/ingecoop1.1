@@ -141,7 +141,6 @@ export default class certificacion extends React.Component {
         cantdeDocs: data[i].cantdeDocs,
         porcentajeAvance: data[i].porcentajeAvance,
         horasCertificadas: data[i].horasCertificadas,
-        cetifiacacionInterna_id: data[i].cetifiacacionInterna_id,
         total_certificacion: data[i].total_certificacion
       });
     }
@@ -164,7 +163,6 @@ export default class certificacion extends React.Component {
         <TableHeaderColumn dataField='cantdeDocs' editable={ { type: 'input' } }>cantdeDocs</TableHeaderColumn>
         <TableHeaderColumn dataField='porcentajeAvance' editable={ { type: 'input' } }>porcentajeAvance</TableHeaderColumn>
         <TableHeaderColumn dataField='horasCertificadas' editable={ { type: 'input' } }>horasCertificadas</TableHeaderColumn>
-        <TableHeaderColumn dataField='cetifiacacionInterna_id' editable={ { type: 'input' } }>cetifiacacionInterna_id</TableHeaderColumn>
         <TableHeaderColumn dataField='total_certificacion' editable={ { type: 'input' } }>total_certificacion</TableHeaderColumn>
       </BootstrapTable>
     );
