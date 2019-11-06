@@ -40,7 +40,7 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An certificacion
 router.post('/', (req, res) => {
-  let {control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, cetifiacacionInterna_id, total_certificacion} = req.body;
+  let {control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion} = req.body;
   if(numeroDePedido === ''){numeroDePedido=null};
   if(proyecto === ''){proyecto=null};
   if(especialidad === ''){especialidad=null};
@@ -67,9 +67,9 @@ router.post('/', (req, res) => {
     SET @porcentajeAvance = ?;
     SET @horasCertificadas = ?;
     SET @total_certificacion = ?;
-    CALL certificacionAddOrEdit(@id, @control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda,@costoHoraDoc,@cantdeHs,@cantdeDocs,@porcentajeAvance,@horasCertificadas,@cetifiacacionInterna_id,@total_certificacion);
+    CALL certificacionAddOrEdit(@id, @control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda,@costoHoraDoc,@cantdeHs,@cantdeDocs,@porcentajeAvance,@horasCertificadas,@total_certificacion);
   `;
-  mysqlConnection.query(query, [control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, cetifiacacionInterna_id, total_certificacion], (err, rows, fields) => {
+  mysqlConnection.query(query, [control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'certificacion Saved'});
     } else {
@@ -80,7 +80,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let { control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, cetifiacacionInterna_id, total_certificacion } = req.body;
+  let { control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion } = req.body;
   if(numeroDePedido === ''){numeroDePedido=null};
   if(proyecto === ''){proyecto=null};
   if(especialidad === ''){especialidad=null};
@@ -94,6 +94,7 @@ router.put('/:id', (req, res) => {
   if(total_certificacion === ''){total_certificacion=null};
   const { id } = req.params;
   const query = `
+    SET @id = ?;
     SET @control_id = ?;
     SET @control_cotizacion_id = ?;
     SET @numeroDePedido = ?;
