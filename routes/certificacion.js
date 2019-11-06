@@ -44,7 +44,7 @@ router.post('/', (req, res) => {
   if(numeroDePedido === ''){numeroDePedido=null};
   if(proyecto === ''){proyecto=null};
   if(especialidad === ''){especialidad=null};
-  if(fechaDeEmision === ''){fechaDeEmision=null};
+  if(fechaDeEmision === '' || fechaDeEmision === 'Invalid date'){fechaDeEmision=null};
   if(moneda === ''){moneda=null};
   if(costoHoraDoc === ''){costoHoraDoc=null};
   if(cantdeHs === ''){cantdeHs=null};
@@ -84,7 +84,7 @@ router.put('/:id', (req, res) => {
   if(numeroDePedido === ''){numeroDePedido=null};
   if(proyecto === ''){proyecto=null};
   if(especialidad === ''){especialidad=null};
-  if(fechaDeEmision === ''){fechaDeEmision=null};
+  if(fechaDeEmision === '' || fechaDeEmision === 'Invalid date'){fechaDeEmision=null};
   if(moneda === ''){moneda=null};
   if(costoHoraDoc === ''){costoHoraDoc=null};
   if(cantdeHs === ''){cantdeHs=null};

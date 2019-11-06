@@ -41,12 +41,12 @@ router.delete('/:id', (req, res) => {
 // INSERT An proyecto
 router.post('/', (req, res) => {
   let {nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin,cotizacion_id} = req.body;
-  if(fehca_inicio == ''){fehca_inicio = null};
-  if(fecha_fin == ''){fecha_fin = null};
+  if(fehca_inicio == ''  || fehca_inicio === 'Invalid date'){fehca_inicio = null};
+  if(fecha_fin == ''  || fecha_fin === 'Invalid date'){fecha_fin = null};
   if(nombre == ''){nombre = null};
   if(numero_proyecto == ''){numero_proyecto = null};
   if(cliente == ''){cliente = null};
-  if(fecha_fin == ''){fecha_fin = null};
+  if(fecha_fin == ''  || fecha_fin === 'Invalid date'){fecha_fin = null};
   const query = `
     SET @id = 0;
     SET @nombre = ?;
@@ -69,12 +69,12 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   let { nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin,cotizacion_id} = req.body;
-  if(fehca_inicio == ''){fehca_inicio = null};
-  if(fecha_fin == ''){fecha_fin = null};
+  if(fehca_inicio == ''  || fehca_inicio === 'Invalid date'){fehca_inicio = null};
+  if(fecha_fin == ''  || fecha_fin === 'Invalid date'){fecha_fin = null};
   if(nombre == ''){nombre = null};
   if(numero_proyecto == ''){numero_proyecto = null};
   if(cliente == ''){cliente = null};
-  if(fecha_fin == ''){fecha_fin = null};
+  if(fecha_fin == ''  || fecha_fin === 'Invalid date'){fecha_fin = null};
   const { id } = req.params;
   const query = `
     SET @id = ?;

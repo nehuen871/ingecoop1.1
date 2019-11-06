@@ -41,12 +41,12 @@ router.delete('/:id', (req, res) => {
 // INSERT An control
 router.post('/', (req, res) => {
   let {cotizacion_id, fecha_emision_proyectada, revision, fecha_envio_1, remito_1, calificaion_1, fecha_calificaion, numero_documento, numero_control, numero_doc, remito_2, remito_3, remito_4, remito_5, remito_6, remito_7, remito_8, remito_9, remito_10, fecha_envio_2, fecha_envio_3, fecha_envio_4, fecha_envio_5, fecha_envio_6, fecha_envio_7, fecha_envio_8, fecha_envio_9, fecha_envio_10, calificaion_2, calificaion_3, calificaion_4, calificaion_5, calificaion_6, calificaion_7, calificaion_8, calificaion_9, calificaion_10} = req.body;
-  if(fecha_emision_proyectada == ''){fecha_emision_proyectada = null};
+  if(fecha_emision_proyectada == '' || fecha_emision_proyectada === 'Invalid date'){fecha_emision_proyectada = null};
   if(revision == ''){revision = null};
-  if(fecha_envio_1 == ''){fecha_envio_1 = null};
+  if(fecha_envio_1 == '' || fecha_envio_1 === 'Invalid date'){fecha_envio_1 = null};
   if(remito_1 == ''){remito_1 = null};
   if(calificaion_1 == ''){calificaion_1 = null};
-  if(fecha_calificaion == ''){fecha_calificaion = null};
+  if(fecha_calificaion == '' || fecha_calificaion === 'Invalid date'){fecha_calificaion = null};
   if(numero_documento == ''){numero_documento = null};
   if(numero_control == ''){numero_control = null};
   if(numero_doc == ''){numero_doc = null};
@@ -59,15 +59,15 @@ router.post('/', (req, res) => {
   if(remito_8 == ''){remito_8 = null};
   if(remito_9 == ''){remito_9 = null};
   if(remito_10 == ''){remito_10 = null};
-  if(fecha_envio_2 == ''){fecha_envio_2 = null};
-  if(fecha_envio_3 == ''){fecha_envio_3 = null};
-  if(fecha_envio_4 == ''){fecha_envio_4 = null};
-  if(fecha_envio_5 == ''){fecha_envio_5 = null};
-  if(fecha_envio_6 == ''){fecha_envio_6 = null};
-  if(fecha_envio_7 == ''){fecha_envio_7 = null};
-  if(fecha_envio_8 == ''){fecha_envio_8 = null};
-  if(fecha_envio_9 == ''){fecha_envio_9 = null};
-  if(fecha_envio_10 == ''){fecha_envio_10 = null};
+  if(fecha_envio_2 == '' || fecha_envio_2 === 'Invalid date'){fecha_envio_2 = null};
+  if(fecha_envio_3 == '' || fecha_envio_3 === 'Invalid date'){fecha_envio_3 = null};
+  if(fecha_envio_4 == '' || fecha_envio_4 === 'Invalid date'){fecha_envio_4 = null};
+  if(fecha_envio_5 == '' || fecha_envio_5 === 'Invalid date'){fecha_envio_5 = null};
+  if(fecha_envio_6 == '' || fecha_envio_6 === 'Invalid date'){fecha_envio_6 = null};
+  if(fecha_envio_7 == '' || fecha_envio_7 === 'Invalid date'){fecha_envio_7 = null};
+  if(fecha_envio_8 == '' || fecha_envio_8 === 'Invalid date'){fecha_envio_8 = null};
+  if(fecha_envio_9 == '' || fecha_envio_9 === 'Invalid date'){fecha_envio_9 = null};
+  if(fecha_envio_10 == '' || fecha_envio_10 === 'Invalid date'){fecha_envio_10 = null};
   if(calificaion_2 == ''){calificaion_2 = null};
   if(calificaion_3 == ''){calificaion_3 = null};
   if(calificaion_4 == ''){calificaion_4 = null};
@@ -130,12 +130,12 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   let { cotizacion_id, fecha_emision_proyectada, revision, fecha_envio_1, remito_1, calificaion_1, fecha_calificaion, numero_documento, numero_control, numero_doc, remito_2, remito_3, remito_4, remito_5, remito_6, remito_7, remito_8, remito_9, remito_10, fecha_envio_2, fecha_envio_3, fecha_envio_4, fecha_envio_5, fecha_envio_6, fecha_envio_7, fecha_envio_8, fecha_envio_9, fecha_envio_10, calificaion_2, calificaion_3, calificaion_4, calificaion_5, calificaion_6, calificaion_7, calificaion_8, calificaion_9, calificaion_10 } = req.body;
-  if(fecha_emision_proyectada == ''){fecha_emision_proyectada = null};
+  if(fecha_emision_proyectada == '' || fecha_emision_proyectada === 'Invalid date'){fecha_emision_proyectada = null};
   if(revision == ''){revision = null};
-  if(fecha_envio_1 == ''){fecha_envio_1 = null};
+  if(fecha_envio_1 == '' || fecha_envio_1 === 'Invalid date'){fecha_envio_1 = null};
   if(remito_1 == ''){remito_1 = null};
   if(calificaion_1 == ''){calificaion_1 = null};
-  if(fecha_calificaion == ''){fecha_calificaion = null};
+  if(fecha_calificaion == '' || fecha_calificaion === 'Invalid date'){fecha_calificaion = null};
   if(numero_documento == ''){numero_documento = null};
   if(numero_control == ''){numero_control = null};
   if(numero_doc == ''){numero_doc = null};
@@ -148,15 +148,15 @@ router.put('/:id', (req, res) => {
   if(remito_8 == ''){remito_8 = null};
   if(remito_9 == ''){remito_9 = null};
   if(remito_10 == ''){remito_10 = null};
-  if(fecha_envio_2 == ''){fecha_envio_2 = null};
-  if(fecha_envio_3 == ''){fecha_envio_3 = null};
-  if(fecha_envio_4 == ''){fecha_envio_4 = null};
-  if(fecha_envio_5 == ''){fecha_envio_5 = null};
-  if(fecha_envio_6 == ''){fecha_envio_6 = null};
-  if(fecha_envio_7 == ''){fecha_envio_7 = null};
-  if(fecha_envio_8 == ''){fecha_envio_8 = null};
-  if(fecha_envio_9 == ''){fecha_envio_9 = null};
-  if(fecha_envio_10 == ''){fecha_envio_10 = null};
+  if(fecha_envio_2 == '' || fecha_envio_2 === 'Invalid date'){fecha_envio_2 = null};
+  if(fecha_envio_3 == '' || fecha_envio_3 === 'Invalid date'){fecha_envio_3 = null};
+  if(fecha_envio_4 == '' || fecha_envio_4 === 'Invalid date'){fecha_envio_4 = null};
+  if(fecha_envio_5 == '' || fecha_envio_5 === 'Invalid date'){fecha_envio_5 = null};
+  if(fecha_envio_6 == '' || fecha_envio_6 === 'Invalid date'){fecha_envio_6 = null};
+  if(fecha_envio_7 == '' || fecha_envio_7 === 'Invalid date'){fecha_envio_7 = null};
+  if(fecha_envio_8 == '' || fecha_envio_8 === 'Invalid date'){fecha_envio_8 = null};
+  if(fecha_envio_9 == '' || fecha_envio_9 === 'Invalid date'){fecha_envio_9 = null};
+  if(fecha_envio_10 == '' || fecha_envio_10 === 'Invalid date'){fecha_envio_10 = null};
   if(calificaion_2 == ''){calificaion_2 = null};
   if(calificaion_3 == ''){calificaion_3 = null};
   if(calificaion_4 == ''){calificaion_4 = null};
