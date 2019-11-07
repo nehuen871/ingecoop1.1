@@ -153,9 +153,9 @@ export default class certificacion extends React.Component {
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='control_id' editable={ { type: 'input' } }>control_id</TableHeaderColumn>
         <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'input' } }>control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input' } }>numeroDePedido</TableHeaderColumn>
-        <TableHeaderColumn dataField='proyecto' editable={ { type: 'input' } }>proyecto</TableHeaderColumn>
-        <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } }>especialidad</TableHeaderColumn>
+        <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numeroDePedido</TableHeaderColumn>
+        <TableHeaderColumn dataField='proyecto' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>proyecto</TableHeaderColumn>
+        <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>especialidad</TableHeaderColumn>
         <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'date' } }>fechaDeEmision</TableHeaderColumn>
         <TableHeaderColumn dataField='moneda' editable={ { type: 'input' } }>moneda</TableHeaderColumn>
         <TableHeaderColumn dataField='costoHoraDoc' editable={ { type: 'input' } }>costoHoraDoc</TableHeaderColumn>

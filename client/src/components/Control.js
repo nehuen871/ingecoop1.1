@@ -214,9 +214,9 @@ export default class control extends React.Component {
         <TableHeaderColumn dataField='remito_1' editable={ { type: 'input' } }>remito_1</TableHeaderColumn>
         <TableHeaderColumn dataField='calificaion_1' editable={ { type: 'input' } }>calificaion_1</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_calificaion' editable={ { type: 'date' } }>fecha_calificaion</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_documento' editable={ { type: 'input' } }>numero_documento</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_control' editable={ { type: 'input' } }>numero_control</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } }>numero_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_documento' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_documento</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_control' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_control</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
         <TableHeaderColumn dataField='remito_2' editable={ { type: 'input' } }>remito_2</TableHeaderColumn>
         <TableHeaderColumn dataField='remito_3' editable={ { type: 'input' } }>remito_3</TableHeaderColumn>
         <TableHeaderColumn dataField='remito_4' editable={ { type: 'input' } }>remito_4</TableHeaderColumn>

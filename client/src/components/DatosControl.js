@@ -141,13 +141,13 @@ export default class datosControl extends React.Component {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='descripcion_doc' editable={ { type: 'input' } }>descripcion_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='descripcion_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>descripcion_doc</TableHeaderColumn>
         <TableHeaderColumn dataField='revicion_inicial' editable={ { type: 'input' } }>revicion_inicial</TableHeaderColumn>
         <TableHeaderColumn dataField='cantidad_doc' editable={ { type: 'input' } }>cantidad_doc</TableHeaderColumn>
         <TableHeaderColumn dataField='HHUnidades' editable={ { type: 'input' } }>HHUnidades</TableHeaderColumn>
         <TableHeaderColumn dataField='total' editable={ { type: 'input' } }>total</TableHeaderColumn>
         <TableHeaderColumn dataField='revision_unica' editable={ { type: 'input' } }>revision_unica</TableHeaderColumn>
-        <TableHeaderColumn dataField='observacion' editable={ { type: 'input' } }>observacion</TableHeaderColumn>
+        <TableHeaderColumn dataField='observacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>observacion</TableHeaderColumn>
         <TableHeaderColumn dataField='modificar_lista' editable={ { type: 'input' } }>modificar_lista</TableHeaderColumn>
         <TableHeaderColumn dataField='proveedor' editable={ { type: 'input' } }>proveedor</TableHeaderColumn>
         <TableHeaderColumn dataField='viatico' editable={ { type: 'input' } }>viatico</TableHeaderColumn>
