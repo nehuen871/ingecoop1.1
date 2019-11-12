@@ -137,7 +137,8 @@ export default class control extends React.Component {
         fecha_calificaion: fecha3,
         numero_documento: data[i].numero_documento,
         numero_control: data[i].numero_control,
-        numero_doc: data[i].numero_doc
+        numero_doc: data[i].numero_doc,
+        codigo_doc_cliente: data[i].codigo_doc_cliente
       });
     }
   }
@@ -154,6 +155,7 @@ export default class control extends React.Component {
         <TableHeaderColumn dataField='numero_documento' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_documento</TableHeaderColumn>
         <TableHeaderColumn dataField='numero_control' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_control</TableHeaderColumn>
         <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='codigo_doc_cliente' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_doc_cliente</TableHeaderColumn>
       </BootstrapTable>
     );
   }

@@ -40,13 +40,14 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An control
 router.post('/', (req, res) => {
-  let {cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc} = req.body;
+  let {cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc,codigo_doc_cliente} = req.body;
   if(fecha_emision_proyectada == '' || fecha_emision_proyectada === 'Invalid date'){fecha_emision_proyectada = null};
   if(revision == ''){revision = null};
   if(fecha_calificaion == '' || fecha_calificaion === 'Invalid date'){fecha_calificaion = null};
   if(numero_documento == ''){numero_documento = null};
   if(numero_control == ''){numero_control = null};
   if(numero_doc == ''){numero_doc = null};
+  if(codigo_doc_cliente == ''){codigo_doc_cliente = null};
   const query = `
     SET @id = 0;
     SET @cotizacion_id = ?;
@@ -56,9 +57,10 @@ router.post('/', (req, res) => {
     SET @numero_documento = ?;
     SET @numero_control = ?;
     SET @numero_doc = ?;
-    CALL controlAddOrEdit(@id, @cotizacion_id,@fecha_emision_proyectada,@revision,@fecha_calificaion,@numero_documento,@numero_control,@numero_doc);
+    SET @codigo_doc_cliente = ?;
+    CALL controlAddOrEdit(@id, @cotizacion_id,@fecha_emision_proyectada,@revision,@fecha_calificaion,@numero_documento,@numero_control,@numero_doc,@codigo_doc_cliente);
   `;
-  mysqlConnection.query(query, [cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc], (err, rows, fields) => {
+  mysqlConnection.query(query, [cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'control Saved'});
     } else {
@@ -69,13 +71,14 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let { cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc} = req.body;
+  let { cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente} = req.body;
   if(fecha_emision_proyectada == '' || fecha_emision_proyectada === 'Invalid date'){fecha_emision_proyectada = null};
   if(revision == ''){revision = null};
   if(fecha_calificaion == '' || fecha_calificaion === 'Invalid date'){fecha_calificaion = null};
   if(numero_documento == ''){numero_documento = null};
   if(numero_control == ''){numero_control = null};
   if(numero_doc == ''){numero_doc = null};
+  if(codigo_doc_cliente == ''){codigo_doc_cliente = null};
   const { id } = req.params;
   const query = `
     SET @id = ?;
@@ -86,10 +89,10 @@ router.put('/:id', (req, res) => {
     SET @numero_documento = ?;
     SET @numero_control = ?;
     SET @numero_doc = ?;
-    SET @calificaion_10 = ?;
-    CALL controlAddOrEdit(@id, @cotizacion_id,@fecha_emision_proyectada,@revision,@fecha_calificaion,@numero_documento,@numero_control,@numero_doc);
+    SET @codigo_doc_cliente = ?;
+    CALL controlAddOrEdit(@id, @cotizacion_id,@fecha_emision_proyectada,@revision,@fecha_calificaion,@numero_documento,@numero_control,@numero_doc, @codigo_doc_cliente);
   `;
-  mysqlConnection.query(query, [id, cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'control Updated'});
     } else {
