@@ -12,6 +12,8 @@ var datosControlRouter = require('./routes/datosControl');
 var datosCotiazacionRouter = require('./routes/datosCotizacion');
 var list_docsRouter = require('./routes/list_docs');
 var proyectoRouter = require('./routes/proyecto');
+var clienteHasCotizacion = require('./routes/clienteHasCotizacion');
+var remitos = require('./routes/remitos');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -32,6 +34,8 @@ app.use('/datosControl', datosControlRouter);
 app.use('/datosCotizacion', datosCotiazacionRouter);
 app.use('/list_docs', list_docsRouter);
 app.use('/proyecto', proyectoRouter);
+app.use('/clienteHasCotizacion', clienteHasCotizacion);
+app.use('/remitos', remitos);
 
 
 // catch 404 and forward to error handler

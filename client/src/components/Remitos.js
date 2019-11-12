@@ -7,7 +7,6 @@ import moment from 'moment';
 
 let jobs = [];
 
-
 const cellEditProp = {
   mode: 'click',
   blurToSave: true,
@@ -17,12 +16,9 @@ const selectRowProp = {
   mode: 'checkbox'
 };
 async function onAfterSaveCell(row, cellName, cellValue) {
-  if(cellName === "fecha_emision_proyectada"){
-    row.fecha_emision_proyectada = moment(cellValue).format('YYYY-MM-DD');
-  }else if(cellName === "fecha_calificaion"){
-    row.fecha_calificaion = moment(cellValue).format('YYYY-MM-DD');
+  if(cellName === "fecha_envio"){
+    row.fecha_envio = moment(cellValue).format('YYYY-MM-DD');
   }
-
   const settings = {
     method: 'PUT',
     body: JSON.stringify(row),
@@ -31,13 +27,13 @@ async function onAfterSaveCell(row, cellName, cellValue) {
         'Content-Type': 'application/json',
     }
   };
-  let url = "/control/" + row.id;
+  let url = "/remitos/" + row.id;
   try {
       const fetchResponse = await fetch(url, settings);
       const data = await fetchResponse.json();
       console.log(data);
   } catch (e) {
-    console.log(e);
+      console.log(e);
   }
 }
 async function onAfterInsertRow(row) {
@@ -50,7 +46,7 @@ async function onAfterInsertRow(row) {
     }
   };
   try {
-      const fetchResponse = await fetch(`/control`, settings);
+      const fetchResponse = await fetch(`/remitos`, settings);
       const data = await fetchResponse.json();
       console.log(data);
   } catch (e) {
@@ -60,7 +56,7 @@ async function onAfterInsertRow(row) {
 
 async function onAfterDeleteRow(rowKeys,rows) {
   for(let i = 0; i<rowKeys.length; i++){
-    let url = '/control/' + rows[i].id;
+    let url = '/remitos/' + rows[i].id;
     const settings = {
     method: 'DELETE'
     };
@@ -69,7 +65,7 @@ async function onAfterDeleteRow(rowKeys,rows) {
         const data = await fetchResponse.json();
         console.log(data);
     } catch (e) {
-      console.log(e);
+        console.log(e);
     }
   }
 }
@@ -105,7 +101,7 @@ const options = {
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
 
-export default class control extends React.Component {
+export default class proyecto extends React.Component {
   constructor(props) {
     super(props);
     this.formatType = this.formatType.bind(this);
@@ -123,37 +119,29 @@ export default class control extends React.Component {
 
   callApi = async () => {
     jobs = [];
-    const response = await fetch('/control');
+    const response = await fetch('/remitos');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
-      let fecha1 = moment(data[i].fecha_emision_proyectada).format('YYYY-MM-DD');
-      let fecha3 = moment(data[i].fecha_calificaion).format('YYYY-MM-DD');
+      let fecha1 = moment(data[i].fecha_envio).format('YYYY-MM-DD');
       jobs.push({
         id: data[i].id,
-        cotizacion_id: data[i].cotizacion_id,
-        fecha_emision_proyectada: fecha1,
-        revision: data[i].revision,
-        fecha_calificaion: fecha3,
-        numero_documento: data[i].numero_documento,
-        numero_control: data[i].numero_control,
-        numero_doc: data[i].numero_doc
+        remito: data[i].remito,
+        fecha_envio: fecha1,
+        calificacion: data[i].calificacion,
+        control_id: data[i].control_id
       });
     }
   }
 
   render() {
-    // custom attributes on editor
     return (
-      <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp } >
+      <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'input' } }>cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_emision_proyectada' editable={ { type: 'date' } }>fecha_emision_proyectada</TableHeaderColumn>
-        <TableHeaderColumn dataField='revision' editable={ { type: 'input' } }>revision</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_calificaion' editable={ { type: 'date' } }>fecha_calificaion</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_documento' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_documento</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_control' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_control</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='remito' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>remito</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_envio' editable={ { type: 'date' } }>fecha_envio</TableHeaderColumn>
+        <TableHeaderColumn dataField='calificacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>calificacion</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_id' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>control_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

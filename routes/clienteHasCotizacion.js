@@ -3,11 +3,6 @@ const router = express.Router();
 
 const mysqlConnection  = require('../db/database.js');
 
-
-if(fehca_inicio == ''  || fehca_inicio === 'Invalid date'){fehca_inicio = null};
-cliente_id
-cotizacion_id
-
 // GET all cliente_has_cotizacion
 router.get('/', (req, res) => {
   mysqlConnection.query('SELECT * FROM cliente_has_cotizacion', (err, rows, fields) => {

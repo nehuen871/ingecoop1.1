@@ -40,19 +40,18 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An cotizacion
 router.post('/', (req, res) => {
-  let {cantidadCotiazaciones, fecha, fin_cotizacion} = req.body;
+  let {revision, fecha, titulo_cotiazacion} = req.body;
   if(fecha === '' || fecha === 'Invalid date'){fecha = null};
-  if(cantidadCotiazaciones === ''){cantidadCotiazaciones = null};
-  if(fin_cotizacion === '' || fin_cotizacion === 'Invalid date'){fin_cotizacion = null};
+  if(revision === ''){revision = null};
+  if(titulo_cotiazacion === ''){titulo_cotiazacion = null};
   const query = `
     SET @id = 0;
-    SET @cantidadCotiazaciones = ?;
+    SET @revision = ?;
     SET @fecha = ?;
-    SET @fin_cotizacion = ?;
-
-    CALL cotizacionAddOrEdit(@id, @cantidadCotiazaciones,@fecha,@fin_cotizacion);
+    SET @titulo_cotiazacion = ?;
+    CALL cotizacionAddOrEdit(@id, @revision,@fecha,@titulo_cotiazacion);
   `;
-  mysqlConnection.query(query, [cantidadCotiazaciones, fecha, fin_cotizacion], (err, rows, fields) => {
+  mysqlConnection.query(query, [revision, fecha], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cotizacion Saved'});
     } else {
@@ -63,20 +62,19 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let { cantidadCotiazaciones, fecha, fin_cotizacion } = req.body;
+  let { revision, fecha, titulo_cotiazacion } = req.body;
   if(fecha === '' || fecha === 'Invalid date'){fecha = null};
-  if(cantidadCotiazaciones === ''){cantidadCotiazaciones = null};
-  if(fin_cotizacion === '' || fin_cotizacion === 'Invalid date'){fin_cotizacion = null};
+  if(revision === ''){revision = null};
+  if(titulo_cotiazacion === ''){titulo_cotiazacion = null};
   const { id } = req.params;
   const query = `
     SET @id = ?;
-    SET @cantidadCotiazaciones = ?;
+    SET @revision = ?;
     SET @fecha = ?;
-    SET @fin_cotizacion = ?;
-
-    CALL cotizacionAddOrEdit(@id, @cantidadCotiazaciones,@fecha,@fin_cotizacion);
+    SET @titulo_cotiazacion = ?;
+    CALL cotizacionAddOrEdit(@id, @revision,@fecha,@titulo_cotiazacion);
   `;
-  mysqlConnection.query(query, [id, cantidadCotiazaciones, fecha, fin_cotizacion], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, revision, fecha], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cotizacion Updated'});
     } else {

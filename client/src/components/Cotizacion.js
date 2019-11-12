@@ -18,8 +18,6 @@ const selectRowProp = {
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha"){
     row.fecha = moment(cellValue).format('YYYY-MM-DD');
-  }else if(cellName === "fin_cotizacion"){
-    row.fin_cotizacion = moment(cellValue).format('YYYY-MM-DD');
   }
   const settings = {
     method: 'PUT',
@@ -125,12 +123,11 @@ export default class cotizacion extends React.Component {
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
       let fecha1 = moment(data[i].fecha).format('YYYY-MM-DD');
-      let fecha2 = moment(data[i].fin_cotizacion).format('YYYY-MM-DD');
       jobs.push({
         id: data[i].id,
-        cantidadCotiazaciones: data[i].cantidadCotiazaciones,
+        revision: data[i].revision,
         fecha: fecha1,
-        fin_cotizacion: fecha2
+        titulo_cotiazacion: data[i].titulo_cotiazacion
       });
     }
   }
@@ -139,9 +136,9 @@ export default class cotizacion extends React.Component {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
       <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
-      <TableHeaderColumn dataField='cantidadCotiazaciones' editable={ { type: 'input' } }>cantidadCotiazaciones</TableHeaderColumn>
+      <TableHeaderColumn dataField='revision' editable={ { type: 'input' } }>revision</TableHeaderColumn>
       <TableHeaderColumn dataField='fecha' editable={ { type: 'date' } }>fecha</TableHeaderColumn>
-      <TableHeaderColumn dataField='fin_cotizacion' editable={ { type: 'date' } }>fin_cotizacion</TableHeaderColumn>
+      <TableHeaderColumn dataField='titulo_cotiazacion' editable={ { type: 'input' } }>titulo_cotiazacion</TableHeaderColumn>
       </BootstrapTable>
     );
   }
