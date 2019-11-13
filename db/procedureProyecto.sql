@@ -14,10 +14,22 @@ CREATE PROCEDURE `proyectoAddOrEdit` (
 )
 BEGIN
   IF _id = 0 THEN
-    INSERT INTO proyecto (nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin,cotizacion_id)
-    VALUES (_nombre, _numero_proyecto, _cliente, _fehca_inicio, _fecha_fin,_cotizacion_id);
+    INSERT INTO cotizacion (revision, fecha,titulo_cotiazacion)
+    VALUES (0,NULL,'Nuevo proyecto');
+    SET _idCotizacion = LAST_INSERT_ID();
 
+    INSERT INTO proyecto (nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin,cotizacion_id)
+    VALUES (_nombre, _numero_proyecto, _cliente, _fehca_inicio, _fecha_fin,_idCotizacion);
     SET _id = LAST_INSERT_ID();
+    
+    INSERT INTO control (cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente)
+    VALUES (_idCotizacion,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+    SET _idControl = LAST_INSERT_ID();
+
+    INSERT INTO certificacion (control_id, control_cotizacion_id,numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion)
+    VALUES (_idControl,_idCotizacion,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+    SET _idCerti = LAST_INSERT_ID();
+    
   ELSE
     UPDATE proyecto
     SET

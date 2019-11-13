@@ -6,7 +6,7 @@ import '../styles/react-bootstrap-table.css';
 import moment from 'moment';
 
 let jobs = [];
-
+let jobTypes = [];
 const cellEditProp = {
   mode: 'click',
   blurToSave: true,
@@ -113,6 +113,9 @@ export default class proyecto extends React.Component {
     this.callApi()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
+    this.callApiDroop()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
   }
 
   formatType(cell) {
@@ -138,7 +141,17 @@ export default class proyecto extends React.Component {
       });
     }
   }
-
+  callApiDroop = async () => {
+    const response = await fetch('/list_docs');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypes.push({
+        value: data[i].id,
+        text: data[i].nombre
+      });
+    }
+  }
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
@@ -148,7 +161,7 @@ export default class proyecto extends React.Component {
         <TableHeaderColumn dataField='cliente' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>cliente</TableHeaderColumn>
         <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'date' } }>fecha_inicio</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'date' } }>fecha_fin</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'input' } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id'  editable={ { type: 'select', options: { values: jobTypes } } }>cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }
