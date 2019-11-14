@@ -6,7 +6,7 @@ import '../styles/react-bootstrap-table.css';
 import moment from 'moment';
 
 let jobs = [];
-
+let jobTypes = [];
 
 const cellEditProp = {
   mode: 'click',
@@ -115,6 +115,9 @@ export default class control extends React.Component {
     this.callApi()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
+    this.callApiDroop()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
   }
 
   formatType(cell) {
@@ -143,12 +146,24 @@ export default class control extends React.Component {
     }
   }
 
+  callApiDroop = async () => {
+    const response = await fetch('/cotizacion');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypes.push({
+        value: data[i].id,
+        text: data[i].titulo_cotiazacion
+      });
+    }
+  }
+
   render() {
     // custom attributes on editor
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp } >
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'input' } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'select', options: { values: jobTypes } } }>cotizacion_id</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_emision_proyectada' editable={ { type: 'date' } }>fecha_emision_proyectada</TableHeaderColumn>
         <TableHeaderColumn dataField='revision' editable={ { type: 'input' } }>revision</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_calificaion' editable={ { type: 'date' } }>fecha_calificaion</TableHeaderColumn>

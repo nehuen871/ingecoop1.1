@@ -7,6 +7,8 @@ import moment from 'moment';
 
 
 let jobs = [];
+let jobTypesCotizacion = [];
+let jobTypesControl = [];
 
 const cellEditProp = {
   mode: 'click',
@@ -118,6 +120,12 @@ export default class certificacion extends React.Component {
     this.callApi()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
+    this.callApiDroopCotizacion()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
+    this.callApiDroopControl()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
   }
 
   callApi = async () => {
@@ -145,14 +153,37 @@ export default class certificacion extends React.Component {
       });
     }
   }
+  callApiDroopCotizacion = async () => {
+    const response = await fetch('/cotizacion');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesCotizacion.push({
+        value: data[i].id,
+        text: data[i].titulo_cotiazacion
+      });
+    }
+  }
+
+  callApiDroopControl = async () => {
+    const response = await fetch('/control');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesControl.push({
+        value: data[i].id,
+        text: data[i].numero_control
+      });
+    }
+  }
 
   render() {
     // custom attributes on editor
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { type: 'input' } }>control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'input' } }>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_id' editable={ { type: 'select', options: { values: jobTypesControl } } }>control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } }>control_cotizacion_id</TableHeaderColumn>
         <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numeroDePedido</TableHeaderColumn>
         <TableHeaderColumn dataField='proyecto' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>proyecto</TableHeaderColumn>
         <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>especialidad</TableHeaderColumn>

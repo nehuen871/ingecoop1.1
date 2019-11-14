@@ -135,7 +135,6 @@ export default class cliente extends React.Component {
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Nombre</TableHeaderColumn>
         <TableHeaderColumn dataField='codigoCliente' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigoCliente</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'input' } }>cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

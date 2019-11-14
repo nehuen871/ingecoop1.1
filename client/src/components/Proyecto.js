@@ -7,6 +7,7 @@ import moment from 'moment';
 
 let jobs = [];
 let jobTypes = [];
+
 const cellEditProp = {
   mode: 'click',
   blurToSave: true,
@@ -142,13 +143,13 @@ export default class proyecto extends React.Component {
     }
   }
   callApiDroop = async () => {
-    const response = await fetch('/list_docs');
+    const response = await fetch('/cotizacion');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
       jobTypes.push({
         value: data[i].id,
-        text: data[i].nombre
+        text: data[i].titulo_cotiazacion
       });
     }
   }
