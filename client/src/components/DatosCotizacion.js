@@ -5,7 +5,8 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../styles/react-bootstrap-table.css';
 
 let jobs = [];
-
+let jobTypesCotizacion = [];
+let jobTypesDocumentos = [];
 const cellEditProp = {
   mode: 'click',
   blurToSave: true,
@@ -106,6 +107,12 @@ export default class datosCotizacion extends React.Component {
     this.callApi()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
+    this.callApiDroopCotizacion()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
+    this.callApiDroopDocumentos()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
   }
 
   formatType(cell) {
@@ -136,13 +143,36 @@ export default class datosCotizacion extends React.Component {
       });
     }
   }
+  callApiDroopCotizacion = async () => {
+    const response = await fetch('/cotizacion');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesCotizacion.push({
+        value: data[i].id,
+        text: data[i].titulo_cotiazacion
+      });
+    }
+  }
+
+  callApiDroopDocumentos = async () => {
+    const response = await fetch('/list_doc');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesDocumentos.push({
+        value: data[i].id,
+        text: data[i].nombre
+      });
+    }
+  }
 
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='numeroRecotizacion'  editable={ { type: 'input' } }>numeroRecotizacion</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id'  editable={ { type: 'input' } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id'  editable={ { type: 'select', options: { values: jobTypesCotizacion } } }>cotizacion_id</TableHeaderColumn>
         <TableHeaderColumn dataField='descripcion_doc'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>descripcion_doc</TableHeaderColumn>
         <TableHeaderColumn dataField='revicion_inicial'  editable={ { type: 'input' } }>revicion_inicial</TableHeaderColumn>
         <TableHeaderColumn dataField='cantidad_doc'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>cantidad_doc</TableHeaderColumn>
@@ -153,7 +183,7 @@ export default class datosCotizacion extends React.Component {
         <TableHeaderColumn dataField='modificar_lista'  editable={ { type: 'input' } }>modificar_lista</TableHeaderColumn>
         <TableHeaderColumn dataField='proveerdor'  editable={ { type: 'input' } }>proveerdor</TableHeaderColumn>
         <TableHeaderColumn dataField='viatico'  editable={ { type: 'input' } }>viatico</TableHeaderColumn>
-        <TableHeaderColumn dataField='list_docs_id'  editable={ { type: 'input' } }>list_docs_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='list_docs_id'  editable={ { type: 'select', options: { values: jobTypesDocumentos } } }>list_docs_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

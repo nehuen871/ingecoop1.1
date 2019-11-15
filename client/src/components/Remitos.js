@@ -6,6 +6,7 @@ import '../styles/react-bootstrap-table.css';
 import moment from 'moment';
 
 let jobs = [];
+let jobTypesControl = [];
 
 const cellEditProp = {
   mode: 'click',
@@ -111,6 +112,9 @@ export default class proyecto extends React.Component {
     this.callApi()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
+    this.callApiDroopControl()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
   }
 
   formatType(cell) {
@@ -133,6 +137,17 @@ export default class proyecto extends React.Component {
       });
     }
   }
+  callApiDroopControl = async () => {
+    const response = await fetch('/control');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesControl.push({
+        value: data[i].id,
+        text: data[i].numero_control
+      });
+    }
+  }
 
   render() {
     return (
@@ -141,7 +156,7 @@ export default class proyecto extends React.Component {
         <TableHeaderColumn dataField='remito' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>remito</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_envio' editable={ { type: 'date' } }>fecha_envio</TableHeaderColumn>
         <TableHeaderColumn dataField='calificacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>calificacion</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_id' editable={ { type: 'select', options: { values: jobTypesControl } } }>control_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }
