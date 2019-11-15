@@ -12,7 +12,7 @@ CREATE PROCEDURE `controlAddOrEdit` (
   IN _numero_documento INT(11),
   IN _numero_control INT(11),
   IN _numero_doc INT(11),
-  IN _codigo_doc_cliente VARCHAR(255),
+  IN _codigo_doc_cliente VARCHAR(255)
 )
 BEGIN
   IF _id = 0 THEN

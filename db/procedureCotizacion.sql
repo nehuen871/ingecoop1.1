@@ -7,7 +7,7 @@ CREATE PROCEDURE `cotizacionAddOrEdit` (
   IN _id INT,
   IN _revision INT(11),
   IN _fecha DATE,
-  IN _titulo_cotiazacion VARCHAR(255),
+  IN _titulo_cotiazacion VARCHAR(255)
 )
 BEGIN 
   IF _id = 0 THEN

@@ -13,6 +13,7 @@ CREATE PROCEDURE `proyectoAddOrEdit` (
   IN _cotizacion_id INT(10)
 )
 BEGIN
+  DECLARE _idCotizacion,_idControl,_idCerti INT DEFAULT 0;
   IF _id = 0 THEN
     INSERT INTO cotizacion (revision, fecha,titulo_cotiazacion)
     VALUES (0,NULL,'Nuevo proyecto');
