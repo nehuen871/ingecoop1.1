@@ -5,7 +5,7 @@ const mysqlConnection  = require('../db/database.js');
 
 // GET all cliente_has_cotizacion
 router.get('/', (req, res) => {
-  mysqlConnection.query('SELECT * FROM cliente_has_cotizacion', (err, rows, fields) => {
+  mysqlConnection.query('SELECT * FROM cliente_has_cotizacion INNER JOIN cliente USING (id) INNER JOIN cotizacion USING (id);', (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {

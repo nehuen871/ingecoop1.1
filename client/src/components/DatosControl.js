@@ -5,6 +5,9 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../styles/react-bootstrap-table.css';
 
 let jobs = [];
+let jobTypesCotizacion = [];
+let jobTypesDocumentos = [];
+let jobTypesControl = [];
 
 const cellEditProp = {
   mode: 'click',
@@ -137,6 +140,42 @@ export default class datosControl extends React.Component {
     }
   }
 
+  callApiDroopCotizacion = async () => {
+    const response = await fetch('/cotizacion');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesCotizacion.push({
+        value: data[i].id,
+        text: data[i].titulo_cotiazacion
+      });
+    }
+  }
+
+  callApiDroopDocumentos = async () => {
+    const response = await fetch('/list_doc');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesDocumentos.push({
+        value: data[i].id,
+        text: data[i].nombre
+      });
+    }
+  }
+
+  callApiDroopControl = async () => {
+    const response = await fetch('/control');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesControl.push({
+        value: data[i].id,
+        text: data[i].numero_control
+      });
+    }
+  }
+
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
@@ -151,9 +190,9 @@ export default class datosControl extends React.Component {
         <TableHeaderColumn dataField='modificar_lista' editable={ { type: 'input' } }>modificar_lista</TableHeaderColumn>
         <TableHeaderColumn dataField='proveedor' editable={ { type: 'input' } }>proveedor</TableHeaderColumn>
         <TableHeaderColumn dataField='viatico' editable={ { type: 'input' } }>viatico</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { type: 'input' } }>control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'input' } }>control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='list_docs_id' editable={ { type: 'input' } }>list_docs_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_id' editable={ { type: 'select', options: { values: jobTypesControl } } }>control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } }>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='list_docs_id' editable={ { type: 'select', options: { values: jobTypesDocumentos } } }>list_docs_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

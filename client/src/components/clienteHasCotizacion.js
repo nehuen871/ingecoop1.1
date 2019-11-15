@@ -5,6 +5,8 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../styles/react-bootstrap-table.css';
 
 let jobs = [];
+let jobTypesCliente = [];
+let jobTypesCotizacion = [];
 
 const cellEditProp = {
   mode: 'click',
@@ -124,6 +126,14 @@ export default class proyecto extends React.Component {
         cliente_id: data[i].cliente_id,
         cotizacion_id: data[i].cotizacion_id
       });
+      jobTypesCliente.push({
+        value: data[i].cliente_id,
+        text: data[i].nombre
+      });
+      jobTypesCotizacion.push({
+        value: data[i].cotizacion_id,
+        text: data[i].titulo_cotiazacion
+      });
     }
   }
 
@@ -131,8 +141,8 @@ export default class proyecto extends React.Component {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='cliente_id' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>cliente_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypesCliente } } }>cliente_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } }>cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }
