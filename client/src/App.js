@@ -10,7 +10,7 @@ import List_docs from './components/List_docs';
 import Proyecto from './components/Proyecto';
 import clienteHasCotizacion from './components/clienteHasCotizacion';
 import Remitos from './components/Remitos';
-import diagramaProyecto from './components/diagramaProyecto';
+import searchProyecto from './components/searchProyecto';
 import {
   Switch,
   Route
@@ -34,7 +34,7 @@ render() {
           <Route path="/ListDocs" component={List_docs} />
           <Route path="/clienteHasCotizacion" component={clienteHasCotizacion} />
           <Route path="/Remitos" component={Remitos} />
-          <Route path="/diagramaProyecto" component={diagramaProyecto} />
+          <Route path="/searchProyecto" component={searchProyecto} />
         </Switch>
         </div>
       </div>

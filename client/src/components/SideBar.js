@@ -63,7 +63,7 @@ export default class SideBar extends Component {
                 </li>
                 <li className="header">Busquedas</li>
                 <li>
-                <Link to="/diagramaProyecto">
+                <Link to="/searchProyecto">
                     <i className="fa fa-info-circle" aria-hidden="true"></i> Proyecto
                 </Link>
                 </li>

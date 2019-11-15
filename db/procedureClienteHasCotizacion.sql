@@ -6,7 +6,7 @@ USE `ingecoop`$$
 CREATE PROCEDURE `clienteHasCotizacionAddOrEdit` (
   IN _id INT(10);
   IN _cliente_id INT(10),
-  IN _cotizacion_id INT(10),
+  IN _cotizacion_id INT(10)
 )
 BEGIN
   IF _id = 0 THEN
