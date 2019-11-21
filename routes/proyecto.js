@@ -64,8 +64,28 @@ router.post('/', (req, res) => {
       console.log(err);
     }
   });
-
 });
+
+// INSERT An proyecto
+router.post('/all', (req, res) => {
+  let {id} = req.body;
+  const query = `
+    select * from cotizacion
+    join datosCotizacion on datosCotizacion.cotizacion_id = cotizacion.id
+    join proyecto on proyecto.cotizacion_id = cotizacion.id
+    join control on control.cotizacion_id = cotizacion.id
+    join datosControl on datosControl.control_cotizacion_id = cotizacion.id
+    where cotizacion.id = ?;
+    `;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
 
 router.put('/:id', (req, res) => {
   let { nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin,cotizacion_id} = req.body;

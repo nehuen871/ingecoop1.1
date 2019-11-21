@@ -1,26 +1,16 @@
 import React, { Component } from 'react';
-import SortableTree from 'react-sortable-tree';
-import 'react-sortable-tree/style.css'; // This only needs to be imported once in your app
+import FormContainer from "./form/Search";
+const styles = {
+  fontFamily: "sans-serif",
+  textAlign: "center"
+};
 
-export default class Tree extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      treeData: [
-        { title: 'Chicken', children: [{ title: 'Egg' }] },
-        { title: 'Fish', children: [{ title: 'fingerline'}] }
-      ],
-    };
-  }
-
+export default class formContainer extends Component {
   render() {
     return (
-      <div style={{ height: 400 }}>
-        <SortableTree
-          treeData={this.state.treeData}
-          onChange={treeData => this.setState({ treeData })}
-        />
+      <div className="col-md-6">
+        <h3>Busqueda por Proyectos</h3>
+        <FormContainer />
       </div>
     );
   }
