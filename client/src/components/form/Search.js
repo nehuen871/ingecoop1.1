@@ -10,18 +10,10 @@ export default class NameForm extends React.Component {
       value: ''
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
-
   handleChange(values) {
-    this.setState({value: values});
+    this.setState({value: values.target.value});
   }
-
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
-  }
-
   render() {
     return (
       <div>
@@ -30,10 +22,40 @@ export default class NameForm extends React.Component {
           Name:
           <input type="text" value={this.state.value} onChange={this.handleChange} />
         </label>
-        <input type="submit" value="Submit" />
       </form>
-      <Tree changeLink={this.handleChange}/>
+      <Tree changeLink={this.state.value}/>
       </div>
     );
   }
 }
+
+
+
+/*import React, { Component } from 'react';
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isShow: true,
+    };
+  }
+  toggleShow = () => {
+    this.setState(state => ({ isShow: !state.isShow }));
+  };
+  render() {
+    const greeting = 'Welcome to React';
+    return (
+      <div>
+        {this.state.isShow ? <Greeting greeting={greeting} /> : null}
+        <Button onClick={this.toggleShow} />
+      </div>
+    );
+  }
+}
+const Button = ({ onClick }) => (
+  <button onClick={onClick} type="button">
+    Toggle Show
+  </button>
+);
+const Greeting = ({ greeting }) => <h1>{greeting}</h1>;
+export default App;*/
