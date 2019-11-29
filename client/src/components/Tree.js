@@ -4,8 +4,16 @@ import 'react-sortable-tree/style.css'; // This only needs to be imported once i
 export default class Tree extends Component {
   constructor(props) {
     super(props);
-    this.state = {treeData:[]};
+    this.state = {
+      treeData:[],
+      id_control:[],
+      control_data:[],
+      id_cotizacion:[],
+      cotizaicon_data:[]
+    };
     this.searchData = this.searchData.bind(this);
+    this.getAllDocsForCotizacion = this.getAllDocsForCotizacion.bind(this);
+    this.getAllDocsForControl = this.getAllDocsForControl.bind(this);
   }
 
   searchData = async () => {
@@ -21,25 +29,101 @@ export default class Tree extends Component {
     try {
         const fetchResponse = await fetch(`/proyecto/all`, settings);
         const data = await fetchResponse.json();
-        this.formatData(data);
+        let response = this.formatData(data);
+        console.log(response);
+        let docsCotizacion = this.getAllDocsForCotizacion();
+        docsCotizacion.then(result => {
+          for(let a = 0;a<response.length;a++){
+            for(let i = 0; i< this.state.id_cotizacion.length; i++){
+              if(response[a].children[i].cotizacionId){
+                console.log(response[a].children[i].cotizacionId + " cotizacion id");
+                console.log(result[a][0].idContizacion + " result");
+                if(response[a].children[i].cotizacionId == result[i][0].idContizacion){
+                  response[a].children[i].children = result[i];
+               }
+              }
+            }
+          }
+        });
+        let docsControl = this.getAllDocsForControl();
+        docsControl.then(result => {
+          for(let a = 0;a<response.length;a++){
+            for(let i = 0; i< this.state.id_control.length; i++){
+              if(response[a].children[i].controlId){
+                if(response[a].children[i].controlId == this.state.id_control[i]){
+                  response[a].children[i].children = result[i];
+               }
+              }
+            }
+          }
+        });
+        console.log();
+        this.setState({treeData: response});
     } catch (e) {
         console.log(e);
     }
-    //console.log(this.props.changeLink);
   }
+  getAllDocsForCotizacion = async () => {
+    let dataMap = [];
+    for(let i = 0; i< this.state.id_cotizacion.length; i++){
+      let data = {"id":this.state.id_cotizacion[i]};
+      const settings = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+      };
+      try {
+          const fetchResponse = await fetch(`/cotizacion/all`, settings);
+          const data = await fetchResponse.json();
+          let dataMapValue = data.map(function (data, index, array) {
+            return {id:data.id,title:data.nombre,idContizacion:data.cotizacionId};
+          });
+          dataMap.push(dataMapValue);
+      } catch (e) {
+          console.log(e);
+      }
+    }
+    return dataMap;
+  }
+  getAllDocsForControl = async () =>{
+    let dataMap = [];
+      for(let i = 0; i< this.state.id_control.length; i++){
+      let data = {"id":this.state.id_control[i]};
+      const settings = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+      };
+      try {
+          const fetchResponse = await fetch(`/control/all`, settings);
+          const data = await fetchResponse.json();
+          let dataMapValue = data.map(function (data, index, array) {
+            return {id:data.id,title:data.nombre,idControl: data.controId};
+          });
+          dataMap.push(dataMapValue);
+      } catch (e) {
+          console.log(e);
+      }
+    }
+    return dataMap;
+  }
+
   formatData(data){
-  
   const controlData = [];
-  const controlDatosData = [];
   const cotizacionlData = [];
-  const cotizacionlDatosData = [];
   const proyectoData = [];
   const mapP = new Map();
   const mapCoti = new Map();
-  const mapDatosCoti = new Map();
   const mapControl = new Map();
-  const mapDatosControl = new Map();
-  
+  let arrayCotiIds = [];
+  let arrayConIds = [];
+
   for (const item of data) {
       if(!mapP.has(item.proyecto_id)){
           mapP.set(item.proyecto_id, true);    // set any value to Map
@@ -51,53 +135,33 @@ export default class Tree extends Component {
       }
     if(!mapCoti.has(item.cotizacion_id)){
         mapCoti.set(item.cotizacion_id, true);    // set any value to Map
+        arrayCotiIds.push(item.cotizacion_id);
+        this.setState({id_cotizacion: arrayCotiIds});
         cotizacionlData.push({
           title:item.titulo_cotiazacion,
           cotizacionId: item.cotizacion_id,
-          children:[{}]
+          children:{}
         });
     }
-    
+
     if(!mapControl.has(item.contro_id)){
       mapControl.set(item.contro_id, true);    // set any value to Map
+        arrayConIds.push(item.contro_id);
+        this.setState({id_control: arrayConIds});
         controlData.push({
           title:item.numero_control,
           controlId:item.contro_id,
-          children:[{}]
+          children:{}
         });
     }
-
-    /*if(!mapDatosCoti.has(item.datosCotizacion_id) && !mapDatosCoti.has(item.cotizacion_list_doc_nombre)){
-      mapDatosCoti.set(item.datosCotizacion_id, true);    // set any value to Map
-      mapDatosCoti.set(item.cotizacion_list_doc_nombre, item.cotizacion_list_doc_nombre);    // set any value to Map
-      cotizacionlDatosData.push({
-        title:item.cotizacion_list_doc_nombre,
-        cotizacionId: item.datosCotizacion_id,
-        proyectoId: item.proyecto_id
-      });
-    }
-
-    if(!mapDatosControl.has(item.datosControl_list_docs_id)){
-        mapDatosControl.set(item.datosControl_list_docs_id, true);    // set any value to Map
-        controlDatosData.push({
-          title:item.control_list_doc_nombre,
-          controlDatosId: item.datosControl_list_docs_id
-        });
-    }*/
   }
   let result = [...proyectoData];
   for(let i = 0;i<proyectoData.length;i++){
     result[i].children = [cotizacionlData[i],controlData[i]];
   }
-
-
-/*var empire = queryReturnFinal.filter(function (queryReturnFinal) {
-  return queryReturnFinal.proyecto.cotizacion.cotizacion_id !== queryReturnFinal.proyecto.cotizacion.cotizacion_id;
-});
-  console.log(empire);*/
-  //console.log(queryReturnFinal[0].proyecto.cotizacion.cotizacion_id);
-  this.setState({treeData: result});
+  return result;
   }
+
   render() {
     return (
       <div style={{ height: 400 }}>
@@ -110,34 +174,3 @@ export default class Tree extends Component {
     );
   }
 }
-
-/**
- * treeData: [
-        { title: 'Chicken', children: [{ title: 'Egg' }] },
-        { title: 'Fish', children: [{ title: 'fingerline'}] }
-      ],
- * 
- */
-
-
-
-/*children: [{
-  title:item.numero_control,
-  controlId:item.contro_id,
-  children: [{
-    title:item.control_list_doc_nombre,
-    controlId:item.datosControl_list_docs_id
-  }]
-}]*/
-
-
-/**
- * children:[{
-                title:item.titulo_cotiazacion,
-                cotizacionId: item.cotizacion_id,
-                children:[{
-                  title:item.control_list_doc_nombre,
-                  cotizacionDataid: item.datosCotizacion_id
-                }]
-              }]
-*/

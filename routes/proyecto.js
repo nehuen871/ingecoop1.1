@@ -66,17 +66,14 @@ router.post('/', (req, res) => {
   });
 });
 
-// INSERT An proyecto
+// INSERT An proyecto childs
 router.post('/all', (req, res) => {
   let {id} = req.body;
   const query = `
-  select proyecto.id as proyecto_id,proyecto.nombre,cotizacion.id as cotizacion_id,cotizacion.titulo_cotiazacion,datosCotizacion.id as datosCotizacion_id,datosCotizacion.list_docs_id as datosCotizacion_list_docs_id,list_docs.nombre as cotizacion_list_doc_nombre,control.id as contro_id,control.numero_control,datosControl.list_docs_id as datosControl_list_docs_id,list_docs.nombre as control_list_doc_nombre from cotizacion
-  join datosCotizacion on datosCotizacion.cotizacion_id = cotizacion.id
+  select proyecto.id as proyecto_id,proyecto.nombre,cotizacion.id as cotizacion_id,cotizacion.titulo_cotiazacion,control.id as contro_id,control.numero_control from cotizacion
   join proyecto on proyecto.cotizacion_id = cotizacion.id
   join control on control.cotizacion_id = cotizacion.id
-  join datosControl on datosControl.control_cotizacion_id = cotizacion.id
-  join list_docs on list_docs.id = datosControl.list_docs_id 
-  where proyecto.numero_proyecto = ? order by cotizacion_id asc, datosCotizacion_id asc;
+  where proyecto.numero_proyecto = ? order by cotizacion_id asc;
     `;
   mysqlConnection.query(query,[id], (err, rows, fields) => {
     if(!err) {
