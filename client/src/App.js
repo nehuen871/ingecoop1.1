@@ -11,6 +11,10 @@ import Proyecto from './components/Proyecto';
 import clienteHasCotizacion from './components/clienteHasCotizacion';
 import Remitos from './components/Remitos';
 import searchProyecto from './components/searchProyecto';
+import searchCliente from './components/searchCliente';
+import searchCotizacion from './components/searchCotizacion';
+import searchControl from './components/searchControl';
+import searchCertificacion from './components/searchCertificacion';
 import {
   Switch,
   Route
@@ -35,6 +39,10 @@ render() {
           <Route path="/clienteHasCotizacion" component={clienteHasCotizacion} />
           <Route path="/Remitos" component={Remitos} />
           <Route path="/searchProyecto" component={searchProyecto} />
+          <Route path="/searchCliente" component={searchCliente} />
+          <Route path="/searchCotizacion" component={searchCotizacion} />
+          <Route path="/searchControl" component={searchControl} />
+          <Route path="/searchCertificacion" component={searchCertificacion} />
         </Switch>
         </div>
       </div>
