@@ -36,10 +36,8 @@ export default class Tree extends Component {
           for(let a = 0;a<response.length;a++){
             for(let i = 0; i< this.state.id_cotizacion.length; i++){
               if(response[a].children[i].cotizacionId){
-                console.log(response[a].children[i].cotizacionId + " cotizacion id");
-                console.log(result[a][0].idContizacion + " result");
-                if(response[a].children[i].cotizacionId == result[i][0].idContizacion){
-                  response[a].children[i].children = result[i];
+                if(response[a].children[i].cotizacionId == result[a][0].idContizacion){
+                  response[a].children[i].children = result[a];
                }
               }
             }
@@ -50,9 +48,11 @@ export default class Tree extends Component {
           for(let a = 0;a<response.length;a++){
             for(let i = 0; i< this.state.id_control.length; i++){
               if(response[a].children[i].controlId){
-                if(response[a].children[i].controlId == this.state.id_control[i]){
-                  response[a].children[i].children = result[i];
-               }
+                console.log(response[a].children[i].controlId);
+                console.log(result[a][0].idControl);
+                if(response[a].children[i].controlId == result[a][0].idControl){
+                    response[a].children[i].children = result[a];
+                }
               }
             }
           }
@@ -104,7 +104,7 @@ export default class Tree extends Component {
           const fetchResponse = await fetch(`/control/all`, settings);
           const data = await fetchResponse.json();
           let dataMapValue = data.map(function (data, index, array) {
-            return {id:data.id,title:data.nombre,idControl: data.controId};
+            return {id:data.id,title:data.nombre,idControl: data.controlId};
           });
           dataMap.push(dataMapValue);
       } catch (e) {
