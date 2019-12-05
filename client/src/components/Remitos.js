@@ -49,7 +49,6 @@ async function onAfterInsertRow(row) {
   try {
       const fetchResponse = await fetch(`/remitos`, settings);
       const data = await fetchResponse.json();
-      console.log(data);
   } catch (e) {
       console.log(e);
   }
@@ -64,7 +63,6 @@ async function onAfterDeleteRow(rowKeys,rows) {
     try {
         const fetchResponse = await fetch(url, settings);
         const data = await fetchResponse.json();
-        console.log(data);
     } catch (e) {
         console.log(e);
     }

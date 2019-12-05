@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SortableTree from 'react-sortable-tree';
 import 'react-sortable-tree/style.css'; // This only needs to be imported once in your app
-export default class Tree extends Component {
+export default class TreeCliente extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,16 +27,15 @@ export default class Tree extends Component {
       }
     };
     try {
-        const fetchResponse = await fetch(`/proyecto/all`, settings);
+        const fetchResponse = await fetch(`/cliente/all`, settings);
         const data = await fetchResponse.json();
         let response = this.formatData(data);
-        console.log(response);
         let docsCotizacion = this.getAllDocsForCotizacion();
         docsCotizacion.then(result => {
           for(let a = 0;a<response.length;a++){
             for(let i = 0; i< this.state.id_cotizacion.length; i++){
               if(response[a].children[i].cotizacionId){
-                if(response[a].children[i].cotizacionId == result[a][0].idContizacion){
+                if(response[a].children[i].cotizacionId === result[a][0].idContizacion){
                   response[a].children[i].children = result[a];
                }
               }
@@ -48,16 +47,13 @@ export default class Tree extends Component {
           for(let a = 0;a<response.length;a++){
             for(let i = 0; i< this.state.id_control.length; i++){
               if(response[a].children[i].controlId){
-                console.log(response[a].children[i].controlId);
-                console.log(result[a][0].idControl);
-                if(response[a].children[i].controlId == result[a][0].idControl){
+                if(response[a].children[i].controlId === result[a][0].idControl){
                     response[a].children[i].children = result[a];
                 }
               }
             }
           }
         });
-        console.log();
         this.setState({treeData: response});
     } catch (e) {
         console.log(e);
@@ -117,22 +113,18 @@ export default class Tree extends Component {
   formatData(data){
   const controlData = [];
   const cotizacionlData = [];
-  const proyectoData = [];
-  const mapP = new Map();
+  const clienteData = [];
   const mapCoti = new Map();
   const mapControl = new Map();
   let arrayCotiIds = [];
   let arrayConIds = [];
 
   for (const item of data) {
-      if(!mapP.has(item.proyecto_id)){
-          mapP.set(item.proyecto_id, true);    // set any value to Map
-          proyectoData.push({
-              proyectoId: item.proyecto_id,
-              title: item.nombre,
-              children:[{}]
-          });
-      }
+    clienteData.push({
+        proyectoId: item.cliente_id,
+        title: item.nombre,
+        children:[{}]
+    });
     if(!mapCoti.has(item.cotizacion_id)){
         mapCoti.set(item.cotizacion_id, true);    // set any value to Map
         arrayCotiIds.push(item.cotizacion_id);
@@ -155,8 +147,8 @@ export default class Tree extends Component {
         });
     }
   }
-  let result = [...proyectoData];
-  for(let i = 0;i<proyectoData.length;i++){
+  let result = [...clienteData];
+  for(let i = 0;i<clienteData.length;i++){
     result[i].children = [cotizacionlData[i],controlData[i]];
   }
   return result;
@@ -169,7 +161,7 @@ export default class Tree extends Component {
           treeData={this.state.treeData}
           onChange={treeData => this.setState({ treeData })}
         />
-        <button onClick={this.searchData} className="btn btn-primary">Tests</button>
+        <button onClick={this.searchData} className="btn btn-primary">Busca</button>
       </div>
     );
   }

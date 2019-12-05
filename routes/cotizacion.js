@@ -13,6 +13,23 @@ router.get('/', (req, res) => {
     }
   });
 });
+
+//Get all datosCotizaicon childs
+router.post('/childsControl', (req, res) => {
+  let {id} = req.body;
+  const query = `
+  SELECT cotizacion.id as cotizacion_id,cotizacion.titulo_cotiazacion,control.id as contro_id,control.numero_control FROM cotizacion
+  join control on control.cotizacion_id = cotizacion.id
+  where cotizacion.id = ?;`;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
 //Get all datosCotizaicon childs
 router.post('/all', (req, res) => {
   let {id} = req.body;

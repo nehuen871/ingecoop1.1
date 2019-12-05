@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import SortableTree from 'react-sortable-tree';
 import 'react-sortable-tree/style.css'; // This only needs to be imported once in your app
-export default class Tree extends Component {
+export default class TreeControl extends Component {
   constructor(props) {
     super(props);
     this.state = {
       treeData:[],
       id_control:[],
       control_data:[],
-      id_cotizacion:[],
-      cotizaicon_data:[]
+      id_remito:[],
+      id_certificacion:[],
+      certificacion_data:[]
     };
     this.searchData = this.searchData.bind(this);
-    this.getAllDocsForCotizacion = this.getAllDocsForCotizacion.bind(this);
+    this.getAllRemitosFromControl = this.getAllRemitosFromControl.bind(this);
+    this.getAllCertificacion = this.getAllCertificacion.bind(this);
     this.getAllDocsForControl = this.getAllDocsForControl.bind(this);
   }
 
@@ -27,46 +29,37 @@ export default class Tree extends Component {
       }
     };
     try {
-        const fetchResponse = await fetch(`/proyecto/all`, settings);
+        const fetchResponse = await fetch(`/control/getCertificadosFormControl`, settings);
         const data = await fetchResponse.json();
         let response = this.formatData(data);
-        console.log(response);
-        let docsCotizacion = this.getAllDocsForCotizacion();
-        docsCotizacion.then(result => {
-          for(let a = 0;a<response.length;a++){
-            for(let i = 0; i< this.state.id_cotizacion.length; i++){
-              if(response[a].children[i].cotizacionId){
-                if(response[a].children[i].cotizacionId == result[a][0].idContizacion){
-                  response[a].children[i].children = result[a];
-               }
-              }
-            }
-          }
-        });
         let docsControl = this.getAllDocsForControl();
         docsControl.then(result => {
           for(let a = 0;a<response.length;a++){
-            for(let i = 0; i< this.state.id_control.length; i++){
-              if(response[a].children[i].controlId){
-                console.log(response[a].children[i].controlId);
-                console.log(result[a][0].idControl);
-                if(response[a].children[i].controlId == result[a][0].idControl){
-                    response[a].children[i].children = result[a];
-                }
+            for(let i = 0;i<result.length;i++){
+              if(response[a].controlId === result[i][0].idControl){
+                response[a].children = result[i];
               }
             }
           }
         });
-        console.log();
-        this.setState({treeData: response});
+        let docsRemitos = this.getAllRemitosFromControl();
+        docsRemitos.then(result => {
+          for(let i = 0;i<result.length;i++){
+            if(result[0][i]){
+              response.push(result[0][i]);
+            }
+          }
+          this.setState({treeData: response});
+        });
     } catch (e) {
         console.log(e);
     }
   }
-  getAllDocsForCotizacion = async () => {
+
+  getAllRemitosFromControl = async () => {
     let dataMap = [];
-    for(let i = 0; i< this.state.id_cotizacion.length; i++){
-      let data = {"id":this.state.id_cotizacion[i]};
+    for(let i = 0; i< this.state.id_control.length; i++){
+      let data = {"id":this.state.id_control[i]};
       const settings = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -76,10 +69,10 @@ export default class Tree extends Component {
         }
       };
       try {
-          const fetchResponse = await fetch(`/cotizacion/all`, settings);
+          const fetchResponse = await fetch(`/remitos/fromControl`, settings);
           const data = await fetchResponse.json();
           let dataMapValue = data.map(function (data, index, array) {
-            return {id:data.id,title:data.nombre,idContizacion:data.cotizacionId};
+            return {id:data.id,title:data.nombre,idRemito:data.controlId};
           });
           dataMap.push(dataMapValue);
       } catch (e) {
@@ -88,6 +81,9 @@ export default class Tree extends Component {
     }
     return dataMap;
   }
+
+
+
   getAllDocsForControl = async () =>{
     let dataMap = [];
       for(let i = 0; i< this.state.id_control.length; i++){
@@ -101,7 +97,7 @@ export default class Tree extends Component {
         }
       };
       try {
-          const fetchResponse = await fetch(`/control/all`, settings);
+          const fetchResponse = await fetch(`/control/getListDocsFormControl`, settings);
           const data = await fetchResponse.json();
           let dataMapValue = data.map(function (data, index, array) {
             return {id:data.id,title:data.nombre,idControl: data.controlId};
@@ -114,52 +110,63 @@ export default class Tree extends Component {
     return dataMap;
   }
 
-  formatData(data){
-  const controlData = [];
-  const cotizacionlData = [];
-  const proyectoData = [];
-  const mapP = new Map();
-  const mapCoti = new Map();
-  const mapControl = new Map();
-  let arrayCotiIds = [];
-  let arrayConIds = [];
+  getAllCertificacion = async () =>{
+    let dataMap = [];
+      for(let i = 0; i< this.state.id_certificacion.length; i++){
+      let data = {"id":this.state.id_certificacion[i]};
+      const settings = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+      };
+      try {
+          const fetchResponse = await fetch(`/certifiacion/controlChild`, settings);
+          const data = await fetchResponse.json();
+          let dataMapValue = data.map(function (data, index, array) {
+            return {id:data.id,title:data.nombre,idCertificacion: data.certificacionlId};
+          });
+          dataMap.push(dataMapValue);
+      } catch (e) {
+          console.log(e);
+      }
+    }
+    return dataMap;
+  }
 
-  for (const item of data) {
-      if(!mapP.has(item.proyecto_id)){
-          mapP.set(item.proyecto_id, true);    // set any value to Map
-          proyectoData.push({
-              proyectoId: item.proyecto_id,
-              title: item.nombre,
-              children:[{}]
+  formatData(data){
+    const controlData = [];
+    const certificacionlData = [];
+    const mapCerti = new Map();
+    const mapControl = new Map();
+    let arrayCertificaionIds = [];
+    let arrayConIds = [];
+    for (const item of data) {
+      if(!mapCerti.has(item.certificacion_id)){
+        mapCerti.set(item.certificacion_id, true);    // set any value to Map
+          arrayCertificaionIds.push(item.certificacion_id);
+          this.setState({id_cotizacion: arrayCertificaionIds});
+          certificacionlData.push({
+            title:item.certificacion_name,
+            certificacionId: item.certificacion_id,
+            children:{}
           });
       }
-    if(!mapCoti.has(item.cotizacion_id)){
-        mapCoti.set(item.cotizacion_id, true);    // set any value to Map
-        arrayCotiIds.push(item.cotizacion_id);
-        this.setState({id_cotizacion: arrayCotiIds});
-        cotizacionlData.push({
-          title:item.titulo_cotiazacion,
-          cotizacionId: item.cotizacion_id,
-          children:{}
-        });
+      if(!mapControl.has(item.contro_id)){
+        mapControl.set(item.contro_id, true);    // set any value to Map
+          arrayConIds.push(item.control_id);
+          this.setState({id_control: arrayConIds});
+          controlData.push({
+            title:item.nombre,
+            controlId:item.control_id,
+            children:{}
+          });
+      }
     }
-
-    if(!mapControl.has(item.contro_id)){
-      mapControl.set(item.contro_id, true);    // set any value to Map
-        arrayConIds.push(item.contro_id);
-        this.setState({id_control: arrayConIds});
-        controlData.push({
-          title:item.numero_control,
-          controlId:item.contro_id,
-          children:{}
-        });
-    }
-  }
-  let result = [...proyectoData];
-  for(let i = 0;i<proyectoData.length;i++){
-    result[i].children = [cotizacionlData[i],controlData[i]];
-  }
-  return result;
+    let result = [...controlData,...certificacionlData];
+    return result;
   }
 
   render() {
@@ -169,7 +176,7 @@ export default class Tree extends Component {
           treeData={this.state.treeData}
           onChange={treeData => this.setState({ treeData })}
         />
-        <button onClick={this.searchData} className="btn btn-primary">Tests</button>
+        <button onClick={this.searchData} className="btn btn-primary">Buscar</button>
       </div>
     );
   }

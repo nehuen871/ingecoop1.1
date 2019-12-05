@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import FormContainer from "./form/SearchProyecto";
-const styles = {
-  fontFamily: "sans-serif",
-  textAlign: "center"
-};
+
 
 export default class formContainer extends Component {
   render() {

@@ -37,7 +37,19 @@ router.delete('/:id', (req, res) => {
     }
   });
 });
-
+//Get all remitos from cotizacion
+router.post('/controlChild', (req, res) => {
+  let {id} = req.body;
+  const query = `
+  SELECT remitos.id as id, remitos.remito as nombre, remitos.control_cotizacion_id as cotizacionId FROM remitos where control_cotizacion_id = ?;`;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
 // INSERT An certificacion
 router.post('/', (req, res) => {
   let {control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion} = req.body;

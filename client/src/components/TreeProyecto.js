@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SortableTree from 'react-sortable-tree';
 import 'react-sortable-tree/style.css'; // This only needs to be imported once in your app
-export default class Tree extends Component {
+export default class TreeProyecto extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +36,7 @@ export default class Tree extends Component {
           for(let a = 0;a<response.length;a++){
             for(let i = 0; i< this.state.id_cotizacion.length; i++){
               if(response[a].children[i].cotizacionId){
-                if(response[a].children[i].cotizacionId == result[a][0].idContizacion){
+                if(response[a].children[i].cotizacionId === result[a][0].idContizacion){
                   response[a].children[i].children = result[a];
                }
               }
@@ -48,16 +48,13 @@ export default class Tree extends Component {
           for(let a = 0;a<response.length;a++){
             for(let i = 0; i< this.state.id_control.length; i++){
               if(response[a].children[i].controlId){
-                console.log(response[a].children[i].controlId);
-                console.log(result[a][0].idControl);
-                if(response[a].children[i].controlId == result[a][0].idControl){
+                if(response[a].children[i].controlId === result[a][0].idControl){
                     response[a].children[i].children = result[a];
                 }
               }
             }
           }
         });
-        console.log();
         this.setState({treeData: response});
     } catch (e) {
         console.log(e);
@@ -169,7 +166,7 @@ export default class Tree extends Component {
           treeData={this.state.treeData}
           onChange={treeData => this.setState({ treeData })}
         />
-        <button onClick={this.searchData} className="btn btn-primary">Tests</button>
+        <button onClick={this.searchData} className="btn btn-primary">Buscar</button>
       </div>
     );
   }

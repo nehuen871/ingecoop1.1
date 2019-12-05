@@ -38,6 +38,26 @@ router.delete('/:id', (req, res) => {
   });
 });
 
+// Search An cliente childs
+router.post('/all', (req, res) => {
+  let {id} = req.body;
+  const query = `
+  select cliente.id as cliente_id,cliente.nombre,cotizacion.id as cotizacion_id,cotizacion.titulo_cotiazacion,control.id as contro_id,control.numero_control from cliente
+  join cliente_has_cotizacion on cliente_has_cotizacion.cliente_id = cliente.id
+  join cotizacion on cotizacion.id = cliente_has_cotizacion.cotizacion_id
+  join control on control.cotizacion_id = cotizacion.id
+  where cliente.id = ? order by cotizacion_id asc;
+    `;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+
 // INSERT An cliente
 router.post('/', (req, res) => {
   let {nombre,codigoCliente,cotizacion_id} = req.body;

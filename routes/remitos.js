@@ -14,12 +14,40 @@ router.get('/', (req, res) => {
   });
 });
 
+//Get all remitos from cotizacion
+router.post('/all', (req, res) => {
+  let {id} = req.body;
+  const query = `
+  SELECT remitos.id as id, remitos.remito as nombre, remitos.control_cotizacion_id as cotizacionId FROM remitos where control_cotizacion_id = ?;`;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+//Get all remitos from cotizacion
+router.post('/fromControl', (req, res) => {
+  let {id} = req.body;
+  const query = `
+  SELECT remitos.id as id, remitos.remito as nombre, remitos.control_id as controlId FROM remitos where remitos.control_id = ?;`;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
 // GET An remitos
 router.get('/:id', (req, res) => {
   const { id } = req.params;
   mysqlConnection.query('SELECT * FROM remitos WHERE id = ?', [id], (err, rows, fields) => {
     if (!err) {
-      res.json(rows[0]);
+      res.json(rows);
     } else {
       console.log(err);
     }

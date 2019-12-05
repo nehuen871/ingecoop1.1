@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 
 /* Import Components */
-import Tree from "../TreeProyecto";
+import Tree from "../TreeCotizacion";
 
 export default class NameForm extends React.Component {
   constructor(props) {
