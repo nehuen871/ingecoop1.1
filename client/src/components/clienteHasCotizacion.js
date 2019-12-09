@@ -140,7 +140,7 @@ export default class proyecto extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypesCliente } } }>cliente_id</TableHeaderColumn>
         <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } }>cotizacion_id</TableHeaderColumn>
       </BootstrapTable>

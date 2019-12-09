@@ -109,6 +109,15 @@ export default class datosControl extends React.Component {
     this.callApi()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
+    this.callApiDroopCotizacion()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
+    this.callApiDroopDocumentos()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
+    this.callApiDroopControl()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
   }
 
   formatType(cell) {
@@ -153,7 +162,7 @@ export default class datosControl extends React.Component {
   }
 
   callApiDroopDocumentos = async () => {
-    const response = await fetch('/list_doc');
+    const response = await fetch('/list_docs');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
@@ -179,7 +188,7 @@ export default class datosControl extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='descripcion_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>descripcion_doc</TableHeaderColumn>
         <TableHeaderColumn dataField='revicion_inicial' editable={ { type: 'input' } }>revicion_inicial</TableHeaderColumn>
         <TableHeaderColumn dataField='cantidad_doc' editable={ { type: 'input' } }>cantidad_doc</TableHeaderColumn>

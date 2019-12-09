@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
   if(especialidad===''){especialidad=null};
   if(lista_de_cable===''){lista_de_cable=null};
   const query = `
-    SET @id = ?;
+    SET @id = 0;
     SET @nombre = ?;
     SET @cantidad_de_doc = ?;
     SET @total_hh = ?;

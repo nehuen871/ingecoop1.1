@@ -39,7 +39,7 @@ export default class TreeCotizacion extends Component {
               }
             }
           }
-          this.setState({treeData: response});
+          //this.setState({treeData: response});
         });
         let docsControl = this.getAllDocsForControl();
         docsControl.then(result => {
@@ -50,7 +50,7 @@ export default class TreeCotizacion extends Component {
               }
             }
           }
-          this.setState({treeData: response});
+          //this.setState({treeData: response});
         });
         let docsRemitos = this.getAllRemitosForcotizacion();
         docsRemitos.then(result => {

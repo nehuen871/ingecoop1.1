@@ -135,7 +135,7 @@ export default class cotizacion extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-      <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+      <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
       <TableHeaderColumn dataField='revision' editable={ { type: 'input' } }>revision</TableHeaderColumn>
       <TableHeaderColumn dataField='fecha' editable={ { type: 'date' } }>fecha</TableHeaderColumn>
       <TableHeaderColumn dataField='titulo_cotiazacion' editable={ { type: 'input' } }>titulo_cotiazacion</TableHeaderColumn>

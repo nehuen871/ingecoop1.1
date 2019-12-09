@@ -162,7 +162,7 @@ export default class control extends React.Component {
     // custom attributes on editor
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp } >
-        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'select', options: { values: jobTypes } } }>cotizacion_id</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_emision_proyectada' editable={ { type: 'date' } }>fecha_emision_proyectada</TableHeaderColumn>
         <TableHeaderColumn dataField='revision' editable={ { type: 'input' } }>revision</TableHeaderColumn>

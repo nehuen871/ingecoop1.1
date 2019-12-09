@@ -123,7 +123,6 @@ export default class cliente extends React.Component {
       jobs.push({
         id: data[i].id,
         nombre: data[i].nombre,
-        cotizacion_id: data[i].cotizacion_id,
         codigoCliente: data[i].codigoCliente
       });
     }
@@ -132,7 +131,7 @@ export default class cliente extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Nombre</TableHeaderColumn>
         <TableHeaderColumn dataField='codigoCliente' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigoCliente</TableHeaderColumn>
       </BootstrapTable>

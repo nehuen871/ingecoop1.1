@@ -131,7 +131,7 @@ export default class list_docs extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>nombre</TableHeaderColumn>
         <TableHeaderColumn dataField='cantidad_de_doc' editable={ { type: 'input' } }>cantidad_de_doc</TableHeaderColumn>
         <TableHeaderColumn dataField='total_hh' editable={ { type: 'input' } }>total_hh</TableHeaderColumn>

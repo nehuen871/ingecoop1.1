@@ -40,7 +40,7 @@ BEGIN
     cantdeDocs = _cantdeDocs,
     porcentajeAvance = _porcentajeAvance,
     horasCertificadas = _horasCertificadas,
-    total_certificacio = _total_certificacion
+    total_certificacion = _total_certificacion
     WHERE id = _id;
   END IF;
 

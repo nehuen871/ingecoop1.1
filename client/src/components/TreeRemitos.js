@@ -19,8 +19,7 @@ export default class Tree extends Component {
 
   getAllDocsForCotizacion = async () => {
     let dataMap = [];
-    for(let i = 0; i< this.state.id_cotizacion.length; i++){
-      let data = {"id":this.state.id_cotizacion[i]};
+      let data = {"id":this.state.id_cotizacion};
       const settings = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -39,14 +38,12 @@ export default class Tree extends Component {
       } catch (e) {
           console.log(e);
       }
-    }
     return dataMap;
   }
 
   getAllDocsForControl = async () =>{
     let dataMap = [];
-      for(let i = 0; i< this.state.id_control.length; i++){
-      let data = {"id":this.state.id_control[i]};
+      let data = {"id":this.state.id_control};
       const settings = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -65,40 +62,45 @@ export default class Tree extends Component {
       } catch (e) {
           console.log(e);
       }
-    }
     return dataMap;
   }
 
   searchData = async () => {
-    //let data = {"id":this.props.changeLink};
-    const settings = {
-      method: 'GET'
-    };
-    let url = '/remitos/' + this.props.changeLink;
+      let data = {"id":this.props.changeLink};
+      const settings = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+      };
     try {
-        const fetchResponse = await fetch(url, settings);
+        const fetchResponse = await fetch('/remitos/dataFromRemitos', settings);
         let data = await fetchResponse.json();
         let response = this.formatData(data);
+        
+        let docsCotizacion = this.getAllDocsForCotizacion();
+        docsCotizacion.then(result => {
+          response[0][2].children = result[0];
+        });
+        let docsControl = this.getAllDocsForControl();
+        docsControl.then(result => {
+          response[0][1].children = result[0];
+          this.setState({treeData: response[0]});
+        });
     } catch (e) {
         console.log(e);
     }
   }
 
   formatData(data){
-  const controlData = [];
-  const cotizacionlData = [];
-  const mapP = new Map();
-  const mapCoti = new Map();
-  const mapControl = new Map();
-  let arrayCotiIds = [];
-  let arrayConIds = [];
-
-  for (const item of data) {
-  
-  }
-  let result = [...proyectoData];
-
-  return result;
+  let dataMapValue = data.map(function (data, index, array) {
+    return [{remitoId:data.id,title:data.nombre},{title:data.numero_control,idControl: data.controlId,children:[]},{title:data.titulo_cotiazacion,idCotizacion: data.cotizacionId,children:[]}];
+  });
+  this.setState({id_control: dataMapValue[0][1].idControl});
+  this.setState({id_cotizacion: dataMapValue[0][2].idCotizacion});
+  return dataMapValue;
   }
 
   render() {

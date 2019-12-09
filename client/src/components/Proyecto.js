@@ -156,7 +156,7 @@ export default class proyecto extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>nombre</TableHeaderColumn>
         <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_proyecto</TableHeaderColumn>
         <TableHeaderColumn dataField='cliente' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>cliente</TableHeaderColumn>

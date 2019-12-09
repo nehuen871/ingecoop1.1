@@ -156,7 +156,7 @@ export default class datosCotizacion extends React.Component {
   }
 
   callApiDroopDocumentos = async () => {
-    const response = await fetch('/list_doc');
+    const response = await fetch('/list_docs');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
@@ -170,7 +170,7 @@ export default class datosCotizacion extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='numeroRecotizacion'  editable={ { type: 'input' } }>numeroRecotizacion</TableHeaderColumn>
         <TableHeaderColumn dataField='cotizacion_id'  editable={ { type: 'select', options: { values: jobTypesCotizacion } } }>cotizacion_id</TableHeaderColumn>
         <TableHeaderColumn dataField='descripcion_doc'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>descripcion_doc</TableHeaderColumn>

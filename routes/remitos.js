@@ -41,6 +41,21 @@ router.post('/fromControl', (req, res) => {
     }
   });
 });
+//Get cotizacion and control data from remitos
+router.post('/dataFromRemitos', (req, res) => {
+  let {id} = req.body;
+  const query = `SELECT remitos.id as id, remitos.remito as nombre, remitos.control_id as controlId,remitos.control_cotizacion_id as cotizacionId, cotizacion.titulo_cotiazacion,control.numero_control FROM remitos
+join cotizacion on cotizacion.id = remitos.control_cotizacion_id
+join control on control.id = remitos.control_id
+where remitos.id = ?;`;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
 
 // GET An remitos
 router.get('/:id', (req, res) => {

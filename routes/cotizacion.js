@@ -83,7 +83,7 @@ router.post('/', (req, res) => {
     SET @titulo_cotiazacion = ?;
     CALL cotizacionAddOrEdit(@id, @revision,@fecha,@titulo_cotiazacion);
   `;
-  mysqlConnection.query(query, [revision, fecha], (err, rows, fields) => {
+  mysqlConnection.query(query, [revision, fecha,titulo_cotiazacion], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cotizacion Saved'});
     } else {
@@ -106,7 +106,7 @@ router.put('/:id', (req, res) => {
     SET @titulo_cotiazacion = ?;
     CALL cotizacionAddOrEdit(@id, @revision,@fecha,@titulo_cotiazacion);
   `;
-  mysqlConnection.query(query, [id, revision, fecha], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, revision, fecha,titulo_cotiazacion], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cotizacion Updated'});
     } else {
