@@ -7,6 +7,7 @@ import moment from 'moment';
 
 let jobs = [];
 let jobTypesControl = [];
+let jobTypesCotizacion = [];
 
 const cellEditProp = {
   mode: 'click',
@@ -113,6 +114,9 @@ export default class proyecto extends React.Component {
     this.callApiDroopControl()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
+    this.callApiDroopCotizacion()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
   }
 
   formatType(cell) {
@@ -131,10 +135,24 @@ export default class proyecto extends React.Component {
         remito: data[i].remito,
         fecha_envio: fecha1,
         calificacion: data[i].calificacion,
-        control_id: data[i].control_id
+        control_id: data[i].control_id,
+        control_cotizacion_id: data[i].control_cotizacion_id
       });
     }
   }
+
+  callApiDroopCotizacion = async () => {
+    const response = await fetch('/cotizacion');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesCotizacion.push({
+        value: data[i].id,
+        text: data[i].titulo_cotiazacion
+      });
+    }
+  }
+
   callApiDroopControl = async () => {
     const response = await fetch('/control');
     var data = await response.json();
@@ -155,6 +173,7 @@ export default class proyecto extends React.Component {
         <TableHeaderColumn dataField='fecha_envio' editable={ { type: 'date' } }>fecha_envio</TableHeaderColumn>
         <TableHeaderColumn dataField='calificacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>calificacion</TableHeaderColumn>
         <TableHeaderColumn dataField='control_id' editable={ { type: 'select', options: { values: jobTypesControl } } }>control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } }>control_cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

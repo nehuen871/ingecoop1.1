@@ -109,6 +109,12 @@ export default class proyecto extends React.Component {
     this.callApi()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
+    this.callApiDroopCliente()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
+    this.callApiDroopCotizacion()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
   }
 
   formatType(cell) {
@@ -126,13 +132,29 @@ export default class proyecto extends React.Component {
         cliente_id: data[i].cliente_id,
         cotizacion_id: data[i].cotizacion_id
       });
-      jobTypesCliente.push({
-        value: data[i].cliente_id,
-        text: data[i].nombre
-      });
+    }
+  }
+
+  callApiDroopCotizacion = async () => {
+    const response = await fetch('/cotizacion');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
       jobTypesCotizacion.push({
-        value: data[i].cotizacion_id,
+        value: data[i].id,
         text: data[i].titulo_cotiazacion
+      });
+    }
+  }
+  
+  callApiDroopCliente = async () => {
+    const response = await fetch('/cliente');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesCliente.push({
+        value: data[i].id,
+        text: data[i].nombre
       });
     }
   }

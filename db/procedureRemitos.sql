@@ -5,7 +5,7 @@ USE `ingecoop`$$
 
 CREATE PROCEDURE `remitosAddOrEdit` (
   IN _id INT(10),
-  IN _remito INT(10),
+  IN _remito VARCHAR(255),
   IN _fecha_envio DATE,
   IN _calificacion VARCHAR(45),
   IN _control_id INT(10),
@@ -27,6 +27,5 @@ BEGIN
     control_cotizacion_id = _control_cotizacion_id
     WHERE id = _id;
   END IF;
-
   SELECT _id AS 'id';
 END

@@ -4,7 +4,7 @@ DELIMITER $$
 USE `ingecoop`$$
 
 CREATE PROCEDURE `clienteHasCotizacionAddOrEdit` (
-  IN _id INT(10);
+  IN _id INT(10),
   IN _cliente_id INT(10),
   IN _cotizacion_id INT(10)
 )
@@ -21,6 +21,5 @@ BEGIN
     cotizacion_id = _cotizacion_id
     WHERE id = _id;
   END IF;
-
   SELECT _id AS 'id';
 END
