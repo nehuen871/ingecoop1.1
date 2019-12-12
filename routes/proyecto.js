@@ -69,13 +69,7 @@ router.post('/', (req, res) => {
 // INSERT An proyecto childs
 router.post('/all', (req, res) => {
   let {id} = req.body;
-  const query = `
-  select proyecto.id as proyecto_id,proyecto.nombre,cotizacion.id as cotizacion_id,cotizacion.titulo_cotiazacion,control.id as contro_id,control.numero_control from cotizacion
-  join proyecto on proyecto.cotizacion_id = cotizacion.id
-  join control on control.cotizacion_id = cotizacion.id
-  where proyecto.numero_proyecto = ? order by cotizacion_id asc;
-    `;
-  mysqlConnection.query(query,[id], (err, rows, fields) => {
+  mysqlConnection.query('select * from proyecto where id = ?;',[id], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {

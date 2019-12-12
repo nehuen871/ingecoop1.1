@@ -31,10 +31,10 @@ router.post('/childsControl', (req, res) => {
 });
 
 //Get all datosCotizaicon childs
-router.post('/all', (req, res) => {
+router.post('/getListDocsFormCotizacion', (req, res) => {
   let {id} = req.body;
   const query = `
-  select list_docs.id as id , list_docs.nombre as nombre,cotizacion.id as cotizacionId from cotizacion
+  select list_docs.id as id , list_docs.nombre as nombre,cotizacion.id as cotizacionId,cotizacion.titulo_cotiazacion from cotizacion
   join datosCotizacion on datosCotizacion.cotizacion_id = cotizacion.id
   join list_docs on list_docs.id = datosCotizacion.list_docs_id
   where datosCotizacion.cotizacion_id = ?;`;

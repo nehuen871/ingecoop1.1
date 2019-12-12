@@ -14,7 +14,7 @@
     "cookie-parser": "~1.4.4",
     "csurf": "^1.9.0",
     "debug": "~2.6.9",
-    "ejs": "^2.5.7",
+    "ejs": "^2.7.4",
     "express": "^4.16.4",
     "express-flash": "^0.0.2",
     "express-layout": "^0.1.0",
@@ -24,7 +24,7 @@
     "morgan": "~1.9.1",
     "multer": "^1.3.0",
     "mysql": "^2.15.0",
-    "nodemon": "^2.0.0"
+    "nodemon": "^2.0.2"
   },
   "devDependencies": {
     "concurrently": "^4.0.1"

@@ -29,17 +29,19 @@ export default class TreeCertificacion extends Component {
         const fetchResponse = await fetch(`/certificacion/dataById`, settings);
         const data = await fetchResponse.json();
         response = this.formatData(data);
-        console.log(response);
+        for(let i = 0;i<response.length;i++){
+            this.setState({idControl: response[i].controId})
+        }
         let docsCotizacion = this.getAllDocsForCertificacion();
         docsCotizacion.then(result => {
             for(let i = 0;i<response.length;i++){
                 response[i].children = result;
             }
         });
+        this.setState({treeData: response});
     } catch (e) {
         console.log(e);
     }
-    this.setState({treeData: response});
   }
 
   getAllDocsForCertificacion = async () =>{
