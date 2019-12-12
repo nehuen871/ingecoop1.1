@@ -79,12 +79,29 @@ const options = {
   page: 1,  // which page you want to show as default
   sizePerPageList: [ {
     text: 5, value: 5
-  }, {
+  },
+  {
     text: 10, value: 10
-  }, {
+  },
+  {
+    text: 15, value: 15
+  },
+  {
+    text: 20, value: 20
+  },
+  {
+    text: 30, value: 30
+  },
+  {
+    text: 40, value: 40
+  },
+  {
+    text: 50, value: 50
+  }/*,
+  {
     text: 'All', value: jobs.length
-  } ], // you can change the dropdown list for size per page
-  sizePerPage: 5,  // which size per page you want to locate as default
+  }*/ ], // you can change the dropdown list for size per page
+  sizePerPage: 50,  // which size per page you want to locate as default
   pageStartIndex: 1, // where to start counting the pages
   paginationSize: 3,  // the pagination bar size.
   prePage: 'Prev', // Previous page button text

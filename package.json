@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "client": "cd client/ && npm start",
-    "server": "nodemon ./bin/www",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "server": "node ./bin/www",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "prod": "concurrently --kill-others-on-fail \"npm run server\" \"npm run build\"",
+    "eject": "concurrently --kill-others-on-fail \"npm run server\" \"npm run eject\""
   },
   "dependencies": {
     "body-parser": "^1.19.0",

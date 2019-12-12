@@ -50,6 +50,18 @@ router.post('/controlChild', (req, res) => {
     }
   });
 });
+router.post('/dataById', (req, res) => {
+  let {id} = req.body;
+  const query = `
+  SELECT certificacion.id,certificacion.numeroDePedido as nombre,certificacion.control_id FROM certificacion where certificacion.id = ?;`;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
 // INSERT An certificacion
 router.post('/', (req, res) => {
   let {control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion} = req.body;

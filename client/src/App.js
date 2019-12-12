@@ -15,6 +15,7 @@ import searchCliente from './components/searchCliente';
 import searchCotizacion from './components/searchCotizacion';
 import searchControl from './components/searchControl';
 import searchRemitos from './components/searchRemitos';
+import searchCertificacion from './components/searchCertificacion';
 import {
   Switch,
   Route
@@ -43,6 +44,7 @@ render() {
           <Route path="/searchCotizacion" component={searchCotizacion} />
           <Route path="/searchControl" component={searchControl} />
           <Route path="/searchRemitos" component={searchRemitos} />
+          <Route path="/searchCertificacion" component={searchCertificacion} />
         </Switch>
         </div>
       </div>

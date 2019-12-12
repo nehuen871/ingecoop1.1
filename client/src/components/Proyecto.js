@@ -77,14 +77,31 @@ const options = {
   page: 1,  // which page you want to show as default
   sizePerPageList: [ {
     text: 5, value: 5
-  }, {
+  },
+  {
     text: 10, value: 10
-  }, {
+  },
+  {
+    text: 15, value: 15
+  },
+  {
+    text: 20, value: 20
+  },
+  {
+    text: 30, value: 30
+  },
+  {
+    text: 40, value: 40
+  },
+  {
+    text: 50, value: 50
+  }/*,
+  {
     text: 'All', value: jobs.length
-  } ], // you can change the dropdown list for size per page
-  sizePerPage: 5,  // which size per page you want to locate as default
+  }*/ ], // you can change the dropdown list for size per page
+  sizePerPage: 50,  // which size per page you want to locate as default
   pageStartIndex: 1, // where to start counting the pages
-  paginationSize: 3,  // the pagination bar size.
+  paginationSize: 5,  // the pagination bar size.
   prePage: 'Prev', // Previous page button text
   nextPage: 'Next', // Next page button text
   firstPage: 'First', // First page button text
@@ -103,7 +120,13 @@ const options = {
   afterInsertRow: onAfterInsertRow
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
-
+function jobStatusValidator(value, row) {
+  const nan = isNaN(parseInt(value, 10));
+  if (nan) {
+    return 'Tiene que ser un numero entero!';
+  }
+  return true;
+}
 export default class proyecto extends React.Component {
   constructor(props) {
     super(props);
@@ -153,12 +176,13 @@ export default class proyecto extends React.Component {
       });
     }
   }
+
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_proyecto</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'input',validator: jobStatusValidator } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_proyecto</TableHeaderColumn>
         <TableHeaderColumn dataField='cliente' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>cliente</TableHeaderColumn>
         <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'date' } }>fecha_inicio</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'date' } }>fecha_fin</TableHeaderColumn>

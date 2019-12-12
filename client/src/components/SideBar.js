@@ -87,6 +87,11 @@ export default class SideBar extends Component {
                     <i className="fa fa-info-circle" aria-hidden="true"></i> Remitos
                 </Link>
                 </li>
+                <li>
+                <Link to="/searchCertificacion">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Certificacion
+                </Link>
+                </li>
             </ul>
             </div>
       );

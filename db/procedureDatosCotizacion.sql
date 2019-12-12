@@ -20,9 +20,15 @@ CREATE PROCEDURE `datosCotizacionAddOrEdit` (
   IN _list_docs_id INT(11)
 )
 BEGIN 
+  DECLARE _idCotizacion,_idControl,_idCerti INT DEFAULT 0;
   IF _id = 0 THEN
     INSERT INTO datosCotizacion (numeroRecotizacion, cotizacion_id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveerdor, viatico, list_docs_id)
     VALUES (_numeroRecotizacion, _cotizacion_id, _descripcion_doc, _revicion_inicial, _cantidad_doc,_HHUnidades,_total,_revision_unica,_observacion,_modificar_lista,_proveerdor,_viatico,_list_docs_id);
+
+    SELECT id INTO _idControl FROM control WHERE cotizacion_id = _cotizacion_id;
+
+    INSERT INTO datosControl (descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id)
+    VALUES (_descripcion_doc,_revicion_inicial,_cantidad_doc,_HHUnidades,_total,_revision_unica,_observacion,_modificar_lista,_proveerdor,_viatico,_idControl,_cotizacion_id,_list_docs_id);
 
     SET _id = LAST_INSERT_ID();
   ELSE
