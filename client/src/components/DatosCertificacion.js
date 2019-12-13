@@ -9,6 +9,8 @@ import moment from 'moment';
 let jobs = [];
 let jobTypesCotizacion = [];
 let jobTypesControl = [];
+let jobTypesCertificacion = [];
+let jobTypesDocumentos = [];
 
 const cellEditProp = {
   mode: 'click',
@@ -51,7 +53,7 @@ async function onAfterInsertRow(row) {
     }
   };
   try {
-      const fetchResponse = await fetch(`/certificacion`, settings);
+      const fetchResponse = await fetch(`/datosCertificacion`, settings);
       const data = await fetchResponse.json();
       console.log(data);
   } catch (e) {
@@ -61,7 +63,7 @@ async function onAfterInsertRow(row) {
 
 async function onAfterDeleteRow(rowKeys,rows) {
   for(let i = 0; i<rowKeys.length; i++){
-    let url = '/certificacion/' + rows[i].id;
+    let url = '/datosCertificacion/' + rows[i].id;
     const settings = {
     method: 'DELETE'
     };
@@ -123,7 +125,7 @@ const options = {
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
 
-export default class certificacion extends React.Component {
+export default class datosCertificacion extends React.Component {
   constructor(props) {
     super(props);
     this.formatType = this.formatType.bind(this);
@@ -143,24 +145,31 @@ export default class certificacion extends React.Component {
     this.callApiDroopControl()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
+    this.callApiDroopCertificacion()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
+    this.callApiDroopDocumentos()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
   }
 
   callApi = async () => {
     jobs = [];
-    const response = await fetch('/certificacion');
+    const response = await fetch('/datosCertificacion');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
-      let fecha1 = moment(data[i].fechaDeEmision).format('YYYY-MM-DD');
       jobs.push({
         id: data[i].id,
-        control_id: data[i].control_id,
-        control_cotizacion_id: data[i].control_cotizacion_id,
-        numeroDePedido: data[i].numeroDePedido,
-        proyecto: data[i].proyecto,
-        especialidad: data[i].especialidad,
-        fechaDeEmision: fecha1,
-        moneda: data[i].moneda
+        certificacion_id: data[i].certificacion_id,
+        certificacion_control_id: data[i].control_id,
+        certificacion_control_cotizacion_id: data[i].control_cotizacion_id,
+        costoHoraDoc: data[i].costoHoraDoc,
+        cantidadDeHoras: data[i].cantidadDeHoras,
+        cantidadDeDocs: data[i].cantidadDeDocs,
+        porcentajeAvance: data[i].porcentajeAvance,
+        total_certificacion: data[i].total_certificacion,
+        list_docs_id: data[i].list_docs_id
       });
     }
   }
@@ -188,18 +197,43 @@ export default class certificacion extends React.Component {
     }
   }
 
+  callApiDroopCertificacion = async () => {
+    const response = await fetch('/certificacion');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesCertificacion.push({
+        value: data[i].id,
+        text: data[i].numeroDePedido
+      });
+    }
+  }
+
+  callApiDroopDocumentos = async () => {
+    const response = await fetch('/list_docs');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesDocumentos.push({
+        value: data[i].id,
+        text: data[i].nombre
+      });
+    }
+  }
   render() {
     // custom attributes on editor
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { type: 'select', options: { values: jobTypesControl } } }>control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } }>control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numeroDePedido</TableHeaderColumn>
-        <TableHeaderColumn dataField='proyecto' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>proyecto</TableHeaderColumn>
-        <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>especialidad</TableHeaderColumn>
-        <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'date' } }>fechaDeEmision</TableHeaderColumn>
-        <TableHeaderColumn dataField='moneda' editable={ { type: 'input' } }>moneda</TableHeaderColumn>
+        <TableHeaderColumn dataField='certificacion_id' editable={ { type: 'select', options: { values: jobTypesCertificacion } } }>certificacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='certificacion_control_id' editable={ { type: 'select', options: { values: jobTypesControl } } }>certificacion_control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='certificacion_control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } }>certificacion_control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='list_docs_id' editable={ { type: 'select', options: { values: jobTypesDocumentos } } }>list_docs_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='costoHoraDoc' editable={ { type: 'input' } }>costoHoraDoc</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantidadDeHoras' editable={ { type: 'input' } }>cantidadDeHoras</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantidadDeDocs' editable={ { type: 'input' } }>cantidadDeDocs</TableHeaderColumn>
+        <TableHeaderColumn dataField='porcentajeAvance' editable={ { type: 'input' } }>porcentajeAvance</TableHeaderColumn>
+        <TableHeaderColumn dataField='total_certificacion' editable={ { type: 'input' } }>total_certificacion</TableHeaderColumn>
       </BootstrapTable>
     );
   }

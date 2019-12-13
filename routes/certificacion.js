@@ -65,18 +65,12 @@ router.post('/dataByIdControl', (req, res) => {
 });
 // INSERT An certificacion
 router.post('/', (req, res) => {
-  let {control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion} = req.body;
+  let {control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda} = req.body;
   if(numeroDePedido === ''){numeroDePedido=null};
   if(proyecto === ''){proyecto=null};
   if(especialidad === ''){especialidad=null};
   if(fechaDeEmision === '' || fechaDeEmision === 'Invalid date'){fechaDeEmision=null};
   if(moneda === ''){moneda=null};
-  if(costoHoraDoc === ''){costoHoraDoc=null};
-  if(cantdeHs === ''){cantdeHs=null};
-  if(cantdeDocs === ''){cantdeDocs=null};
-  if(porcentajeAvance === ''){porcentajeAvance=null};
-  if(horasCertificadas === ''){horasCertificadas=null};
-  if(total_certificacion === ''){total_certificacion=null};
   const query = `
     SET @id = 0;
     SET @control_id = ?;
@@ -86,15 +80,9 @@ router.post('/', (req, res) => {
     SET @especialidad = ?;
     SET @fechaDeEmision = ?;
     SET @moneda = ?;
-    SET @costoHoraDoc = ?;
-    SET @cantdeHs = ?;
-    SET @cantdeDocs = ?;
-    SET @porcentajeAvance = ?;
-    SET @horasCertificadas = ?;
-    SET @total_certificacion = ?;
-    CALL certificacionAddOrEdit(@id, @control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda,@costoHoraDoc,@cantdeHs,@cantdeDocs,@porcentajeAvance,@horasCertificadas,@total_certificacion);
+    CALL certificacionAddOrEdit(@id, @control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda);
   `;
-  mysqlConnection.query(query, [control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion], (err, rows, fields) => {
+  mysqlConnection.query(query, [control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'certificacion Saved'});
     } else {
@@ -105,18 +93,12 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let { control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion } = req.body;
+  let { control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda} = req.body;
   if(numeroDePedido === ''){numeroDePedido=null};
   if(proyecto === ''){proyecto=null};
   if(especialidad === ''){especialidad=null};
   if(fechaDeEmision === '' || fechaDeEmision === 'Invalid date'){fechaDeEmision=null};
   if(moneda === ''){moneda=null};
-  if(costoHoraDoc === ''){costoHoraDoc=null};
-  if(cantdeHs === ''){cantdeHs=null};
-  if(cantdeDocs === ''){cantdeDocs=null};
-  if(porcentajeAvance === ''){porcentajeAvance=null};
-  if(horasCertificadas === ''){horasCertificadas=null};
-  if(total_certificacion === ''){total_certificacion=null};
   const { id } = req.params;
   const query = `
     SET @id = ?;
@@ -127,15 +109,9 @@ router.put('/:id', (req, res) => {
     SET @especialidad = ?;
     SET @fechaDeEmision = ?;
     SET @moneda = ?;
-    SET @costoHoraDoc = ?;
-    SET @cantdeHs = ?;
-    SET @cantdeDocs = ?;
-    SET @porcentajeAvance = ?;
-    SET @horasCertificadas = ?;
-    SET @total_certificacion = ?;
-    CALL certificacionAddOrEdit(@id,@control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda,@costoHoraDoc,@cantdeHs,@cantdeDocs,@porcentajeAvance,@horasCertificadas,@total_certificacion);
+    CALL certificacionAddOrEdit(@id,@control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda);
   `;
-  mysqlConnection.query(query, [id, control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'certificacion Updated'});
     } else {

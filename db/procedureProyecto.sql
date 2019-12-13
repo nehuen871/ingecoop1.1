@@ -27,8 +27,8 @@ BEGIN
     VALUES (_idCotizacion,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
     SET _idControl = LAST_INSERT_ID();
 
-    INSERT INTO certificacion (control_id, control_cotizacion_id,numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion)
-    VALUES (_idControl,_idCotizacion,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+    INSERT INTO certificacion (control_id, control_cotizacion_id,numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda)
+    VALUES (_idControl,_idCotizacion,NULL,NULL,NULL,NULL,NULL);
     SET _idCerti = LAST_INSERT_ID();
     
   ELSE

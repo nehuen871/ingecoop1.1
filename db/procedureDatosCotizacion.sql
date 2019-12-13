@@ -30,6 +30,12 @@ BEGIN
     INSERT INTO datosControl (descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id)
     VALUES (_descripcion_doc,_revicion_inicial,_cantidad_doc,_HHUnidades,_total,_revision_unica,_observacion,_modificar_lista,_proveerdor,_viatico,_idControl,_cotizacion_id,_list_docs_id);
 
+    SELECT id INTO _idCerti FROM certificacion WHERE control_cotizacion_id = _cotizacion_id;
+
+    INSERT INTO datosCertificacion (certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion,list_docs_id)
+    VALUES (_idCerti,_idControl,_idCotizacion,0,0,0,0,0,0,_list_docs_id);
+
+
     SET _id = LAST_INSERT_ID();
   ELSE
     UPDATE datosCotizacion

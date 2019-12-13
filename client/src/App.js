@@ -10,6 +10,7 @@ import List_docs from './components/List_docs';
 import Proyecto from './components/Proyecto';
 import clienteHasCotizacion from './components/clienteHasCotizacion';
 import Remitos from './components/Remitos';
+import DatosCertificacion from './components/DatosCertificacion';
 import searchProyecto from './components/searchProyecto';
 import searchCliente from './components/searchCliente';
 import searchCotizacion from './components/searchCotizacion';
@@ -39,6 +40,7 @@ render() {
           <Route path="/ListDocs" component={List_docs} />
           <Route path="/clienteHasCotizacion" component={clienteHasCotizacion} />
           <Route path="/Remitos" component={Remitos} />
+          <Route path="/DatosCertificacion" component={DatosCertificacion} />
           <Route path="/searchProyecto" component={searchProyecto} />
           <Route path="/searchCliente" component={searchCliente} />
           <Route path="/searchCotizacion" component={searchCotizacion} />
