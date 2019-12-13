@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 //Get all remitos from cotizacion
-router.post('/all', (req, res) => {
+router.post('/getRemitosFromCotizacion', (req, res) => {
   let {id} = req.body;
   const query = `
   SELECT remitos.id as id, remitos.remito as nombre, remitos.control_cotizacion_id as cotizacionId FROM remitos where control_cotizacion_id = ?;`;
@@ -44,10 +44,7 @@ router.post('/fromControl', (req, res) => {
 //Get cotizacion and control data from remitos
 router.post('/dataFromRemitos', (req, res) => {
   let {id} = req.body;
-  const query = `SELECT remitos.id as id, remitos.remito as nombre, remitos.control_id as controlId,remitos.control_cotizacion_id as cotizacionId, cotizacion.titulo_cotiazacion,control.numero_control FROM remitos
-join cotizacion on cotizacion.id = remitos.control_cotizacion_id
-join control on control.id = remitos.control_id
-where remitos.id = ?;`;
+  const query = `SELECT * FROM remitos WHERE remitos.id = ?;`;
   mysqlConnection.query(query,[id], (err, rows, fields) => {
     if(!err) {
       res.json(rows);

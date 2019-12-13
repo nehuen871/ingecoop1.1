@@ -37,11 +37,11 @@ router.delete('/:id', (req, res) => {
     }
   });
 });
-//Get all remitos from cotizacion
-router.post('/controlChild', (req, res) => {
+
+router.post('/dataById', (req, res) => {
   let {id} = req.body;
   const query = `
-  SELECT remitos.id as id, remitos.remito as nombre, remitos.control_cotizacion_id as cotizacionId FROM remitos where control_cotizacion_id = ?;`;
+  SELECT certificacion.id,certificacion.numeroDePedido as nombre,certificacion.control_id FROM certificacion where certificacion.id = ?;`;
   mysqlConnection.query(query,[id], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
@@ -50,10 +50,11 @@ router.post('/controlChild', (req, res) => {
     }
   });
 });
-router.post('/dataById', (req, res) => {
+
+router.post('/dataByIdControl', (req, res) => {
   let {id} = req.body;
   const query = `
-  SELECT certificacion.id,certificacion.numeroDePedido as nombre,certificacion.control_id FROM certificacion where certificacion.id = ?;`;
+  SELECT certificacion.id,certificacion.numeroDePedido as nombre,certificacion.control_id FROM certificacion where certificacion.control_id = ?;`;
   mysqlConnection.query(query,[id], (err, rows, fields) => {
     if(!err) {
       res.json(rows);

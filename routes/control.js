@@ -14,13 +14,10 @@ router.get('/', (req, res) => {
   });
 });
 //Get all datosControl childs
-router.post('/all', (req, res) => {
+router.post('/getControlById', (req, res) => {
   let {id} = req.body;
   const query = `
-  select list_docs.id as id , list_docs.nombre as nombre,control.id as controlId from control
-  join datosControl on datosControl.control_id= control.id
-  join list_docs on list_docs.id = datosControl.list_docs_id
-  where control.cotizacion_id = ?`;
+  select * from control where id = ?`;
   mysqlConnection.query(query,[id], (err, rows, fields) => {
     if(!err) {
       res.json(rows);

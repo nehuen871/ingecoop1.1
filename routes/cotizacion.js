@@ -15,11 +15,10 @@ router.get('/', (req, res) => {
 });
 
 //Get all datosCotizaicon childs
-router.post('/childsControl', (req, res) => {
+router.post('/getCotizacionById', (req, res) => {
   let {id} = req.body;
   const query = `
-  SELECT cotizacion.id as cotizacion_id,cotizacion.titulo_cotiazacion,control.id as contro_id,control.numero_control FROM cotizacion
-  join control on control.cotizacion_id = cotizacion.id
+  SELECT cotizacion.id,cotizacion.titulo_cotiazacion FROM cotizacion
   where cotizacion.id = ?;`;
   mysqlConnection.query(query,[id], (err, rows, fields) => {
     if(!err) {

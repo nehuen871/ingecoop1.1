@@ -18,51 +18,73 @@ export default class Tree extends Component {
   }
 
   getAllDocsForCotizacion = async () => {
-    let dataMap = [];
-      let data = {"id":this.state.id_cotizacion};
-      const settings = {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        }
-      };
-      try {
-          const fetchResponse = await fetch(`/cotizacion/all`, settings);
-          const data = await fetchResponse.json();
-          let dataMapValue = data.map(function (data, index, array) {
-            return {id:data.id,title:data.nombre,idContizacion:data.cotizacionId};
-          });
-          dataMap.push(dataMapValue);
-      } catch (e) {
-          console.log(e);
+    const mapCotizacion = new Map();
+    const cotizacionData = [];
+    let data = {"id":this.state.id_cotizacion};
+    const settings = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
       }
-    return dataMap;
+    };
+    try {
+        const fetchResponse = await fetch(`/cotizacion/getListDocsFormCotizacion`, settings);
+        const data = await fetchResponse.json();
+        let dataMapValue = data.map(function (data, index, array) {
+          if(!mapCotizacion.has(data.cotizacion_id)){
+            mapCotizacion.set(data.cotizacion_id, true);    // set any value to Map
+            cotizacionData.push({
+                title:data.titulo_cotiazacion,
+                cotizacionIdlId:data.cotizacionId,
+                children:[]
+              });
+          }
+          return {id:data.id,title:data.nombre,idContizacion:data.cotizacionId};
+        });
+        for(let i = 0;i<cotizacionData.length;i++){
+          cotizacionData[i].children = dataMapValue;
+        }
+    } catch (e) {
+        console.log(e);
+    }
+    return cotizacionData;
   }
 
   getAllDocsForControl = async () =>{
-    let dataMap = [];
-      let data = {"id":this.state.id_control};
-      const settings = {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        }
-      };
-      try {
-          const fetchResponse = await fetch(`/control/getListDocsFormControl`, settings);
-          const data = await fetchResponse.json();
-          let dataMapValue = data.map(function (data, index, array) {
-            return {id:data.id,title:data.nombre,idControl: data.controlId};
-          });
-          dataMap.push(dataMapValue);
-      } catch (e) {
-          console.log(e);
+    const mapControl = new Map();
+    const controlData = [];
+    let data = {"id":this.state.id_cotizacion};
+    const settings = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
       }
-    return dataMap;
+    };
+    try {
+        const fetchResponse = await fetch(`/control/getListDocsFormCotizacion`, settings);
+        const data = await fetchResponse.json();
+        let dataMapValue = data.map(function (data, index, array) {
+          if(!mapControl.has(data.contro_id)){
+            mapControl.set(data.contro_id, true);    // set any value to Map
+              controlData.push({
+                title:data.numero_control,
+                controlId:data.controlId,
+                children:[]
+              });
+          }
+          return {id:data.id,title:data.nombre,idControl: data.controlId};
+        });
+        for(let i = 0;i<controlData.length;i++){
+          controlData[i].children = dataMapValue;
+        }
+    } catch (e) {
+        console.log(e);
+    }
+    return controlData;
   }
 
   searchData = async () => {
@@ -79,16 +101,22 @@ export default class Tree extends Component {
         const fetchResponse = await fetch('/remitos/dataFromRemitos', settings);
         let data = await fetchResponse.json();
         let response = this.formatData(data);
-        
-        let docsCotizacion = this.getAllDocsForCotizacion();
-        docsCotizacion.then(result => {
-          response[0][2].children = result[0];
-        });
-        let docsControl = this.getAllDocsForControl();
-        docsControl.then(result => {
-          response[0][1].children = result[0];
-          this.setState({treeData: response[0]});
-        });
+        for(let i = 0; i<response.length;i++){
+          this.setState({id_cotizacion: response[i].idCotizacion,id_control:response[i].idControl})
+          let docsCotizacion = this.getAllDocsForCotizacion();
+          docsCotizacion.then(result => {
+            for(let a = 0;a<result.length;a++){
+              response.push(result[a]);
+            }
+          });
+          let docsControl = this.getAllDocsForControl();
+          docsControl.then(result => {
+            for(let a = 0;a<result.length;a++){
+              response.push(result[a]);
+            }
+          });
+        }
+        this.setState({treeData: response});
     } catch (e) {
         console.log(e);
     }
@@ -96,10 +124,8 @@ export default class Tree extends Component {
 
   formatData(data){
   let dataMapValue = data.map(function (data, index, array) {
-    return [{remitoId:data.id,title:data.nombre},{title:data.numero_control,idControl: data.controlId,children:[]},{title:data.titulo_cotiazacion,idCotizacion: data.cotizacionId,children:[]}];
+    return {remitoId:data.id,title:data.remito,idControl:data.control_id,idCotizacion:data.control_cotizacion_id};
   });
-  this.setState({id_control: dataMapValue[0][1].idControl});
-  this.setState({id_cotizacion: dataMapValue[0][2].idCotizacion});
   return dataMapValue;
   }
 

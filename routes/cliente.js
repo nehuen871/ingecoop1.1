@@ -58,6 +58,24 @@ router.post('/all', (req, res) => {
 });
 
 
+// Search An cliente childs
+router.post('/getClienteById', (req, res) => {
+  let {id} = req.body;
+  const query = `
+  SELECT cliente.*,cliente_has_cotizacion.cotizacion_id FROM ingecoop.cliente
+  JOIN cliente_has_cotizacion on cliente_has_cotizacion.cliente_id = cliente.id
+  where cliente.id = ?;
+    `;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+
 // INSERT An cliente
 router.post('/', (req, res) => {
   let {nombre,codigoCliente,cotizacion_id} = req.body;
