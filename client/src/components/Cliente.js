@@ -15,7 +15,13 @@ const cellEditProp = {
 const selectRowProp = {
   mode: 'checkbox'
 };
-
+function jobStatusValidator(value, row) {
+  const nan = isNaN(parseInt(value, 10));
+  if (nan) {
+    return 'Job Status must be a integer!';
+  }
+  return true;
+}
 async function onAfterSaveCell(row, cellName, cellValue) {
   const settings = {
     method: 'PUT',

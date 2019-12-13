@@ -19,6 +19,14 @@ const selectRowProp = {
   mode: 'checkbox'
 };
 
+function jobStatusValidator(value, row) {
+  const nan = isNaN(parseInt(value, 10));
+  if (nan) {
+    return 'Job Status must be a integer!';
+  }
+  return true;
+}
+
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fechaDeEmision"){
     row.fechaDeEmision = moment(cellValue).format('YYYY-MM-DD');
@@ -193,13 +201,13 @@ export default class certificacion extends React.Component {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
         <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numeroDePedido</TableHeaderColumn>
         <TableHeaderColumn dataField='proyecto' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>proyecto</TableHeaderColumn>
         <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>especialidad</TableHeaderColumn>
         <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fechaDeEmision</TableHeaderColumn>
-        <TableHeaderColumn dataField='moneda' editable={ { type: 'input' } }>moneda</TableHeaderColumn>
+        <TableHeaderColumn dataField='moneda' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>moneda</TableHeaderColumn>
       </BootstrapTable>
     );
   }

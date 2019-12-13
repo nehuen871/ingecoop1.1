@@ -16,6 +16,13 @@ const cellEditProp = {
 const selectRowProp = {
   mode: 'checkbox'
 };
+function jobStatusValidator(value, row) {
+  const nan = isNaN(parseInt(value, 10));
+  if (nan) {
+    return 'Job Status must be a integer!';
+  }
+  return true;
+}
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha_emision_proyectada"){
     row.fecha_emision_proyectada = moment(cellValue).format('YYYY-MM-DD');
@@ -180,9 +187,9 @@ export default class control extends React.Component {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp } >
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cotizacion_id</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_emision_proyectada' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_emision_proyectada</TableHeaderColumn>
-        <TableHeaderColumn dataField='revision' editable={ { type: 'input' } }>revision</TableHeaderColumn>
+        <TableHeaderColumn dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_calificaion' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_calificaion</TableHeaderColumn>
         <TableHeaderColumn dataField='numero_documento' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_documento</TableHeaderColumn>
         <TableHeaderColumn dataField='numero_control' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_control</TableHeaderColumn>

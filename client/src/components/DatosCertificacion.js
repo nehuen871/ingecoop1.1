@@ -20,7 +20,13 @@ const cellEditProp = {
 const selectRowProp = {
   mode: 'checkbox'
 };
-
+function jobStatusValidator(value, row) {
+    const nan = isNaN(parseInt(value, 10));
+    if (nan) {
+      return 'Job Status must be a integer!';
+    }
+    return true;
+  }
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fechaDeEmision"){
     row.fechaDeEmision = moment(cellValue).format('YYYY-MM-DD');
@@ -33,7 +39,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
         'Content-Type': 'application/json',
     }
   };
-  let url = "/certificacion/" + row.id;
+  let url = "/datosCertificacion/" + row.id;
   try {
       const fetchResponse = await fetch(url, settings);
       const data = await fetchResponse.json();
@@ -225,15 +231,15 @@ export default class datosCertificacion extends React.Component {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='certificacion_id' editable={ { type: 'select', options: { values: jobTypesCertificacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='certificacion_control_id' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='certificacion_control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='list_docs_id' editable={ { type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>list_docs_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='costoHoraDoc' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>costoHoraDoc</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantidadDeHoras' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidadDeHoras</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantidadDeDocs' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidadDeDocs</TableHeaderColumn>
-        <TableHeaderColumn dataField='porcentajeAvance' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
-        <TableHeaderColumn dataField='total_certificacion' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>total_certificacion</TableHeaderColumn>
+        <TableHeaderColumn dataField='certificacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCertificacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='certificacion_control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='certificacion_control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='list_docs_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>list_docs_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='costoHoraDoc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>costoHoraDoc</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantidadDeHoras' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidadDeHoras</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantidadDeDocs' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidadDeDocs</TableHeaderColumn>
+        <TableHeaderColumn dataField='porcentajeAvance' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
+        <TableHeaderColumn dataField='total_certificacion' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>total_certificacion</TableHeaderColumn>
       </BootstrapTable>
     );
   }

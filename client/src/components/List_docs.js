@@ -10,6 +10,13 @@ const cellEditProp = {
   blurToSave: true,
   afterSaveCell: onAfterSaveCell
 };
+function jobStatusValidator(value, row) {
+  const nan = isNaN(parseInt(value, 10));
+  if (nan) {
+    return 'Job Status must be a integer!';
+  }
+  return true;
+}
 const selectRowProp = {
   mode: 'checkbox'
 };
@@ -150,8 +157,8 @@ export default class list_docs extends React.Component {
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantidad_de_doc' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidad_de_doc</TableHeaderColumn>
-        <TableHeaderColumn dataField='total_hh' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>total_hh</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantidad_de_doc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidad_de_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='total_hh' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>total_hh</TableHeaderColumn>
         <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>especialidad</TableHeaderColumn>
         <TableHeaderColumn dataField='lista_de_cable' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>lista_de_cable</TableHeaderColumn>
       </BootstrapTable>

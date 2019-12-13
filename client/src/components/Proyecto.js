@@ -16,6 +16,7 @@ const cellEditProp = {
 const selectRowProp = {
   mode: 'checkbox'
 };
+
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha_fin"){
     row.fecha_fin = moment(cellValue).format('YYYY-MM-DD');
@@ -186,7 +187,7 @@ export default class proyecto extends React.Component {
         <TableHeaderColumn dataField='cliente' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>cliente</TableHeaderColumn>
         <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_inicio</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_fin</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id'  editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

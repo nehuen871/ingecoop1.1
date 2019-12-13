@@ -17,6 +17,13 @@ const cellEditProp = {
 const selectRowProp = {
   mode: 'checkbox'
 };
+function jobStatusValidator(value, row) {
+  const nan = isNaN(parseInt(value, 10));
+  if (nan) {
+    return 'Job Status must be a integer!';
+  }
+  return true;
+}
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha_envio"){
     row.fecha_envio = moment(cellValue).format('YYYY-MM-DD');
@@ -188,8 +195,8 @@ export default class proyecto extends React.Component {
         <TableHeaderColumn dataField='remito' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>remito</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_envio' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_envio</TableHeaderColumn>
         <TableHeaderColumn dataField='calificacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>calificacion</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

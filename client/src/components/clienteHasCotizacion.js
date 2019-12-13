@@ -16,6 +16,13 @@ const cellEditProp = {
 const selectRowProp = {
   mode: 'checkbox'
 };
+function jobStatusValidator(value, row) {
+  const nan = isNaN(parseInt(value, 10));
+  if (nan) {
+    return 'Job Status must be a integer!';
+  }
+  return true;
+}
 async function onAfterSaveCell(row, cellName, cellValue) {
   const settings = {
     method: 'PUT',
@@ -180,8 +187,8 @@ export default class proyecto extends React.Component {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypesCliente } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cliente_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cliente_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCliente } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cliente_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

@@ -27,7 +27,7 @@ BEGIN
 
     SELECT id INTO _idCerti FROM certificacion WHERE control_cotizacion_id = _control_cotizacion_id;
 
-    INSERT INTO datosCertificacion (certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantdeHs, cantdeDocs, porcentajeAvance, horasCertificadas, total_certificacion,list_docs_id)
+    INSERT INTO datosCertificacion (certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvance, horasCertificadas, total_certificacion,list_docs_id)
     VALUES (_idCerti,_control_id,_control_cotizacion_id,0,0,0,0,0,0,_list_docs_id);
     
     SET _id = LAST_INSERT_ID();
