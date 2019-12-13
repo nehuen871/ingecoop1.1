@@ -162,8 +162,8 @@ export default class datosCertificacion extends React.Component {
       jobs.push({
         id: data[i].id,
         certificacion_id: data[i].certificacion_id,
-        certificacion_control_id: data[i].control_id,
-        certificacion_control_cotizacion_id: data[i].control_cotizacion_id,
+        certificacion_control_id: data[i].certificacion_control_id,
+        certificacion_control_cotizacion_id: data[i].certificacion_control_cotizacion_id,
         costoHoraDoc: data[i].costoHoraDoc,
         cantidadDeHoras: data[i].cantidadDeHoras,
         cantidadDeDocs: data[i].cantidadDeDocs,
@@ -224,16 +224,16 @@ export default class datosCertificacion extends React.Component {
     // custom attributes on editor
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='certificacion_id' editable={ { type: 'select', options: { values: jobTypesCertificacion } } }>certificacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='certificacion_control_id' editable={ { type: 'select', options: { values: jobTypesControl } } }>certificacion_control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='certificacion_control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } }>certificacion_control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='list_docs_id' editable={ { type: 'select', options: { values: jobTypesDocumentos } } }>list_docs_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='costoHoraDoc' editable={ { type: 'input' } }>costoHoraDoc</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantidadDeHoras' editable={ { type: 'input' } }>cantidadDeHoras</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantidadDeDocs' editable={ { type: 'input' } }>cantidadDeDocs</TableHeaderColumn>
-        <TableHeaderColumn dataField='porcentajeAvance' editable={ { type: 'input' } }>porcentajeAvance</TableHeaderColumn>
-        <TableHeaderColumn dataField='total_certificacion' editable={ { type: 'input' } }>total_certificacion</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='certificacion_id' editable={ { type: 'select', options: { values: jobTypesCertificacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='certificacion_control_id' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='certificacion_control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='list_docs_id' editable={ { type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>list_docs_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='costoHoraDoc' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>costoHoraDoc</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantidadDeHoras' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidadDeHoras</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantidadDeDocs' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidadDeDocs</TableHeaderColumn>
+        <TableHeaderColumn dataField='porcentajeAvance' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
+        <TableHeaderColumn dataField='total_certificacion' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>total_certificacion</TableHeaderColumn>
       </BootstrapTable>
     );
   }

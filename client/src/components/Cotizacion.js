@@ -152,10 +152,10 @@ export default class cotizacion extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-      <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
+      <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
       <TableHeaderColumn dataField='revision' editable={ { type: 'input' } }>revision</TableHeaderColumn>
-      <TableHeaderColumn dataField='fecha' editable={ { type: 'date' } }>fecha</TableHeaderColumn>
-      <TableHeaderColumn dataField='titulo_cotiazacion' editable={ { type: 'input' } }>titulo_cotiazacion</TableHeaderColumn>
+      <TableHeaderColumn dataField='fecha' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha</TableHeaderColumn>
+      <TableHeaderColumn dataField='titulo_cotiazacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>titulo_cotiazacion</TableHeaderColumn>
       </BootstrapTable>
     );
   }

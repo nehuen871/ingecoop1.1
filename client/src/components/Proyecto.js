@@ -184,9 +184,9 @@ export default class proyecto extends React.Component {
         <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>nombre</TableHeaderColumn>
         <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'input',validator: jobStatusValidator } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_proyecto</TableHeaderColumn>
         <TableHeaderColumn dataField='cliente' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>cliente</TableHeaderColumn>
-        <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'date' } }>fecha_inicio</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'date' } }>fecha_fin</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id'  editable={ { type: 'select', options: { values: jobTypes } } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_inicio</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_fin</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id'  editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }
