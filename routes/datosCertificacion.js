@@ -38,6 +38,35 @@ router.delete('/:id', (req, res) => {
   });
 });
 
+router.post('/dataById', (req, res) => {
+    let {id} = req.body;
+    const query = `
+    select datosCertificacion.*,list_docs.nombre from datosCertificacion
+    join list_docs on list_docs.id = datosCertificacion.list_docs_id
+    where certificacion_id = ?`;
+    mysqlConnection.query(query,[id], (err, rows, fields) => {
+      if(!err) {
+        res.json(rows);
+      } else {
+        console.log(err);
+      }
+    });
+  });
+
+  router.post('/updateAvance', (req, res) => {
+    let {id,porcentajeAvance} = req.body;
+    const query = `
+    UPDATE datosCertificacion SET datosCertificacion.porcentajeAvance = ? WHERE datosCertificacion.id = ?`;
+    console.log(query);
+    mysqlConnection.query(query,[id,porcentajeAvance], (err, rows, fields) => {
+      if(!err) {
+        res.json(rows);
+      } else {
+        console.log(err);
+      }
+    });
+  });
+
 // INSERT An certificacion
 router.post('/', (req, res) => {
   let {certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvance, horasCertificadas, total_certificacion,list_docs_id} = req.body;

@@ -2,7 +2,7 @@ import React from "react";
 
 /* Import Components */
 import Tree from "../TreeCertificacion";
-
+import DoCertificacion from "../doCertificacion";
 export default class NameForm extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +24,7 @@ export default class NameForm extends React.Component {
         </label>
       </form>
       <Tree changeLink={this.state.value}/>
+      <DoCertificacion changeLink={this.state.value}/>
       </div>
     );
   }
