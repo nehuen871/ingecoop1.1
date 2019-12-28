@@ -40,12 +40,13 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An list_docs
 router.post('/', (req, res) => {
-  let {nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable} = req.body;
+  let {nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable, titulo_documento} = req.body;
   if(nombre===''){nombre=null};
   if(cantidad_de_doc===''){cantidad_de_doc=null};
   if(total_hh===''){total_hh=null};
   if(especialidad===''){especialidad=null};
   if(lista_de_cable===''){lista_de_cable=null};
+  if(titulo_documento===''){titulo_documento=null};
   const query = `
     SET @id = 0;
     SET @nombre = ?;
@@ -53,9 +54,10 @@ router.post('/', (req, res) => {
     SET @total_hh = ?;
     SET @especialidad = ?;
     SET @lista_de_cable = ?;
-    CALL list_docsAddOrEdit(@id, @nombre,@cantidad_de_doc,@total_hh,@especialidad,@lista_de_cable);
+    SET @titulo_documento = = ?;
+    CALL list_docsAddOrEdit(@id, @nombre,@cantidad_de_doc,@total_hh,@especialidad,@lista_de_cable,@titulo_documento);
   `;
-  mysqlConnection.query(query, [nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable], (err, rows, fields) => {
+  mysqlConnection.query(query, [nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable, titulo_documento], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'list_docs Saved'});
     } else {
@@ -66,12 +68,13 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let { nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable } = req.body;
+  let { nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable, titulo_documento } = req.body;
   if(nombre===''){nombre=null};
   if(cantidad_de_doc===''){cantidad_de_doc=null};
   if(total_hh===''){total_hh=null};
   if(especialidad===''){especialidad=null};
   if(lista_de_cable===''){lista_de_cable=null};
+  if(titulo_documento===''){titulo_documento=null};
   const { id } = req.params;
   const query = `
     SET @id = ?;
@@ -80,9 +83,10 @@ router.put('/:id', (req, res) => {
     SET @total_hh = ?;
     SET @especialidad = ?;
     SET @lista_de_cable = ?;
-    CALL list_docsAddOrEdit(@id, @nombre,@cantidad_de_doc,@total_hh,@especialidad,@lista_de_cable);
+    SET @titulo_documento = ?;
+    CALL list_docsAddOrEdit(@id, @nombre,@cantidad_de_doc,@total_hh,@especialidad,@lista_de_cable,@titulo_documento);
   `;
-  mysqlConnection.query(query, [id, nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable, titulo_documento], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'list_docs Updated'});
     } else {

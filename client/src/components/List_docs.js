@@ -161,6 +161,7 @@ export default class list_docs extends React.Component {
         <TableHeaderColumn dataField='total_hh' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>total_hh</TableHeaderColumn>
         <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>especialidad</TableHeaderColumn>
         <TableHeaderColumn dataField='lista_de_cable' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>lista_de_cable</TableHeaderColumn>
+        <TableHeaderColumn dataField='titulo_documento' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>titulo_documento</TableHeaderColumn>
       </BootstrapTable>
     );
   }

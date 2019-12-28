@@ -8,7 +8,6 @@ import DatosControl from './components/DatosControl';
 import DatosCotiazacion from './components/DatosCotizacion';
 import List_docs from './components/List_docs';
 import Proyecto from './components/Proyecto';
-import clienteHasCotizacion from './components/clienteHasCotizacion';
 import Remitos from './components/Remitos';
 import DatosCertificacion from './components/DatosCertificacion';
 import searchProyecto from './components/searchProyecto';
@@ -38,7 +37,6 @@ render() {
           <Route path="/DatosControl" component={DatosControl} />
           <Route path="/DatosCotizacion" component={DatosCotiazacion} />
           <Route path="/ListDocs" component={List_docs} />
-          <Route path="/clienteHasCotizacion" component={clienteHasCotizacion} />
           <Route path="/Remitos" component={Remitos} />
           <Route path="/DatosCertificacion" component={DatosCertificacion} />
           <Route path="/searchProyecto" component={searchProyecto} />

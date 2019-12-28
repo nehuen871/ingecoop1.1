@@ -149,6 +149,7 @@ export default class proyecto extends React.Component {
     jobs = [];
     const response = await fetch('/clienteHasCotizacion');
     var data = await response.json();
+    console.log(data);
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
       jobs.push({

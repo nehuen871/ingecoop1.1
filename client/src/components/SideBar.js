@@ -57,11 +57,6 @@ export default class SideBar extends Component {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/clienteHasCotizacion">
-                        <i className="fa fa-info-circle" aria-hidden="true"></i> Lista de Clientes y Cotizaciones
-                    </Link>
-                </li>
-                <li>
                     <Link to="/DatosCertificacion">
                         <i className="fa fa-info-circle" aria-hidden="true"></i> Lista de Datos de Certificacion
                     </Link>

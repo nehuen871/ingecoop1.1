@@ -12,7 +12,6 @@ var datosControlRouter = require('./routes/datosControl');
 var datosCotiazacionRouter = require('./routes/datosCotizacion');
 var list_docsRouter = require('./routes/list_docs');
 var proyectoRouter = require('./routes/proyecto');
-var clienteHasCotizacion = require('./routes/clienteHasCotizacion');
 var remitos = require('./routes/remitos');
 var datosCertificacion = require('./routes/datosCertificacion');
 var usersRouter = require('./routes/users');
@@ -35,7 +34,6 @@ app.use('/datosControl', datosControlRouter);
 app.use('/datosCotizacion', datosCotiazacionRouter);
 app.use('/list_docs', list_docsRouter);
 app.use('/proyecto', proyectoRouter);
-app.use('/clienteHasCotizacion', clienteHasCotizacion);
 app.use('/remitos', remitos);
 app.use('/datosCertificacion', datosCertificacion);
 
