@@ -80,7 +80,7 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An proyecto
 router.post('/', (req, res) => {
-  let {remito,fecha_envio,calificacion,control_id,control_cotizacion_id} = req.body;
+  let {remito,fecha_envio,calificacion,control_id,control_cotizacion_id,codigo_unificador} = req.body;
   if(remito == '' || remito === 'Invalid date'){remito = null};
   if(fecha_envio == '' || fecha_envio === 'Invalid date'){fecha_envio = null};
   if(calificacion == '' || calificacion === 'Invalid date'){calificacion = null};
@@ -91,9 +91,10 @@ router.post('/', (req, res) => {
     SET @calificacion = ?;
     SET @control_id = ?;
     SET @control_cotizacion_id = ?;
-    CALL remitosAddOrEdit(@id, @remito,@fecha_envio,@calificacion,@control_id,@control_cotizacion_id);
+    SET @codigo_unificador = ?;
+    CALL remitosAddOrEdit(@id, @remito,@fecha_envio,@calificacion,@control_id,@control_cotizacion_id,@codigo_unificador);
   `;
-  mysqlConnection.query(query, [remito,fecha_envio,calificacion,control_id,control_cotizacion_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [remito,fecha_envio,calificacion,control_id,control_cotizacion_id,codigo_unificador], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'remitos Saved'});
     } else {
@@ -104,7 +105,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let { remito,fecha_envio,calificacion,control_id,control_cotizacion_id} = req.body;
+  let { remito,fecha_envio,calificacion,control_id,control_cotizacion_id,codigo_unificador} = req.body;
   if(remito == '' || remito === 'Invalid date'){remito = null};
   if(fecha_envio == '' || fecha_envio === 'Invalid date'){fecha_envio = null};
   if(calificacion == '' || calificacion === 'Invalid date'){calificacion = null};
@@ -116,9 +117,10 @@ router.put('/:id', (req, res) => {
     SET @calificacion = ?;
     SET @control_id = ?;
     SET @control_cotizacion_id = ?;
-    CALL remitosAddOrEdit(@id, @remito,@fecha_envio,@calificacion,@control_id,@control_cotizacion_id);
+    SET @codigo_unificador = ?;
+    CALL remitosAddOrEdit(@id, @remito,@fecha_envio,@calificacion,@control_id,@control_cotizacion_id,@codigo_unificador);
   `;
-  mysqlConnection.query(query, [id, remito,fecha_envio,calificacion,control_id,control_cotizacion_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, remito,fecha_envio,calificacion,control_id,control_cotizacion_id,codigo_unificador], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'remitos Updated'});
     } else {

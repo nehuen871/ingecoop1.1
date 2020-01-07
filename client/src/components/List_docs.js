@@ -147,7 +147,8 @@ export default class list_docs extends React.Component {
         cantidad_de_doc: data[i].cantidad_de_doc,
         total_hh: data[i].total_hh,
         especialidad: data[i].especialidad,
-        lista_de_cable: data[i].lista_de_cable
+        lista_de_cable: data[i].lista_de_cable,
+        titulo_documento: data[i].titulo_documento
       });
     }
   }

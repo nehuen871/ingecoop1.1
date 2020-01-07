@@ -6,8 +6,10 @@ import '../styles/react-bootstrap-table.css';
 import moment from 'moment';
 
 let jobs = [];
-let jobTypes = [];
-let jobTypesCliente = [];
+let jobTypesControl = [];
+let jobTypesCotizacion = [];
+let jobTypesDocumentos = [];
+let jobTypesRemitos = [];
 
 const cellEditProp = {
   mode: 'click',
@@ -17,12 +19,16 @@ const cellEditProp = {
 const selectRowProp = {
   mode: 'checkbox'
 };
-
+function jobStatusValidator(value, row) {
+  const nan = isNaN(parseInt(value, 10));
+  if (nan) {
+    return 'Job Status must be a integer!';
+  }
+  return true;
+}
 async function onAfterSaveCell(row, cellName, cellValue) {
-  if(cellName === "fecha_fin"){
-    row.fecha_fin = moment(cellValue).format('YYYY-MM-DD');
-  }else if(cellName === "fecha_inicio"){
-    row.fehca_inicio = moment(cellValue).format('YYYY-MM-DD');
+  if(cellName === "fecha_envio"){
+    row.fecha_envio = moment(cellValue).format('YYYY-MM-DD');
   }
   const settings = {
     method: 'PUT',
@@ -32,11 +38,10 @@ async function onAfterSaveCell(row, cellName, cellValue) {
         'Content-Type': 'application/json',
     }
   };
-  let url = "/proyecto/" + row.id;
+  let url = "/remitos/" + row.id;
   try {
       const fetchResponse = await fetch(url, settings);
       const data = await fetchResponse.json();
-      console.log(data);
   } catch (e) {
       console.log(e);
   }
@@ -51,9 +56,8 @@ async function onAfterInsertRow(row) {
     }
   };
   try {
-      const fetchResponse = await fetch(`/proyecto`, settings);
+      const fetchResponse = await fetch(`/remitos`, settings);
       const data = await fetchResponse.json();
-      console.log(data);
   } catch (e) {
       console.log(e);
   }
@@ -61,14 +65,13 @@ async function onAfterInsertRow(row) {
 
 async function onAfterDeleteRow(rowKeys,rows) {
   for(let i = 0; i<rowKeys.length; i++){
-    let url = '/proyecto/' + rows[i].id;
+    let url = '/remitos/' + rows[i].id;
     const settings = {
     method: 'DELETE'
     };
     try {
         const fetchResponse = await fetch(url, settings);
         const data = await fetchResponse.json();
-        console.log(data);
     } catch (e) {
         console.log(e);
     }
@@ -103,7 +106,7 @@ const options = {
   }*/ ], // you can change the dropdown list for size per page
   sizePerPage: 50,  // which size per page you want to locate as default
   pageStartIndex: 1, // where to start counting the pages
-  paginationSize: 5,  // the pagination bar size.
+  paginationSize: 3,  // the pagination bar size.
   prePage: 'Prev', // Previous page button text
   nextPage: 'Next', // Next page button text
   firstPage: 'First', // First page button text
@@ -122,13 +125,7 @@ const options = {
   afterInsertRow: onAfterInsertRow
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
-function jobStatusValidator(value, row) {
-  const nan = isNaN(parseInt(value, 10));
-  if (nan) {
-    return 'Tiene que ser un numero entero!';
-  }
-  return true;
-}
+
 export default class proyecto extends React.Component {
   constructor(props) {
     super(props);
@@ -139,10 +136,16 @@ export default class proyecto extends React.Component {
     this.callApi()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
-    this.callApiDroop()
+    this.callApiDroopControl()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
-    this.callApiDroopCliente()
+    this.callApiDroopCotizacion()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
+    this.callApiDroopDocumentos()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
+    this.callApiDroopRemitos()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
   }
@@ -153,43 +156,67 @@ export default class proyecto extends React.Component {
 
   callApi = async () => {
     jobs = [];
-    const response = await fetch('/proyecto');
+    const response = await fetch('/datosRemitos');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
-      let fecha1 = moment(data[i].fehca_inicio).format('YYYY-MM-DD');
-      let fecha2 = moment(data[i].fecha_fin).format('YYYY-MM-DD');
+      let fecha1 = moment(data[i].fecha_envio).format('YYYY-MM-DD');
       jobs.push({
         id: data[i].id,
-        nombre: data[i].nombre,
-        cotizacion_id: data[i].cotizacion_id,
-        numero_proyecto: data[i].numero_proyecto,
-        cliente_id: data[i].cliente_id,
-        fehca_inicio: fecha1,
-        fecha_fin: fecha2
+        remito: data[i].remito,
+        fecha_envio: fecha1,
+        calificacion: data[i].calificacion,
+        control_id: data[i].control_id,
+        control_cotizacion_id: data[i].control_cotizacion_id
       });
     }
   }
-  callApiDroop = async () => {
+
+  callApiDroopCotizacion = async () => {
     const response = await fetch('/cotizacion');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
-      jobTypes.push({
+      jobTypesCotizacion.push({
         value: data[i].id,
         text: data[i].titulo_cotiazacion
       });
     }
   }
 
-  callApiDroopCliente = async () => {
-    const response = await fetch('/cliente');
+  callApiDroopControl = async () => {
+    const response = await fetch('/control');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
-      jobTypesCliente.push({
+      jobTypesControl.push({
         value: data[i].id,
-        text: data[i].nombre
+        text: data[i].numero_control
+      });
+    }
+  }
+
+  callApiDroopDocumentos = async () => {
+    const response = await fetch('/list_docs');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+        let mergeNombre = data[i].nombre + " " + data[i].titulo_documento;
+        jobTypesDocumentos.push({
+          value: data[i].id,
+          text: mergeNombre
+        });
+    }
+  }
+
+  callApiDroopRemitos = async () => {
+    const response = await fetch('/remitos');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesRemitos.push({
+        value: data[i].id,
+        text: data[i].remito
       });
     }
   }
@@ -197,13 +224,12 @@ export default class proyecto extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'input',validator: jobStatusValidator } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_proyecto</TableHeaderColumn>
-        <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypesCliente } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cliente_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_inicio</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_fin</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='remitos_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesRemitos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>remitos_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='remitos_control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>remitos_control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='remitos_control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='calificacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>calificacion</TableHeaderColumn>
+        <TableHeaderColumn dataField='list_docs_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

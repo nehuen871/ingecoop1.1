@@ -1,27 +1,21 @@
-/* eslint max-len: 0 */
-/* eslint no-console: 0 */
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../styles/react-bootstrap-table.css';
 import moment from 'moment';
 
 let jobs = [];
+let jobTypes = [];
 
 const cellEditProp = {
   mode: 'click',
   blurToSave: true,
   afterSaveCell: onAfterSaveCell
-};
+}
+
 const selectRowProp = {
   mode: 'checkbox'
-};
-function jobStatusValidator(value, row) {
-  const nan = isNaN(parseInt(value, 10));
-  if (nan) {
-    return 'Job Status must be a integer!';
-  }
-  return true;
 }
+
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha"){
     row.fecha = moment(cellValue).format('YYYY-MM-DD');
@@ -76,6 +70,7 @@ async function onAfterDeleteRow(rowKeys,rows) {
     }
   }
 }
+
 const options = {
   page: 1,  // which page you want to show as default
   sizePerPageList: [ {
@@ -124,14 +119,17 @@ const options = {
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
 
-export default class cotizacion extends React.Component {
+export default class Cotizacion extends React.Component {
   constructor(props) {
     super(props);
     this.formatType = this.formatType.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.callApi()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
+    this.callApiDroop()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
   }
@@ -151,7 +149,22 @@ export default class cotizacion extends React.Component {
         id: data[i].id,
         revision: data[i].revision,
         fecha: fecha1,
-        titulo_cotiazacion: data[i].titulo_cotiazacion
+        titulo_cotiazacion: data[i].titulo_cotiazacion,
+        numero_doc: data[i].numero_doc,
+        codigo_unificador: data[i].codigo_unificador,
+        cliente_id: data[i].cliente_id
+      });
+    }
+  }
+
+  callApiDroop = async () => {
+    const response = await fetch('/cliente');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypes.push({
+        value: data[i].id,
+        text: data[i].nombre
       });
     }
   }
@@ -163,6 +176,9 @@ export default class cotizacion extends React.Component {
       <TableHeaderColumn dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
       <TableHeaderColumn dataField='fecha' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha</TableHeaderColumn>
       <TableHeaderColumn dataField='titulo_cotiazacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>titulo_cotiazacion</TableHeaderColumn>
+      <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
+      <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
+      <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cliente_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

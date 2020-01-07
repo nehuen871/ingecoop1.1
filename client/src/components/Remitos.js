@@ -159,7 +159,8 @@ export default class proyecto extends React.Component {
         fecha_envio: fecha1,
         calificacion: data[i].calificacion,
         control_id: data[i].control_id,
-        control_cotizacion_id: data[i].control_cotizacion_id
+        control_cotizacion_id: data[i].control_cotizacion_id,
+        codigo_unificador: data[i].codigo_unificador
       });
     }
   }
@@ -197,6 +198,7 @@ export default class proyecto extends React.Component {
         <TableHeaderColumn dataField='calificacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>calificacion</TableHeaderColumn>
         <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
         <TableHeaderColumn dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
       </BootstrapTable>
     );
   }

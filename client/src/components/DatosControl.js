@@ -190,9 +190,10 @@ export default class datosControl extends React.Component {
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
+      let mergeNombre = data[i].nombre + " " + data[i].titulo_documento;
       jobTypesDocumentos.push({
         value: data[i].id,
-        text: data[i].nombre
+        text: mergeNombre
       });
     }
   }

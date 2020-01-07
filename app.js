@@ -14,6 +14,7 @@ var list_docsRouter = require('./routes/list_docs');
 var proyectoRouter = require('./routes/proyecto');
 var remitos = require('./routes/remitos');
 var datosCertificacion = require('./routes/datosCertificacion');
+var datosRemitos = require('./routes/datosRemitos');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -36,6 +37,7 @@ app.use('/list_docs', list_docsRouter);
 app.use('/proyecto', proyectoRouter);
 app.use('/remitos', remitos);
 app.use('/datosCertificacion', datosCertificacion);
+app.use('/datosRemitos', datosRemitos);
 
 
 // catch 404 and forward to error handler

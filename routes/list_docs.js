@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
     SET @total_hh = ?;
     SET @especialidad = ?;
     SET @lista_de_cable = ?;
-    SET @titulo_documento = = ?;
+    SET @titulo_documento = ?;
     CALL list_docsAddOrEdit(@id, @nombre,@cantidad_de_doc,@total_hh,@especialidad,@lista_de_cable,@titulo_documento);
   `;
   mysqlConnection.query(query, [nombre,cantidad_de_doc, total_hh, especialidad, lista_de_cable, titulo_documento], (err, rows, fields) => {
@@ -64,7 +64,6 @@ router.post('/', (req, res) => {
       console.log(err);
     }
   });
-
 });
 
 router.put('/:id', (req, res) => {

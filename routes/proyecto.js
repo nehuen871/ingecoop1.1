@@ -40,24 +40,23 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An proyecto
 router.post('/', (req, res) => {
-  let {nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin,cotizacion_id} = req.body;
+  let {nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id} = req.body;
   if(fehca_inicio == ''  || fehca_inicio === 'Invalid date'){fehca_inicio = null};
   if(fecha_fin == ''  || fecha_fin === 'Invalid date'){fecha_fin = null};
   if(nombre == ''){nombre = null};
   if(numero_proyecto == ''){numero_proyecto = null};
-  if(cliente == ''){cliente = null};
   if(fecha_fin == ''  || fecha_fin === 'Invalid date'){fecha_fin = null};
   const query = `
     SET @id = 0;
     SET @nombre = ?;
     SET @numero_proyecto = ?;
-    SET @cliente = ?;
+    SET @cliente_id = ?;
     SET @fehca_inicio = ?;
     SET @fecha_fin = ?;
     SET @cotizacion_id = ?;
-    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente,@fehca_inicio,@fecha_fin,@cotizacion_id);
+    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente_id,@fehca_inicio,@fecha_fin,@cotizacion_id);
   `;
-  mysqlConnection.query(query, [nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin,cotizacion_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'proyecto Saved'});
     } else {
@@ -80,25 +79,24 @@ router.post('/all', (req, res) => {
 
 
 router.put('/:id', (req, res) => {
-  let { nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin,cotizacion_id} = req.body;
+  let { nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id} = req.body;
   if(fehca_inicio == ''  || fehca_inicio === 'Invalid date'){fehca_inicio = null};
   if(fecha_fin == ''  || fecha_fin === 'Invalid date'){fecha_fin = null};
   if(nombre == ''){nombre = null};
   if(numero_proyecto == ''){numero_proyecto = null};
-  if(cliente == ''){cliente = null};
   if(fecha_fin == ''  || fecha_fin === 'Invalid date'){fecha_fin = null};
   const { id } = req.params;
   const query = `
     SET @id = ?;
     SET @nombre = ?;
     SET @numero_proyecto = ?;
-    SET @cliente = ?;
+    SET @cliente_id = ?;
     SET @fehca_inicio = ?;
     SET @fecha_fin = ?;
     SET @cotizacion_id = ?;
-    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente,@fehca_inicio,@fecha_fin,@cotizacion_id);
+    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente_id,@fehca_inicio,@fecha_fin,@cotizacion_id);
   `;
-  mysqlConnection.query(query, [id, nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin,cotizacion_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'proyecto Updated'});
     } else {
