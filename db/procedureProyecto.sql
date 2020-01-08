@@ -10,7 +10,8 @@ CREATE PROCEDURE `proyectoAddOrEdit` (
   IN _cliente VARCHAR(255),
   IN _fehca_inicio DATE,
   IN _fecha_fin DATE,
-  IN _cotizacion_id INT(10)
+  IN _cotizacion_id INT(10),
+  IN _codigo_unificador VARCHAR(255)
 )
 BEGIN
   DECLARE _idCotizacion,_idControl,_idCerti INT DEFAULT 0;
@@ -19,16 +20,16 @@ BEGIN
     VALUES (0,NULL,'Nuevo proyecto');
     SET _idCotizacion = LAST_INSERT_ID();
 
-    INSERT INTO proyecto (nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin,cotizacion_id)
-    VALUES (_nombre, _numero_proyecto, _cliente, _fehca_inicio, _fecha_fin,_idCotizacion);
+    INSERT INTO proyecto (nombre,numero_proyecto,cliente,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador)
+    VALUES (_nombre, _numero_proyecto, _cliente, _fehca_inicio, _fecha_fin,_idCotizacion,_codigo_unificador);
     SET _id = LAST_INSERT_ID();
     
-    INSERT INTO control (cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente)
-    VALUES (_idCotizacion,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+    INSERT INTO control (cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente,codigo_unificador)
+    VALUES (_idCotizacion,NULL,NULL,NULL,NULL,NULL,NULL,NULL,_codigo_unificador);
     SET _idControl = LAST_INSERT_ID();
 
-    INSERT INTO certificacion (control_id, control_cotizacion_id,numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda)
-    VALUES (_idControl,_idCotizacion,NULL,NULL,NULL,NULL,NULL);
+    INSERT INTO certificacion (control_id, control_cotizacion_id,numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda,codigo_unificador)
+    VALUES (_idControl,_idCotizacion,NULL,NULL,NULL,NULL,NULL,_codigo_unificador);
     SET _idCerti = LAST_INSERT_ID();
     
   ELSE

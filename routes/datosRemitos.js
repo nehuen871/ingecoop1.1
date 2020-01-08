@@ -40,7 +40,7 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An datosRemitos
 router.post('/', (req, res) => {
-  let {remitos,remitos_control_id,remitos_control_id,remitos_control_cotizacion_id,calificacion,list_docs_id} = req.body;
+  let {remitos,remitos_control_id,remitos_control_cotizacion_id,calificacion,list_docs_id} = req.body;
   if(remitos == '' || remitos === 'Invalid date'){remitos = null};
   if(fecha_envio == '' || fecha_envio === 'Invalid date'){fecha_envio = null};
   if(calificacion == '' || calificacion === 'Invalid date'){calificacion = null};
@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
     SET @list_docs_id = ?;
     CALL datosRemitosAddOrEdit(@id, @remitos,@remitos_control_id,@remitos_control_cotizacion_id,@calificacion,@list_docs_id);
   `;
-  mysqlConnection.query(query, [remitos,remitos_control_id,remitos_control_id,remitos_control_cotizacion_id,calificacion,list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [remitos,remitos_control_id,remitos_control_cotizacion_id,calificacion,list_docs_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosRemitos Saved'});
     } else {
@@ -64,7 +64,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let {remitos,remitos_control_id,remitos_control_id,remitos_control_cotizacion_id,calificacion,list_docs_id} = req.body;
+  let {remitos,remitos_control_id,remitos_control_cotizacion_id,calificacion,list_docs_id} = req.body;
   if(remito == '' || remito === 'Invalid date'){remito = null};
   if(fecha_envio == '' || fecha_envio === 'Invalid date'){fecha_envio = null};
   if(calificacion == '' || calificacion === 'Invalid date'){calificacion = null};
@@ -78,7 +78,7 @@ router.put('/:id', (req, res) => {
     SET @list_docs_id = ?;
     CALL datosRemitosAddOrEdit(@id, @remitos,@remitos_control_id,@remitos_control_cotizacion_id,@calificacion,@list_docs_id);
   `;
-  mysqlConnection.query(query, [id, remitos,remitos_control_id,remitos_control_id,remitos_control_cotizacion_id,calificacion,list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, remitos,remitos_control_id,remitos_control_cotizacion_id,calificacion,list_docs_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosRemitos Updated'});
     } else {

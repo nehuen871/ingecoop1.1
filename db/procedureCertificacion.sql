@@ -11,12 +11,13 @@ CREATE PROCEDURE `certificacionAddOrEdit` (
   IN _proyecto VARCHAR(255),
   IN _especialidad VARCHAR(255),
   IN _fechaDeEmision DATE,
-  IN _moneda VARCHAR(45)
+  IN _moneda VARCHAR(45),
+  IN _codigo_unificador VARCHAR(255)
 )
 BEGIN
   IF _id = 0 THEN
-    INSERT INTO certificacion (control_id, control_cotizacion_id,numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda)
-    VALUES (_control_id,_control_cotizacion_id,_numeroDePedido,_proyecto,_especialidad,_fechaDeEmision,_moneda);
+    INSERT INTO certificacion (control_id, control_cotizacion_id,numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda,codigo_unificador)
+    VALUES (_control_id,_control_cotizacion_id,_numeroDePedido,_proyecto,_especialidad,_fechaDeEmision,_moneda,_codigo_unificador);
 
     SET _id = LAST_INSERT_ID();
   ELSE
@@ -28,7 +29,8 @@ BEGIN
     proyecto = _proyecto,
     especialidad = _especialidad,
     fechaDeEmision = _fechaDeEmision,
-    moneda = _moneda
+    moneda = _moneda,
+    codigo_unificador = _codigo_unificador
     WHERE id = _id;
   END IF;
 

@@ -173,7 +173,9 @@ export default class datosCertificacion extends React.Component {
         costoHoraDoc: data[i].costoHoraDoc,
         cantidadDeHoras: data[i].cantidadDeHoras,
         cantidadDeDocs: data[i].cantidadDeDocs,
-        porcentajeAvance: data[i].porcentajeAvance,
+        porcentajeAvanceAnterior: data[i].porcentajeAvanceAnterior,
+        porcentajeAvancePrecente: data[i].porcentajeAvancePrecente,
+        porcentajeAvanceAcumulado: data[i].porcentajeAvanceAcumulado,
         total_certificacion: data[i].total_certificacion,
         list_docs_id: data[i].list_docs_id
       });
@@ -239,7 +241,9 @@ export default class datosCertificacion extends React.Component {
         <TableHeaderColumn dataField='costoHoraDoc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>costoHoraDoc</TableHeaderColumn>
         <TableHeaderColumn dataField='cantidadDeHoras' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidadDeHoras</TableHeaderColumn>
         <TableHeaderColumn dataField='cantidadDeDocs' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidadDeDocs</TableHeaderColumn>
-        <TableHeaderColumn dataField='porcentajeAvance' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
+        <TableHeaderColumn dataField='porcentajeAvanceAnterior' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvanceAnterior</TableHeaderColumn>
+        <TableHeaderColumn dataField='porcentajeAvancePrecente' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvancePrecente</TableHeaderColumn>
+        <TableHeaderColumn dataField='porcentajeAvanceAcumulado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvanceAcumulado</TableHeaderColumn>
         <TableHeaderColumn dataField='total_certificacion' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>total_certificacion</TableHeaderColumn>
       </BootstrapTable>
     );

@@ -168,6 +168,7 @@ export default class certificacion extends React.Component {
         proyecto: data[i].proyecto,
         especialidad: data[i].especialidad,
         fechaDeEmision: fecha1,
+        codigo_unificador: data[i].codigo_unificador,
         moneda: data[i].moneda
       });
     }
@@ -208,6 +209,7 @@ export default class certificacion extends React.Component {
         <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>especialidad</TableHeaderColumn>
         <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fechaDeEmision</TableHeaderColumn>
         <TableHeaderColumn dataField='moneda' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>moneda</TableHeaderColumn>
+        <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
       </BootstrapTable>
     );
   }
