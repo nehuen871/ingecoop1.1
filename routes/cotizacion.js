@@ -118,7 +118,16 @@ router.put('/:id', (req, res) => {
       console.log(err);
     }
   });
-
 });
 
+router.get('/codigoUnificador/:code', (req, res) => {
+  const { code } = req.params;
+  mysqlConnection.query('SELECT * FROM cotizacion WHERE codigo_unificador = ?;',[code], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
 module.exports = router;

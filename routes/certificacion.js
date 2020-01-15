@@ -65,7 +65,7 @@ router.post('/dataByIdControl', (req, res) => {
 });
 // INSERT An certificacion
 router.post('/', (req, res) => {
-  let {control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda} = req.body;
+  let {control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, codigo_unificador} = req.body;
   if(numeroDePedido === ''){numeroDePedido=null};
   if(proyecto === ''){proyecto=null};
   if(especialidad === ''){especialidad=null};
@@ -80,9 +80,10 @@ router.post('/', (req, res) => {
     SET @especialidad = ?;
     SET @fechaDeEmision = ?;
     SET @moneda = ?;
-    CALL certificacionAddOrEdit(@id, @control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda);
+    SET @codigo_unificador = ?;
+    CALL certificacionAddOrEdit(@id, @control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda,@codigo_unificador);
   `;
-  mysqlConnection.query(query, [control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda], (err, rows, fields) => {
+  mysqlConnection.query(query, [control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, codigo_unificador], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'certificacion Saved'});
     } else {
@@ -93,7 +94,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let { control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda} = req.body;
+  let { control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, codigo_unificador} = req.body;
   if(numeroDePedido === ''){numeroDePedido=null};
   if(proyecto === ''){proyecto=null};
   if(especialidad === ''){especialidad=null};
@@ -109,18 +110,29 @@ router.put('/:id', (req, res) => {
     SET @especialidad = ?;
     SET @fechaDeEmision = ?;
     SET @moneda = ?;
-    CALL certificacionAddOrEdit(@id,@control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda);
+    SET @codigo_unificador = ?;
+    CALL certificacionAddOrEdit(@id,@control_id,@control_cotizacion_id,@numeroDePedido,@proyecto,@especialidad,@fechaDeEmision,@moneda,@codigo_unificador);
   `;
-  mysqlConnection.query(query, [id, control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, control_id, control_cotizacion_id, numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda, codigo_unificador], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'certificacion Updated'});
     } else {
       console.log(err);
     }
   });
-
 });
 
+
+router.get('/codigoUnificador/:code', (req, res) => {
+  const { code } = req.params;
+  mysqlConnection.query('SELECT * FROM certificacion WHERE codigo_unificador = ?;',[code], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
 
 
 

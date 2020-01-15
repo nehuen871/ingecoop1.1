@@ -5,7 +5,7 @@ const mysqlConnection  = require('../db/database.js');
 
 // GET all proyecto
 router.get('/', (req, res) => {
-  mysqlConnection.query('SELECT * FROM proyecto', (err, rows, fields) => {
+  mysqlConnection.query('SELECT proyecto.*,cliente.nombre as nombreCliente,cotizacion.titulo_cotiazacion as nombreCotizacion FROM ingecoop.proyecto join cliente on cliente.id = proyecto.cliente_id join cotizacion on cotizacion.id = proyecto.cotizacion_id', (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {
@@ -40,7 +40,7 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An proyecto
 router.post('/', (req, res) => {
-  let {nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id} = req.body;
+  let {nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador} = req.body;
   if(fehca_inicio == ''  || fehca_inicio === 'Invalid date'){fehca_inicio = null};
   if(fecha_fin == ''  || fecha_fin === 'Invalid date'){fecha_fin = null};
   if(nombre == ''){nombre = null};
@@ -54,9 +54,10 @@ router.post('/', (req, res) => {
     SET @fehca_inicio = ?;
     SET @fecha_fin = ?;
     SET @cotizacion_id = ?;
-    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente_id,@fehca_inicio,@fecha_fin,@cotizacion_id);
+    SET @codigo_unificador = ?;
+    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente_id,@fehca_inicio,@fecha_fin,@cotizacion_id,@codigo_unificador);
   `;
-  mysqlConnection.query(query, [nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'proyecto Saved'});
     } else {
@@ -66,9 +67,9 @@ router.post('/', (req, res) => {
 });
 
 // INSERT An proyecto childs
-router.post('/all', (req, res) => {
-  let {id} = req.body;
-  mysqlConnection.query('select * from proyecto where id = ?;',[id], (err, rows, fields) => {
+router.get('/codigoUnificador/:code', (req, res) => {
+  const { code } = req.params;
+  mysqlConnection.query('select * from proyecto where codigo_unificador = ?;',[code], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {
@@ -79,7 +80,7 @@ router.post('/all', (req, res) => {
 
 
 router.put('/:id', (req, res) => {
-  let { nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id} = req.body;
+  let { nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador} = req.body;
   if(fehca_inicio == ''  || fehca_inicio === 'Invalid date'){fehca_inicio = null};
   if(fecha_fin == ''  || fecha_fin === 'Invalid date'){fecha_fin = null};
   if(nombre == ''){nombre = null};
@@ -94,9 +95,10 @@ router.put('/:id', (req, res) => {
     SET @fehca_inicio = ?;
     SET @fecha_fin = ?;
     SET @cotizacion_id = ?;
-    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente_id,@fehca_inicio,@fecha_fin,@cotizacion_id);
+    SET @codigo_unificador = ?;
+    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente_id,@fehca_inicio,@fecha_fin,@cotizacion_id,@codigo_unificador);
   `;
-  mysqlConnection.query(query, [id, nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'proyecto Updated'});
     } else {

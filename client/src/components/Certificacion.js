@@ -153,24 +153,52 @@ export default class certificacion extends React.Component {
       .catch(err => console.log(err));
   }
 
+  componentDidUpdate(prevProps) {
+    // Uso tipico (no olvides de comparar los props):
+    if (this.props.sendData !== prevProps.sendData) {
+      this.callApi();
+    }
+  }
+  
   callApi = async () => {
-    jobs = [];
-    const response = await fetch('/certificacion');
-    var data = await response.json();
-    if (response.status !== 200) throw Error(data.message);
-    for (let i = 0; i < data.length; i++) {
-      let fecha1 = moment(data[i].fechaDeEmision).format('YYYY-MM-DD');
-      jobs.push({
-        id: data[i].id,
-        control_id: data[i].control_id,
-        control_cotizacion_id: data[i].control_cotizacion_id,
-        numeroDePedido: data[i].numeroDePedido,
-        proyecto: data[i].proyecto,
-        especialidad: data[i].especialidad,
-        fechaDeEmision: fecha1,
-        codigo_unificador: data[i].codigo_unificador,
-        moneda: data[i].moneda
-      });
+    if(this.props.sendData){
+      jobs = [];
+      const response = await fetch('/certificacion/codigoUnificador/'+this.props.sendData);
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        let fecha1 = moment(data[i].fechaDeEmision).format('YYYY-MM-DD');
+        jobs.push({
+          id: data[i].id,
+          control_id: data[i].control_id,
+          control_cotizacion_id: data[i].control_cotizacion_id,
+          numeroDePedido: data[i].numeroDePedido,
+          proyecto: data[i].proyecto,
+          especialidad: data[i].especialidad,
+          fechaDeEmision: fecha1,
+          codigo_unificador: data[i].codigo_unificador,
+          moneda: data[i].moneda
+        });
+      }
+    }else{
+      jobs = [];
+      const response = await fetch('/certificacion');
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        let fecha1 = moment(data[i].fechaDeEmision).format('YYYY-MM-DD');
+        jobs.push({
+          id: data[i].id,
+          control_id: data[i].control_id,
+          control_cotizacion_id: data[i].control_cotizacion_id,
+          numeroDePedido: data[i].numeroDePedido,
+          proyecto: data[i].proyecto,
+          especialidad: data[i].especialidad,
+          fechaDeEmision: fecha1,
+          codigo_unificador: data[i].codigo_unificador,
+          moneda: data[i].moneda
+        });
+      }
     }
   }
   callApiDroopCotizacion = async () => {

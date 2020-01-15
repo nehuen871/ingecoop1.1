@@ -144,32 +144,64 @@ export default class datosControl extends React.Component {
       .catch(err => console.log(err));
   }
 
+  componentDidUpdate(prevProps) {
+    // Uso tipico (no olvides de comparar los props):
+    if (this.props.sendData !== prevProps.sendData) {
+      this.callApi();
+    }
+  }
+
   formatType(cell) {
     return `TYPE_${cell}`;
   }
 
   callApi = async () => {
-    jobs = [];
-    const response = await fetch('/datosControl');
-    var data = await response.json();
-    if (response.status !== 200) throw Error(data.message);
-    for (let i = 0; i < data.length; i++) {
-      jobs.push({
-        id: data[i].id,
-        descripcion_doc: data[i].descripcion_doc,
-        revicion_inicial: data[i].revicion_inicial,
-        cantidad_doc: data[i].cantidad_doc,
-        HHUnidades: data[i].HHUnidades,
-        total: data[i].total,
-        revision_unica: data[i].revision_unica,
-        observacion: data[i].observacion,
-        modificar_lista: data[i].modificar_lista,
-        proveedor: data[i].proveedor,
-        viatico: data[i].viatico,
-        control_id: data[i].control_id,
-        control_cotizacion_id: data[i].control_cotizacion_id,
-        list_docs_id: data[i].list_docs_id
-      });
+    if(this.props.sendData){
+      jobs = [];
+      const response = await fetch('/datosControl/codigoUnificador/'+this.props.sendData);
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        jobs.push({
+          id: data[i].id,
+          descripcion_doc: data[i].descripcion_doc,
+          revicion: data[i].revicion,
+          cantidad_doc: data[i].cantidad_doc,
+          HHUnidades: data[i].HHUnidades,
+          total: data[i].total,
+          revision: data[i].revision,
+          observacion: data[i].observacion,
+          HH_asociado: data[i].HH_asociado,
+          proveedor: data[i].proveedor,
+          viatico: data[i].viatico,
+          control_id: data[i].control_id,
+          control_cotizacion_id: data[i].control_cotizacion_id,
+          list_docs_id: data[i].list_docs_id
+        });
+      }
+    }else{
+      jobs = [];
+      const response = await fetch('/datosControl');
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        jobs.push({
+          id: data[i].id,
+          descripcion_doc: data[i].descripcion_doc,
+          revicion: data[i].revicion,
+          cantidad_doc: data[i].cantidad_doc,
+          HHUnidades: data[i].HHUnidades,
+          total: data[i].total,
+          revision: data[i].revision,
+          observacion: data[i].observacion,
+          HH_asociado: data[i].HH_asociado,
+          proveedor: data[i].proveedor,
+          viatico: data[i].viatico,
+          control_id: data[i].control_id,
+          control_cotizacion_id: data[i].control_cotizacion_id,
+          list_docs_id: data[i].list_docs_id
+        });
+      }
     }
   }
 
@@ -215,13 +247,12 @@ export default class datosControl extends React.Component {
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='descripcion_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>descripcion_doc</TableHeaderColumn>
-        <TableHeaderColumn dataField='revicion_inicial' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revicion_inicial</TableHeaderColumn>
+        <TableHeaderColumn dataField='revicion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revicion</TableHeaderColumn>
         <TableHeaderColumn dataField='cantidad_doc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidad_doc</TableHeaderColumn>
         <TableHeaderColumn dataField='HHUnidades' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HHUnidades</TableHeaderColumn>
         <TableHeaderColumn dataField='total' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>total</TableHeaderColumn>
-        <TableHeaderColumn dataField='revision_unica' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision_unica</TableHeaderColumn>
         <TableHeaderColumn dataField='observacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>observacion</TableHeaderColumn>
-        <TableHeaderColumn dataField='modificar_lista' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>modificar_lista</TableHeaderColumn>
+        <TableHeaderColumn dataField='HH_asociado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HH_asociado</TableHeaderColumn>
         <TableHeaderColumn dataField='proveedor' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>proveedor</TableHeaderColumn>
         <TableHeaderColumn dataField='viatico' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>viatico</TableHeaderColumn>
         <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>

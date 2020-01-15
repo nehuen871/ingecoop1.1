@@ -40,35 +40,32 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An datosControl
 router.post('/', (req, res) => {
-  let {descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id} = req.body;
+  let {descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id} = req.body;
   if(descripcion_doc===''){descripcion_doc=null};
-  if(revicion_inicial===''){revicion_inicial=null};
+  if(revicion===''){revicion=null};
   if(cantidad_doc===''){cantidad_doc=null};
   if(HHUnidades===''){HHUnidades=null};
   if(total===''){total=null};
-  if(revision_unica===''){revision_unica=null};
   if(observacion===''){observacion=null};
-  if(modificar_lista===''){modificar_lista=null};
   if(proveedor===''){proveedor=null};
   if(viatico===''){viatico=null};
   const query = `
     SET @id = 0;
     SET @descripcion_doc = ?;
-    SET @revicion_inicial = ?;
+    SET @revicion = ?;
     SET @cantidad_doc = ?;
     SET @HHUnidades = ?;
     SET @total = ?;
-    SET @revision_unica = ?;
     SET @observacion = ?;
-    SET @modificar_lista = ?;
+    SET @HH_asociado = ?;
     SET @proveedor = ?;
     SET @viatico = ?;
     SET @control_id = ?;
     SET @control_cotizacion_id = ?;
     SET @list_docs_id = ?;
-    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveedor,@viatico,@control_id,@control_cotizacion_id,@list_docs_id);
+    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveedor,@viatico,@control_id,@control_cotizacion_id,@list_docs_id);
   `;
-  mysqlConnection.query(query, [descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [descripcion_doc, revicion, cantidad_doc, HHUnidades, total,observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosControl Saved'});
     } else {
@@ -79,43 +76,50 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id } = req.body;
+  const { descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id } = req.body;
   if(descripcion_doc===''){descripcion_doc=null};
-  if(revicion_inicial===''){revicion_inicial=null};
+  if(revicion===''){revicion=null};
   if(cantidad_doc===''){cantidad_doc=null};
   if(HHUnidades===''){HHUnidades=null};
   if(total===''){total=null};
-  if(revision_unica===''){revision_unica=null};
   if(observacion===''){observacion=null};
-  if(modificar_lista===''){modificar_lista=null};
   if(proveedor===''){proveedor=null};
   if(viatico===''){viatico=null};
   const { id } = req.params;
   const query = `
     SET @id = ?;
     SET @descripcion_doc = ?;
-    SET @revicion_inicial = ?;
+    SET @revicion = ?;
     SET @cantidad_doc = ?;
     SET @HHUnidades = ?;
     SET @total = ?;
-    SET @revision_unica = ?;
     SET @observacion = ?;
-    SET @modificar_lista = ?;
+    SET @HH_asociado = ?;
     SET @proveedor = ?;
     SET @viatico = ?;
     SET @control_id = ?;
     SET @control_cotizacion_id = ?;
     SET @list_docs_id = ?;
-    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion_inicial,@cantidad_doc,@HHUnidades,@total,@revision_unica,@observacion,@modificar_lista,@proveedor,@viatico,@control_id,@control_cotizacion_id,@list_docs_id);
+    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveedor,@viatico,@control_id,@control_cotizacion_id,@list_docs_id);
   `;
-  mysqlConnection.query(query, [id, descripcion_doc, revicion_inicial, cantidad_doc, HHUnidades, total, revision_unica, observacion, modificar_lista, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosControl Updated'});
     } else {
       console.log(err);
     }
   });
+});
 
+router.get('/codigoUnificador/:code', (req, res) => {
+  const { code } = req.params;
+  mysqlConnection.query('SELECT * FROM datosControl WHERE codigo_unificador = ?;',[code], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
 });
 
 

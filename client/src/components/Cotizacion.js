@@ -134,26 +134,53 @@ export default class Cotizacion extends React.Component {
       .catch(err => console.log(err));
   }
 
+  componentDidUpdate(prevProps) {
+    // Uso tipico (no olvides de comparar los props):
+    if (this.props.sendData !== prevProps.sendData) {
+      this.callApi();
+    }
+  }
+
   formatType(cell) {
     return `TYPE_${cell}`;
   }
 
   callApi = async () => {
-    jobs = [];
-    const response = await fetch('/cotizacion');
-    var data = await response.json();
-    if (response.status !== 200) throw Error(data.message);
-    for (let i = 0; i < data.length; i++) {
-      let fecha1 = moment(data[i].fecha).format('YYYY-MM-DD');
-      jobs.push({
-        id: data[i].id,
-        revision: data[i].revision,
-        fecha: fecha1,
-        titulo_cotiazacion: data[i].titulo_cotiazacion,
-        numero_doc: data[i].numero_doc,
-        codigo_unificador: data[i].codigo_unificador,
-        cliente_id: data[i].cliente_id
-      });
+    console.log("cotizacion " + this.props.sendData);
+    if(this.props.sendData){
+      jobs = [];
+      const response = await fetch('/cotizacion/codigoUnificador/'+this.props.sendData);
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        let fecha1 = moment(data[i].fecha).format('YYYY-MM-DD');
+        jobs.push({
+          id: data[i].id,
+          revision: data[i].revision,
+          fecha: fecha1,
+          titulo_cotiazacion: data[i].titulo_cotiazacion,
+          numero_doc: data[i].numero_doc,
+          codigo_unificador: data[i].codigo_unificador,
+          cliente_id: data[i].cliente_id
+        });
+      }
+    }else{
+      jobs = [];
+      const response = await fetch('/cotizacion');
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        let fecha1 = moment(data[i].fecha).format('YYYY-MM-DD');
+        jobs.push({
+          id: data[i].id,
+          revision: data[i].revision,
+          fecha: fecha1,
+          titulo_cotiazacion: data[i].titulo_cotiazacion,
+          numero_doc: data[i].numero_doc,
+          codigo_unificador: data[i].codigo_unificador,
+          cliente_id: data[i].cliente_id
+        });
+      }
     }
   }
 

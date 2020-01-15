@@ -104,7 +104,7 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An control
 router.post('/', (req, res) => {
-  let {cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc,codigo_doc_cliente} = req.body;
+  let {cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc,codigo_doc_cliente,codigo_unificador} = req.body;
   if(fecha_emision_proyectada == '' || fecha_emision_proyectada === 'Invalid date'){fecha_emision_proyectada = null};
   if(revision == ''){revision = null};
   if(fecha_calificaion == '' || fecha_calificaion === 'Invalid date'){fecha_calificaion = null};
@@ -122,9 +122,10 @@ router.post('/', (req, res) => {
     SET @numero_control = ?;
     SET @numero_doc = ?;
     SET @codigo_doc_cliente = ?;
-    CALL controlAddOrEdit(@id, @cotizacion_id,@fecha_emision_proyectada,@revision,@fecha_calificaion,@numero_documento,@numero_control,@numero_doc,@codigo_doc_cliente);
+    SET @codigo_unificador = ?;
+    CALL controlAddOrEdit(@id, @cotizacion_id,@fecha_emision_proyectada,@revision,@fecha_calificaion,@numero_documento,@numero_control,@numero_doc,@codigo_doc_cliente,@codigo_unificador);
   `;
-  mysqlConnection.query(query, [cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente], (err, rows, fields) => {
+  mysqlConnection.query(query, [cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente,codigo_unificador], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'control Saved'});
     } else {
@@ -135,7 +136,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let { cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente} = req.body;
+  let { cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente,codigo_unificador} = req.body;
   if(fecha_emision_proyectada == '' || fecha_emision_proyectada === 'Invalid date'){fecha_emision_proyectada = null};
   if(revision == ''){revision = null};
   if(fecha_calificaion == '' || fecha_calificaion === 'Invalid date'){fecha_calificaion = null};
@@ -154,16 +155,27 @@ router.put('/:id', (req, res) => {
     SET @numero_control = ?;
     SET @numero_doc = ?;
     SET @codigo_doc_cliente = ?;
-    CALL controlAddOrEdit(@id, @cotizacion_id,@fecha_emision_proyectada,@revision,@fecha_calificaion,@numero_documento,@numero_control,@numero_doc, @codigo_doc_cliente);
+    SET @codigo_unificador = ?;
+    CALL controlAddOrEdit(@id, @cotizacion_id,@fecha_emision_proyectada,@revision,@fecha_calificaion,@numero_documento,@numero_control,@numero_doc, @codigo_doc_cliente,@codigo_unificador);
   `;
-  mysqlConnection.query(query, [id, cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente,codigo_unificador], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'control Updated'});
     } else {
       console.log(err);
     }
   });
+});
 
+router.get('/codigoUnificador/:code', (req, res) => {
+  const { code } = req.params;
+  mysqlConnection.query('SELECT * FROM control WHERE codigo_unificador = ?;',[code], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
 });
 
 

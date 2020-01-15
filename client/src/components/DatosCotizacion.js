@@ -139,31 +139,62 @@ export default class datosCotizacion extends React.Component {
       .catch(err => console.log(err));
   }
 
+  componentDidUpdate(prevProps) {
+    // Uso tipico (no olvides de comparar los props):
+    if (this.props.sendData !== prevProps.sendData) {
+      this.callApi();
+    }
+  }
+
   formatType(cell) {
     return `TYPE_${cell}`;
   }
 
   callApi = async () => {
-    jobs = [];
-    const response = await fetch('/datosCotizacion');
-    var data = await response.json();
-    if (response.status !== 200) throw Error(data.message);
-    for (let i = 0; i < data.length; i++) {
-      jobs.push({
-        id: data[i].id,
-        numeroRecotizacion: data[i].numeroRecotizacion,
-        cotizacion_id: data[i].cotizacion_id,
-        descripcion_doc: data[i].descripcion_doc,
-        revicion: data[i].revicion,
-        cantidad_doc: data[i].cantidad_doc,
-        HHUnidades: data[i].HHUnidades,
-        total: data[i].total,
-        observacion: data[i].observacion,
-        HH_asociado: data[i].HH_asociado,
-        proveerdor: data[i].proveerdor,
-        viatico: data[i].viatico,
-        list_docs_id: data[i].list_docs_id
-      });
+    if(this.props.sendData){
+      jobs = [];
+      const response = await fetch('/datosCotizacion/codigoUnificador/'+this.props.sendData);
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        jobs.push({
+          id: data[i].id,
+          numeroRecotizacion: data[i].numeroRecotizacion,
+          cotizacion_id: data[i].cotizacion_id,
+          descripcion_doc: data[i].descripcion_doc,
+          revicion: data[i].revicion,
+          cantidad_doc: data[i].cantidad_doc,
+          HHUnidades: data[i].HHUnidades,
+          total: data[i].total,
+          observacion: data[i].observacion,
+          HH_asociado: data[i].HH_asociado,
+          proveerdor: data[i].proveerdor,
+          viatico: data[i].viatico,
+          list_docs_id: data[i].list_docs_id
+        });
+      }
+    }else{
+      jobs = [];
+      const response = await fetch('/datosCotizacion');
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        jobs.push({
+          id: data[i].id,
+          numeroRecotizacion: data[i].numeroRecotizacion,
+          cotizacion_id: data[i].cotizacion_id,
+          descripcion_doc: data[i].descripcion_doc,
+          revicion: data[i].revicion,
+          cantidad_doc: data[i].cantidad_doc,
+          HHUnidades: data[i].HHUnidades,
+          total: data[i].total,
+          observacion: data[i].observacion,
+          HH_asociado: data[i].HH_asociado,
+          proveerdor: data[i].proveerdor,
+          viatico: data[i].viatico,
+          list_docs_id: data[i].list_docs_id
+        });
+      }
     }
   }
   callApiDroopCotizacion = async () => {

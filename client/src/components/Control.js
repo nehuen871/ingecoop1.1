@@ -144,30 +144,61 @@ export default class control extends React.Component {
       .catch(err => console.log(err));
   }
 
+  componentDidUpdate(prevProps) {
+    // Uso tipico (no olvides de comparar los props):
+    if (this.props.sendData !== prevProps.sendData) {
+      this.callApi();
+    }
+  }
+
   formatType(cell) {
     return `TYPE_${cell}`;
   }
 
   callApi = async () => {
-    jobs = [];
-    const response = await fetch('/control');
-    var data = await response.json();
-    if (response.status !== 200) throw Error(data.message);
-    for (let i = 0; i < data.length; i++) {
-      let fecha1 = moment(data[i].fecha_emision_proyectada).format('YYYY-MM-DD');
-      let fecha3 = moment(data[i].fecha_calificaion).format('YYYY-MM-DD');
-      jobs.push({
-        id: data[i].id,
-        cotizacion_id: data[i].cotizacion_id,
-        fecha_emision_proyectada: fecha1,
-        revision: data[i].revision,
-        fecha_calificaion: fecha3,
-        numero_documento: data[i].numero_documento,
-        numero_control: data[i].numero_control,
-        numero_doc: data[i].numero_doc,
-        codigo_unificador: data[i].codigo_unificador,
-        codigo_doc_cliente: data[i].codigo_doc_cliente
-      });
+    console.log("control " + this.props.sendData);
+    if(this.props.sendData){
+      jobs = [];
+      const response = await fetch('/control/codigoUnificador/'+this.props.sendData);
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        let fecha1 = moment(data[i].fecha_emision_proyectada).format('YYYY-MM-DD');
+        let fecha3 = moment(data[i].fecha_calificaion).format('YYYY-MM-DD');
+        jobs.push({
+          id: data[i].id,
+          cotizacion_id: data[i].cotizacion_id,
+          fecha_emision_proyectada: fecha1,
+          revision: data[i].revision,
+          fecha_calificaion: fecha3,
+          numero_documento: data[i].numero_documento,
+          numero_control: data[i].numero_control,
+          numero_doc: data[i].numero_doc,
+          codigo_unificador: data[i].codigo_unificador,
+          codigo_doc_cliente: data[i].codigo_doc_cliente
+        });
+      }
+    }else{
+      jobs = [];
+      const response = await fetch('/control');
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        let fecha1 = moment(data[i].fecha_emision_proyectada).format('YYYY-MM-DD');
+        let fecha3 = moment(data[i].fecha_calificaion).format('YYYY-MM-DD');
+        jobs.push({
+          id: data[i].id,
+          cotizacion_id: data[i].cotizacion_id,
+          fecha_emision_proyectada: fecha1,
+          revision: data[i].revision,
+          fecha_calificaion: fecha3,
+          numero_documento: data[i].numero_documento,
+          numero_control: data[i].numero_control,
+          numero_doc: data[i].numero_doc,
+          codigo_unificador: data[i].codigo_unificador,
+          codigo_doc_cliente: data[i].codigo_doc_cliente
+        });
+      }
     }
   }
 

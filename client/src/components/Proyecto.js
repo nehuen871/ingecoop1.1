@@ -134,6 +134,12 @@ export default class proyecto extends React.Component {
     super(props);
     this.formatType = this.formatType.bind(this);
   }
+  componentDidUpdate(prevProps) {
+    // Uso tipico (no olvides de comparar los props):
+    if (this.props.sendData !== prevProps.sendData) {
+      this.callApi();
+    }
+  }
 
   componentDidMount() {
     this.callApi()
@@ -152,23 +158,45 @@ export default class proyecto extends React.Component {
   }
 
   callApi = async () => {
-    jobs = [];
-    const response = await fetch('/proyecto');
-    var data = await response.json();
-    if (response.status !== 200) throw Error(data.message);
-    for (let i = 0; i < data.length; i++) {
-      let fecha1 = moment(data[i].fehca_inicio).format('YYYY-MM-DD');
-      let fecha2 = moment(data[i].fecha_fin).format('YYYY-MM-DD');
-      jobs.push({
-        id: data[i].id,
-        nombre: data[i].nombre,
-        cotizacion_id: data[i].cotizacion_id,
-        numero_proyecto: data[i].numero_proyecto,
-        cliente_id: data[i].cliente_id,
-        fehca_inicio: fecha1,
-        codigo_unificador: data[i].codigo_unificador,
-        fecha_fin: fecha2
-      });
+    console.log("proyecto " + this.props.sendData);
+    if(this.props.sendData){
+      jobs = [];
+      const response = await fetch('/proyecto/codigoUnificador/'+this.props.sendData);
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        let fecha1 = moment(data[i].fehca_inicio).format('YYYY-MM-DD');
+        let fecha2 = moment(data[i].fecha_fin).format('YYYY-MM-DD');
+        jobs.push({
+          id: data[i].id,
+          nombre: data[i].nombre,
+          cotizacion_id: data[i].cotizacion_id,
+          numero_proyecto: data[i].numero_proyecto,
+          cliente_id: data[i].cliente_id,
+          fehca_inicio: fecha1,
+          codigo_unificador: data[i].codigo_unificador,
+          fecha_fin: fecha2
+        });
+      }
+    }else{
+      jobs = [];
+      const response = await fetch('/proyecto');
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        let fecha1 = moment(data[i].fehca_inicio).format('YYYY-MM-DD');
+        let fecha2 = moment(data[i].fecha_fin).format('YYYY-MM-DD');
+        jobs.push({
+          id: data[i].id,
+          nombre: data[i].nombre,
+          cotizacion_id: data[i].cotizacion_id,
+          numero_proyecto: data[i].numero_proyecto,
+          cliente_id: data[i].cliente_id,
+          fehca_inicio: fecha1,
+          codigo_unificador: data[i].codigo_unificador,
+          fecha_fin: fecha2
+        });
+      }
     }
   }
   callApiDroop = async () => {
