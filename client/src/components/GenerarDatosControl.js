@@ -1,76 +1,18 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../styles/react-bootstrap-table.css';
+import SendDataButton from "./button/sendDataButton";
 import moment from 'moment';
 
 let jobs = [];
 let jobTypes = [];
 
-const cellEditProp = {
-  mode: 'click',
-  blurToSave: true,
-  afterSaveCell: onAfterSaveCell
-}
-
 const selectRowProp = {
-  mode: 'checkbox'
+  mode: 'checkbox',
+  clickToSelect: true,
+  onSelect: onRowSelect
 }
-
-async function onAfterSaveCell(row, cellName, cellValue) {
-  if(cellName === "fecha"){
-    row.fecha = moment(cellValue).format('YYYY-MM-DD');
-  }
-  const settings = {
-    method: 'PUT',
-    body: JSON.stringify(row),
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-    }
-  };
-  let url = "/cotizacion/" + row.id;
-  try {
-      const fetchResponse = await fetch(url, settings);
-      const data = await fetchResponse.json();
-      console.log(data);
-  } catch (e) {
-    console.log(e);
-  }
-}
-async function onAfterInsertRow(row) {
-  const settings = {
-    method: 'POST',
-    body: JSON.stringify(row),
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-    }
-  };
-  try {
-      const fetchResponse = await fetch(`/cotizacion`, settings);
-      const data = await fetchResponse.json();
-      console.log(data);
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-async function onAfterDeleteRow(rowKeys,rows) {
-  for(let i = 0; i<rowKeys.length; i++){
-    let url = '/cotizacion/' + rows[i].id;
-    const settings = {
-    method: 'DELETE'
-    };
-    try {
-        const fetchResponse = await fetch(url, settings);
-        const data = await fetchResponse.json();
-        console.log(data);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
-
+let dataSelected = [];
 const options = {
   page: 1,  // which page you want to show as default
   sizePerPageList: [ {
@@ -114,10 +56,14 @@ const options = {
   // alwaysShowAllBtns: true // Always show next and previous button
   // withFirstAndLast: false > Hide the going to First and Last page button
   // hidePageListOnlyOnePage: true > Hide the page list if only one page.
-  afterDeleteRow: onAfterDeleteRow,
-  afterInsertRow: onAfterInsertRow
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
+
+function onRowSelect(row, isSelected, e, rowIndex) {
+  dataSelected.push({
+    id: row.id
+  });
+}
 
 export default class generarDatosControl extends React.Component {
   constructor(props) {
@@ -140,7 +86,7 @@ export default class generarDatosControl extends React.Component {
 
   callApi = async () => {
       jobs = [];
-      const response = await fetch('/cotizacion/generarDatosControl');
+      const response = await fetch('/cotizacion/generarDatosControlData');
       var data = await response.json();
       if (response.status !== 200) throw Error(data.message);
       for (let i = 0; i < data.length; i++) {
@@ -171,15 +117,18 @@ export default class generarDatosControl extends React.Component {
 
   render() {
     return (
-      <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-      <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
-      <TableHeaderColumn dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
-      <TableHeaderColumn dataField='fecha' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha</TableHeaderColumn>
-      <TableHeaderColumn dataField='titulo_cotiazacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>titulo_cotiazacion</TableHeaderColumn>
-      <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
-      <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
-      <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cliente_id</TableHeaderColumn>
-      </BootstrapTable>
+      <div>
+        <BootstrapTable data={ jobs }  pagination={ true } options={ options } exportCSV={ true }  selectRow={ selectRowProp }>
+        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha</TableHeaderColumn>
+        <TableHeaderColumn dataField='titulo_cotiazacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>titulo_cotiazacion</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
+        <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cliente_id</TableHeaderColumn>
+        </BootstrapTable>
+        <SendDataButton changeLink={dataSelected}/>
+      </div>
     );
   }
 }

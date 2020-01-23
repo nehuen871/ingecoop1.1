@@ -14,12 +14,24 @@ router.get('/', (req, res) => {
   });
 });
 
+// GET all cotizacion
+router.get('/generarDatosControlData', (req, res) => {
+  mysqlConnection.query('SELECT cotizacion.*,control.cotizacion_id FROM cotizacion left join control on control.cotizacion_id = cotizacion.id where control.cotizacion_id is null;', (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+
 //Get all datosCotizaicon childs
-router.post('/getCotizacionById', (req, res) => {
+router.post('/updateControl', (req, res) => {
   let {id} = req.body;
   const query = `
-  SELECT cotizacion.id,cotizacion.titulo_cotiazacion FROM cotizacion
-  where cotizacion.id = ?;`;
+  SET @id = ?;
+  CALL cotizacionUpateDataControl(@id);`;
   mysqlConnection.query(query,[id], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
@@ -131,13 +143,4 @@ router.get('/codigoUnificador/:code', (req, res) => {
   });
 });
 
-router.get('/generarDatosControl', (req, res) => {
-  mysqlConnection.query('SELECT cotizacion.*,control.cotizacion_id FROM cotizacion left join control on control.cotizacion_id = cotizacion.id where control.cotizacion_id is null', (err, rows, fields) => {
-    if(!err) {
-      res.json(rows);
-    } else {
-      console.log(err);
-    }
-  });
-});
 module.exports = router;
