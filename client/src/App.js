@@ -11,8 +11,8 @@ import Proyecto from './components/Proyecto';
 import Remitos from './components/Remitos';
 import DatosRemitos from './components/DatosRemitos';
 import DatosCertificacion from './components/DatosCertificacion';
-import searchProyecto from './components/searchProyecto';
-import searchCliente from './components/searchCliente';
+import codigoUnificadorContainer from './components/codigoUnificadorContainer';
+import generarDatosControlContainer from './components/generarDatosControlContainer';
 import searchCotizacion from './components/searchCotizacion';
 import searchControl from './components/searchControl';
 import searchRemitos from './components/searchRemitos';
@@ -41,8 +41,8 @@ render() {
           <Route path="/Remitos" component={Remitos} />
           <Route path="/DatosCertificacion" component={DatosCertificacion} />
           <Route path="/DatosRemitos" component={DatosRemitos} />
-          <Route path="/searchProyecto" component={searchProyecto} />
-          <Route path="/searchCliente" component={searchCliente} />
+          <Route path="/codigoUnificadorContainer" component={codigoUnificadorContainer} />
+          <Route path="/generarDatosControlContainer" component={generarDatosControlContainer} />
           <Route path="/searchCotizacion" component={searchCotizacion} />
           <Route path="/searchControl" component={searchControl} />
           <Route path="/searchRemitos" component={searchRemitos} />

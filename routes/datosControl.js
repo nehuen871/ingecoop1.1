@@ -113,7 +113,7 @@ router.put('/:id', (req, res) => {
 
 router.get('/codigoUnificador/:code', (req, res) => {
   const { code } = req.params;
-  mysqlConnection.query('SELECT * FROM datosControl WHERE codigo_unificador = ?;',[code], (err, rows, fields) => {
+  mysqlConnection.query('SELECT datosControl.*,control.codigo_unificador FROM datosControl join control on control.id = datosControl.control_id where control.codigo_unificador = ?;',[code], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {

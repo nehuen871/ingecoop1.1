@@ -68,18 +68,18 @@ export default class SideBar extends Component {
                 </li>
                 <li className="header">Busquedas</li>
                 <li>
-                <Link to="/searchProyecto">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i> Proyecto
+                <Link to="/codigoUnificadorContainer">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Busqueda Codigo Unificador
                 </Link>
                 </li>
                 <li>
-                <Link to="/searchCliente">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i> Cliente
+                <Link to="/generarDatosControlContainer">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Generar Datos Control
                 </Link>
                 </li>
                 <li>
                 <Link to="/searchCotizacion">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i> Cotizacion
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Certificacion automatica
                 </Link>
                 </li>
                 <li>

@@ -130,4 +130,14 @@ router.get('/codigoUnificador/:code', (req, res) => {
     }
   });
 });
+
+router.get('/generarDatosControl', (req, res) => {
+  mysqlConnection.query('SELECT cotizacion.*,control.cotizacion_id FROM cotizacion left join control on control.cotizacion_id = cotizacion.id where control.cotizacion_id is null', (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
 module.exports = router;

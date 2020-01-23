@@ -24,7 +24,7 @@ BEGIN
     INSERT INTO datosCotizacion (numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total,observacion, HH_asociado, proveerdor, viatico, list_docs_id)
     VALUES (_numeroRecotizacion, _cotizacion_id, _descripcion_doc, _revicion, _cantidad_doc,_HHUnidades,_total,_observacion,_HH_asociado,_proveerdor,_viatico,_list_docs_id);
 
-    SELECT id INTO _idControl FROM control WHERE cotizacion_id = _cotizacion_id;
+    /*SELECT id INTO _idControl FROM control WHERE cotizacion_id = _cotizacion_id;
 
     INSERT INTO datosControl (descripcion_doc, revicion, cantidad_doc, HHUnidades, total,observacion, HH_asociado, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id)
     VALUES (_descripcion_doc,_revicion,_cantidad_doc,_HHUnidades,_total,_observacion,_HH_asociado,_proveerdor,_viatico,_idControl,_cotizacion_id,_list_docs_id);
@@ -32,7 +32,7 @@ BEGIN
     SELECT id INTO _idCerti FROM certificacion WHERE control_cotizacion_id = _cotizacion_id;
 
     INSERT INTO datosCertificacion (certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,list_docs_id)
-    VALUES (_idCerti,_idControl,_cotizacion_id,0,0,0,0,0,0,0,0,_list_docs_id);
+    VALUES (_idCerti,_idControl,_cotizacion_id,0,0,0,0,0,0,0,0,_list_docs_id);*/
 
     SET _id = LAST_INSERT_ID();
   ELSE

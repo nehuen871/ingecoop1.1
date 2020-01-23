@@ -13,14 +13,14 @@ CREATE PROCEDURE `datosRemitosAddOrEdit` (
 )
 BEGIN
   IF _id = 0 THEN
-    INSERT INTO datosRemitos (remito, remitos_id,remitos_control_id, remitos_control_cotizacion_id, calificacion, list_docs_id)
-    VALUES (_remito, _remitos_id,_remitos_control_id, _remitos_control_cotizacion_id, _calificacion, _list_docs_id);
+    INSERT INTO datosRemitos (remitos_id,remitos_control_id, remitos_control_cotizacion_id, calificacion, list_docs_id)
+    VALUES (_remitos_id,_remitos_control_id, _remitos_control_cotizacion_id, _calificacion, _list_docs_id);
 
     SET _id = LAST_INSERT_ID();
   ELSE
     UPDATE datosRemitos
     SET
-    remitos = _remito,
+    remitos_id = _remitos_id,
     remitos_control_id = _remitos_control_id,
     remitos_control_cotizacion_id = _remitos_control_cotizacion_id,
     calificacion = _calificacion,

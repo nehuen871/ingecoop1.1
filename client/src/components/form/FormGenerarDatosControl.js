@@ -1,7 +1,7 @@
 import React from "react";
 
 /* Import Components */
-import Tree from "../TreeCliente";
+import GenerarDatosControl from "../GenerarDatosControl";
 
 export default class NameForm extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ export default class NameForm extends React.Component {
           <input type="text" value={this.state.value} onChange={this.handleChange} />
         </label>
       </form>
-      <Tree changeLink={this.state.value}/>
+      <GenerarDatosControl changeLink={this.state.value}/>
       </div>
     );
   }

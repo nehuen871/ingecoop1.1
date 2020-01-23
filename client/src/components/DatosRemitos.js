@@ -160,14 +160,12 @@ export default class proyecto extends React.Component {
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
-      let fecha1 = moment(data[i].fecha_envio).format('YYYY-MM-DD');
       jobs.push({
         id: data[i].id,
-        remito: data[i].remito,
-        fecha_envio: fecha1,
+        remitos_id: data[i].remitos_id,
         calificacion: data[i].calificacion,
-        control_id: data[i].control_id,
-        control_cotizacion_id: data[i].control_cotizacion_id
+        remitos_control_id: data[i].remitos_control_id,
+        remitos_control_cotizacion_id: data[i].remitos_control_cotizacion_id
       });
     }
   }
@@ -227,7 +225,7 @@ export default class proyecto extends React.Component {
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='remitos_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesRemitos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>remitos_id</TableHeaderColumn>
         <TableHeaderColumn dataField='remitos_control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>remitos_control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='remitos_control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='remitos_control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>remitos_control_cotizacion_id</TableHeaderColumn>
         <TableHeaderColumn dataField='calificacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>calificacion</TableHeaderColumn>
         <TableHeaderColumn dataField='list_docs_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
       </BootstrapTable>

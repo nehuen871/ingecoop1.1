@@ -158,7 +158,6 @@ export default class proyecto extends React.Component {
   }
 
   callApi = async () => {
-    console.log("proyecto " + this.props.sendData);
     if(this.props.sendData){
       jobs = [];
       const response = await fetch('/proyecto/codigoUnificador/'+this.props.sendData);

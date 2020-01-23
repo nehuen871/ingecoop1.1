@@ -20,8 +20,8 @@ BEGIN
     VALUES (_revision,_fecha,_titulo_cotiazacion,_numero_doc,_cliente_id,_codigo_unificador);
     SET _idCotizacion = LAST_INSERT_ID();
 
-    INSERT INTO control (cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente,codigo_unificador)
-    VALUES (_idCotizacion,NULL,NULL,NULL,NULL,NULL,NULL,NULL,_codigo_unificador);
+    /*INSERT INTO control (cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente,codigo_unificador)
+    VALUES (_idCotizacion,NULL,NULL,NULL,NULL,NULL,NULL,NULL,_codigo_unificador);*/
 
     SET _id = LAST_INSERT_ID();
   ELSE

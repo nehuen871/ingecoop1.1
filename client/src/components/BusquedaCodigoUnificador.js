@@ -34,23 +34,14 @@ export default class NameForm extends React.Component {
       <Proyecto sendData={this.state.searchCodigoUnificador}/>
       <label>Cotizacion</label>
       <Cotizacion sendData={this.state.searchCodigoUnificador}/>
-      <label>Control</label>
-      <Control sendData={this.state.searchCodigoUnificador}/>
-      </div>
-    );
-  }
-}
-
-/**
- *       <Proyecto sendData={this.state.searchCodigoUnificador}/>
-      <label>Cotizacion</label>
-      <Cotizacion sendData={this.state.searchCodigoUnificador}/>
-      <DatosCotiazacion sendData={this.state.value}/>
+      <DatosCotiazacion sendData={this.state.searchCodigoUnificador}/>
       <label>Control</label>
       <Control sendData={this.state.searchCodigoUnificador}/>
       <DatosControl sendData={this.state.searchCodigoUnificador}/>
       <label>Certificacion</label>
       <Certificacion sendData={this.state.searchCodigoUnificador}/>
       <DatosCertificacion sendData={this.state.searchCodigoUnificador}/>
- * 
- */
+      </div>
+    );
+  }
+}

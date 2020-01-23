@@ -1,32 +1,24 @@
-/* eslint max-len: 0 */
-/* eslint no-console: 0 */
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../styles/react-bootstrap-table.css';
 import moment from 'moment';
 
 let jobs = [];
-let jobTypesControl = [];
-let jobTypesCotizacion = [];
+let jobTypes = [];
 
 const cellEditProp = {
   mode: 'click',
   blurToSave: true,
   afterSaveCell: onAfterSaveCell
-};
+}
+
 const selectRowProp = {
   mode: 'checkbox'
-};
-function jobStatusValidator(value, row) {
-  const nan = isNaN(parseInt(value, 10));
-  if (nan) {
-    return 'Job Status must be a integer!';
-  }
-  return true;
 }
+
 async function onAfterSaveCell(row, cellName, cellValue) {
-  if(cellName === "fecha_envio"){
-    row.fecha_envio = moment(cellValue).format('YYYY-MM-DD');
+  if(cellName === "fecha"){
+    row.fecha = moment(cellValue).format('YYYY-MM-DD');
   }
   const settings = {
     method: 'PUT',
@@ -36,12 +28,13 @@ async function onAfterSaveCell(row, cellName, cellValue) {
         'Content-Type': 'application/json',
     }
   };
-  let url = "/remitos/" + row.id;
+  let url = "/cotizacion/" + row.id;
   try {
       const fetchResponse = await fetch(url, settings);
       const data = await fetchResponse.json();
+      console.log(data);
   } catch (e) {
-      console.log(e);
+    console.log(e);
   }
 }
 async function onAfterInsertRow(row) {
@@ -54,24 +47,26 @@ async function onAfterInsertRow(row) {
     }
   };
   try {
-      const fetchResponse = await fetch(`/remitos`, settings);
+      const fetchResponse = await fetch(`/cotizacion`, settings);
       const data = await fetchResponse.json();
+      console.log(data);
   } catch (e) {
-      console.log(e);
+    console.log(e);
   }
 }
 
 async function onAfterDeleteRow(rowKeys,rows) {
   for(let i = 0; i<rowKeys.length; i++){
-    let url = '/remitos/' + rows[i].id;
+    let url = '/cotizacion/' + rows[i].id;
     const settings = {
     method: 'DELETE'
     };
     try {
         const fetchResponse = await fetch(url, settings);
         const data = await fetchResponse.json();
+        console.log(data);
     } catch (e) {
-        console.log(e);
+      console.log(e);
     }
   }
 }
@@ -124,20 +119,17 @@ const options = {
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
 
-export default class proyecto extends React.Component {
+export default class generarDatosControl extends React.Component {
   constructor(props) {
     super(props);
     this.formatType = this.formatType.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.callApi()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
-    this.callApiDroopControl()
-      .then(res => this.setState({ response: res }))
-      .catch(err => console.log(err));
-    this.callApiDroopCotizacion()
+    this.callApiDroop()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
   }
@@ -147,43 +139,32 @@ export default class proyecto extends React.Component {
   }
 
   callApi = async () => {
-    jobs = [];
-    const response = await fetch('/remitos');
-    var data = await response.json();
-    if (response.status !== 200) throw Error(data.message);
-    for (let i = 0; i < data.length; i++) {
-      let fecha1 = moment(data[i].fecha_envio).format('YYYY-MM-DD');
-      jobs.push({
-        id: data[i].id,
-        remito: data[i].remito,
-        fecha_envio: fecha1,
-        control_id: data[i].control_id,
-        control_cotizacion_id: data[i].control_cotizacion_id,
-        codigo_unificador: data[i].codigo_unificador
-      });
-    }
+      jobs = [];
+      const response = await fetch('/cotizacion/generarDatosControl');
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        let fecha1 = moment(data[i].fecha).format('YYYY-MM-DD');
+        jobs.push({
+          id: data[i].id,
+          revision: data[i].revision,
+          fecha: fecha1,
+          titulo_cotiazacion: data[i].titulo_cotiazacion,
+          numero_doc: data[i].numero_doc,
+          codigo_unificador: data[i].codigo_unificador,
+          cliente_id: data[i].cliente_id
+        });
+      }
   }
 
-  callApiDroopCotizacion = async () => {
-    const response = await fetch('/cotizacion');
+  callApiDroop = async () => {
+    const response = await fetch('/cliente');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
-      jobTypesCotizacion.push({
+      jobTypes.push({
         value: data[i].id,
-        text: data[i].titulo_cotiazacion
-      });
-    }
-  }
-
-  callApiDroopControl = async () => {
-    const response = await fetch('/control');
-    var data = await response.json();
-    if (response.status !== 200) throw Error(data.message);
-    for (let i = 0; i < data.length; i++) {
-      jobTypesControl.push({
-        value: data[i].id,
-        text: data[i].numero_control
+        text: data[i].nombre
       });
     }
   }
@@ -191,12 +172,13 @@ export default class proyecto extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='remito' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>remito</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_envio' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_envio</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
+      <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
+      <TableHeaderColumn dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
+      <TableHeaderColumn dataField='fecha' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha</TableHeaderColumn>
+      <TableHeaderColumn dataField='titulo_cotiazacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>titulo_cotiazacion</TableHeaderColumn>
+      <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
+      <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
+      <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cliente_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

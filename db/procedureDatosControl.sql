@@ -4,7 +4,7 @@ DELIMITER $$
 USE `ingecoop`$$
 
 CREATE PROCEDURE `datoControlAddOrEdit` (
-  IN _id INT,
+  IN _id INT(11),
   IN _descripcion_doc VARCHAR(255),
   IN _revicion INT(11),
   IN _cantidad_doc INT(11),
@@ -27,7 +27,7 @@ BEGIN
     SELECT id INTO _idCerti FROM certificacion WHERE control_cotizacion_id = _control_cotizacion_id;
 
     INSERT INTO datosCertificacion (certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,list_docs_id)
-    VALUES (_idCerti,_idControl,_control_cotizacion_id,0,0,0,0,0,0,0,0,_list_docs_id);
+    VALUES (_idCerti,_control_id,_control_cotizacion_id,0,0,0,0,0,0,0,0,_list_docs_id);
     
     SET _id = LAST_INSERT_ID();
   ELSE
