@@ -56,7 +56,10 @@ router.post('/dataById', (req, res) => {
   router.post('/updateAvance', (req, res) => {
     let {id,porcentajeAvance} = req.body;
     const query = `
-    UPDATE datosCertificacion SET datosCertificacion.porcentajeAvance = ? WHERE datosCertificacion.id = ?`;
+    SET @id = ?;
+    SET @porcentajeAvance = ?;
+    CALL datosCertificacionAddOrEdit(@id,@porcentajeAvance);
+    `;
     console.log(query);
     mysqlConnection.query(query,[id,porcentajeAvance], (err, rows, fields) => {
       if(!err) {

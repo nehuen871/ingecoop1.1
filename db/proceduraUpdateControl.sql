@@ -29,7 +29,7 @@ BEGIN
 
     simple_loop: LOOP
     SET _a=_a+1;
-    SELECT list_docs_id INTO _list_docs_id FROM datosCotizacion WHERE cotizacion_id = _id LIMIT _count,_a;
+    SELECT list_docs_id INTO _list_docs_id FROM datosCotizacion WHERE cotizacion_id = _id LIMIT _count,1;
     SET _count = _count + 1;
     INSERT INTO datosControl (descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveedor, viatico, control_id, control_cotizacion_id, list_docs_id)
     VALUES (NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,_idControl,_id,_list_docs_id);

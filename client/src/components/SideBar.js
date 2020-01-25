@@ -78,7 +78,7 @@ export default class SideBar extends Component {
                 </Link>
                 </li>
                 <li>
-                <Link to="/searchCotizacion">
+                <Link to="/certificacionAutomatica">
                     <i className="fa fa-info-circle" aria-hidden="true"></i> Certificacion automatica
                 </Link>
                 </li>

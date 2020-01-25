@@ -25,22 +25,6 @@ router.get('/generarDatosControlData', (req, res) => {
   });
 });
 
-
-//Get all datosCotizaicon childs
-router.post('/updateControl', (req, res) => {
-  let {id} = req.body;
-  const query = `
-  SET @id = ?;
-  CALL updateControl(@id);`;
-  mysqlConnection.query(query,[id], (err, rows, fields) => {
-    if(!err) {
-      res.json(rows);
-    } else {
-      console.log(err);
-    }
-  });
-});
-
 //Get all datosCotizaicon childs
 router.post('/getListDocsFormCotizacion', (req, res) => {
   let {id} = req.body;
@@ -57,6 +41,7 @@ router.post('/getListDocsFormCotizacion', (req, res) => {
     }
   });
 });
+
 // GET An cotizacion
 router.get('/:id', (req, res) => {
   const { id } = req.params;
@@ -104,8 +89,23 @@ router.post('/', (req, res) => {
       console.log(err);
     }
   });
-
 });
+
+//Get all datosCotizaicon childs
+router.post('/updateControl', (req, res) => {
+  let {id} = req.body;
+  const query = `
+  SET @id = ?;
+  CALL updateControl(@id);`;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
+
 
 router.put('/:id', (req, res) => {
   let { revision, fecha, titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador} = req.body;

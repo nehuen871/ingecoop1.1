@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class SendDataButton extends React.Component {
+export default class sendDataButtonCertificacionAutomatica extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +21,7 @@ export default class SendDataButton extends React.Component {
         }
       };
       console.log(idSend);
-      let fetchResponse = await fetch(`/cotizacion/updateControl`, settings);
+      let fetchResponse = await fetch(`/datosCertificacion/updateAvance`, settings);
       let data = await fetchResponse.json();
       console.log(data);
     }
@@ -29,7 +29,7 @@ export default class SendDataButton extends React.Component {
 
   render() {
     return (
-      <button onClick={this.searchData} className="btn btn-primary">Generar Datos Control</button>
+      <button onClick={this.searchData} className="btn btn-primary">Certificar</button>
     )
   }
 }
