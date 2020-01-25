@@ -31,7 +31,7 @@ router.post('/updateControl', (req, res) => {
   let {id} = req.body;
   const query = `
   SET @id = ?;
-  CALL cotizacionUpateDataControl(@id);`;
+  CALL updateControl(@id);`;
   mysqlConnection.query(query,[id], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
