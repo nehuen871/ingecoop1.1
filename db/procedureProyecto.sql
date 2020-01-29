@@ -36,14 +36,6 @@ BEGIN
     VALUES (_nombre, _numero_proyecto, _cliente_id, _fehca_inicio, _fecha_fin,_cotizacion_id,_codigo_unificador);
     SET _id = LAST_INSERT_ID();
     
-    INSERT INTO control (cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente,codigo_unificador)
-    VALUES (_cotizacion_id,NULL,NULL,NULL,NULL,NULL,NULL,NULL,_codigo_unificador);
-    SET _idControl = LAST_INSERT_ID();
-
-    INSERT INTO certificacion (control_id, control_cotizacion_id,numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda,codigo_unificador)
-    VALUES (_idControl,_cotizacion_id,NULL,NULL,NULL,NULL,NULL,_codigo_unificador);
-    SET _idCerti = LAST_INSERT_ID();
-    
   ELSE
     UPDATE proyecto
     SET

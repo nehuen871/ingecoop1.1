@@ -4,26 +4,18 @@ import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../styles/react-bootstrap-table.css';
 import moment from 'moment';
-import SendDataButton from "./button/sendDataButtonCertificacionAutomatica";
 
 let jobs = [];
 let jobTypesCotizacion = [];
 let jobTypesControl = [];
 let jobTypesCertificacion = [];
 let jobTypesDocumentos = [];
-let dataSelected = [];
 
 const cellEditProp = {
   mode: 'click',
   blurToSave: true,
   afterSaveCell: onAfterSaveCell
 };
-
-const selectRowProp = {
-    mode: 'checkbox',
-    clickToSelect: true,
-    onSelect: onRowSelect
-}
 
 function jobStatusValidator(value, row) {
     const nan = isNaN(parseInt(value, 10));
@@ -44,48 +36,15 @@ async function onAfterSaveCell(row, cellName, cellValue) {
         'Content-Type': 'application/json',
     }
   };
-  let url = "/datosCertificacion/" + row.id;
+  alert(row.inputSend);
+  /*let url = "/datosCertificacion/" + row.id;
   try {
       const fetchResponse = await fetch(url, settings);
       const data = await fetchResponse.json();
       console.log(data);
   } catch (e) {
     console.log(e);
-  }
-}
-
-async function onAfterInsertRow(row) {
-  const settings = {
-    method: 'POST',
-    body: JSON.stringify(row),
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-    }
-  };
-  try {
-      const fetchResponse = await fetch(`/datosCertificacion`, settings);
-      const data = await fetchResponse.json();
-      console.log(data);
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-async function onAfterDeleteRow(rowKeys,rows) {
-  for(let i = 0; i<rowKeys.length; i++){
-    let url = '/datosCertificacion/' + rows[i].id;
-    const settings = {
-    method: 'DELETE'
-    };
-    try {
-        const fetchResponse = await fetch(url, settings);
-        const data = await fetchResponse.json();
-        console.log(data);
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  }*/
 }
 
 const options = {
@@ -131,15 +90,9 @@ const options = {
   // alwaysShowAllBtns: true // Always show next and previous button
   // withFirstAndLast: false > Hide the going to First and Last page button
   // hidePageListOnlyOnePage: true > Hide the page list if only one page.
-  afterDeleteRow: onAfterDeleteRow,
-  afterInsertRow: onAfterInsertRow
   //handleConfirmDeleteRow: customConfirm REVISTAR CONFIRM
 };
-function onRowSelect(row, isSelected, e, rowIndex) {
-    dataSelected.push({
-      id: row.id
-    });
-}
+
 export default class datosCertificacion extends React.Component {
   constructor(props) {
     super(props);
@@ -169,27 +122,14 @@ export default class datosCertificacion extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Uso tipico (no olvides de comparar los props):
-    if (this.props.sendData !== prevProps.sendData) {
-      this.callApi();
-    }
+    this.callApi();
   }
 
   callApi = async () => {
-    jobs = [];
-    const response = await fetch('/datosCertificacion');
-    var data = await response.json();
-    if (response.status !== 200) throw Error(data.message);
-    for (let i = 0; i < data.length; i++) {
-    jobs.push({
-        id: data[i].id,
-        certificacion_id: data[i].certificacion_id,
-        certificacion_control_id: data[i].certificacion_control_id,
-        certificacion_control_cotizacion_id: data[i].certificacion_control_cotizacion_id,
-        list_docs_id: data[i].list_docs_id
-    });
-    }
+    console.log(this.props.dataSend);
+    jobs = this.props.dataSend;
   }
+
   callApiDroopCotizacion = async () => {
     const response = await fetch('/cotizacion');
     var data = await response.json();
@@ -242,16 +182,17 @@ export default class datosCertificacion extends React.Component {
     // custom attributes on editor
     return (
         <div>
-        <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
+        <BootstrapTable data={ jobs } cellEdit={ cellEditProp } pagination={ true } options={ options } exportCSV={ true }>
             <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
             <TableHeaderColumn dataField='certificacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCertificacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_id</TableHeaderColumn>
             <TableHeaderColumn dataField='certificacion_control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_id</TableHeaderColumn>
             <TableHeaderColumn dataField='certificacion_control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_cotizacion_id</TableHeaderColumn>
             <TableHeaderColumn dataField='list_docs_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>list_docs_id</TableHeaderColumn>
-            <TableHeaderColumn dataField='inputSend' editable={ { validator: jobStatusValidator,type: 'input'} }>inputSend</TableHeaderColumn>
+            <TableHeaderColumn dataField='porcentajeAvanceAcumulado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvanceAcumulado</TableHeaderColumn>
+            <TableHeaderColumn dataField='inputSend' editable={ { validator: jobStatusValidator,type: 'input'} }y>inputSend</TableHeaderColumn>
         </BootstrapTable>
-        <SendDataButton changeLink={dataSelected}/>
       </div>
     );
   }
 }
+

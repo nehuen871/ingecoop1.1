@@ -11,7 +11,7 @@ export default class SendDataButton extends React.Component {
   
   searchData = async () => {
     for(let i = 0; i < this.props.changeLink.length; i++){
-      let idSend = this.props.changeLink[i].id;
+      let idSend = {'id' : this.props.changeLink[i].id};
       let settings = {
         method: 'POST',
         body: JSON.stringify(idSend),
@@ -20,10 +20,14 @@ export default class SendDataButton extends React.Component {
             'Content-Type': 'application/json',
         }
       };
-      console.log(idSend);
-      let fetchResponse = await fetch(`/cotizacion/updateControl`, settings);
-      let data = await fetchResponse.json();
-      console.log(data);
+      try {
+        console.log(idSend);
+        let fetchResponse = await fetch(`/cotizacion/updateControl`, settings);
+        let data = await fetchResponse.json();
+        console.log(data);
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 

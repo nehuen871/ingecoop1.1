@@ -99,7 +99,7 @@ router.post('/updateControl', (req, res) => {
   CALL updateControl(@id);`;
   mysqlConnection.query(query,[id], (err, rows, fields) => {
     if(!err) {
-      res.json(rows);
+      res.json({status: 'Datos Generados'});
     } else {
       console.log(err);
     }
