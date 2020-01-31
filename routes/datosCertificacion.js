@@ -54,14 +54,14 @@ router.post('/dataById', (req, res) => {
   });
 
   router.post('/updateAvance', (req, res) => {
-    let {id,porcentajeAvance} = req.body;
+    let {id,inputSend} = req.body;
     const query = `
     SET @id = ?;
-    SET @porcentajeAvance = ?;
-    CALL datosCertificacionAddOrEdit(@id,@porcentajeAvance);
+    SET @inputSend = ?;
+    CALL datosCertificacionAddOrEdit(@id,@inputSend);
     `;
-    console.log(query);
-    mysqlConnection.query(query,[id,porcentajeAvance], (err, rows, fields) => {
+
+    mysqlConnection.query(query,[id,inputSend], (err, rows, fields) => {
       if(!err) {
         res.json(rows);
       } else {

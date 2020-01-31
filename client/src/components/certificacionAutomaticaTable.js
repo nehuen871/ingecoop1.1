@@ -28,6 +28,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fechaDeEmision"){
     row.fechaDeEmision = moment(cellValue).format('YYYY-MM-DD');
   }
+  
   const settings = {
     method: 'PUT',
     body: JSON.stringify(row),
@@ -36,15 +37,15 @@ async function onAfterSaveCell(row, cellName, cellValue) {
         'Content-Type': 'application/json',
     }
   };
-  alert(row.inputSend);
-  /*let url = "/datosCertificacion/" + row.id;
+  console.log(row);
+  let url = "/updateAvance/";
   try {
       const fetchResponse = await fetch(url, settings);
       const data = await fetchResponse.json();
       console.log(data);
   } catch (e) {
     console.log(e);
-  }*/
+  }
 }
 
 const options = {
