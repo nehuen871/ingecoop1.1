@@ -122,12 +122,30 @@ export default class datosCertificacion extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    this.callApi();
+    if (this.props.idSearch !== prevProps.idSearch) {
+        this.callApi();
+    }
   }
 
   callApi = async () => {
-    console.log(this.props.dataSend);
-    jobs = this.props.dataSend;
+    jobs = [];
+    if(this.props.idSearch){
+        let test = this.props.idSearch;
+        let response = await fetch('/datosCertificacion/codigoUnificador/' + test);
+        var data = await response.json();
+        if (response.status !== 200) throw Error(data.message);
+        for (let i = 0; i < data.length; i++) {
+            jobs.push({
+                id: data[i].id,
+                certificacion_id: data[i].certificacion_id,
+                certificacion_control_id: data[i].certificacion_control_id,
+                certificacion_control_cotizacion_id: data[i].certificacion_control_cotizacion_id,
+                porcentajeAvanceAcumulado: data[i].porcentajeAvanceAcumulado,
+                list_docs_id: data[i].list_docs_id,
+                inputSend: 0,
+            });
+        }
+    }
   }
 
   callApiDroopCotizacion = async () => {
