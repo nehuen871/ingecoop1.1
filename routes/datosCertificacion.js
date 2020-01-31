@@ -58,7 +58,7 @@ router.post('/dataById', (req, res) => {
     const query = `
     SET @id = ?;
     SET @inputSend = ?;
-    CALL datosCertificacionAddOrEdit(@id,@inputSend);
+    CALL certificacionAutomatica(@id,@inputSend);
     `;
 
     mysqlConnection.query(query,[id,inputSend], (err, rows, fields) => {

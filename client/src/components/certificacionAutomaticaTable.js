@@ -30,7 +30,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
   }
   
   const settings = {
-    method: 'PUT',
+    method: 'POST',
     body: JSON.stringify(row),
     headers: {
         Accept: 'application/json',
@@ -38,7 +38,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
     }
   };
   console.log(row);
-  let url = "/updateAvance/";
+  let url = "/datosCertificacion/updateAvance/";
   try {
       const fetchResponse = await fetch(url, settings);
       const data = await fetchResponse.json();
