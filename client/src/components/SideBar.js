@@ -83,11 +83,19 @@ export default class SideBar extends Component {
                 </Link>
                 </li>
                 <li>
-                <Link to="/searchControl">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i> Control
+                <Link to="/searchRemitosCodUni">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Remitos Codigo Unificador
                 </Link>
                 </li>
-                <li>
+            </ul>
+            </div>
+      );
+    }
+}
+
+
+/**
+ * <li>
                 <Link to="/searchRemitos">
                     <i className="fa fa-info-circle" aria-hidden="true"></i> Remitos
                 </Link>
@@ -97,8 +105,5 @@ export default class SideBar extends Component {
                     <i className="fa fa-info-circle" aria-hidden="true"></i> Certificacion
                 </Link>
                 </li>
-            </ul>
-            </div>
-      );
-    }
-}
+ * 
+ */

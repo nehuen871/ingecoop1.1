@@ -14,7 +14,7 @@ import DatosCertificacion from './components/DatosCertificacion';
 import codigoUnificadorContainer from './components/codigoUnificadorContainer';
 import generarDatosControlContainer from './components/generarDatosControlContainer';
 import certificacionAutomatica from './components/certificacionAutomatica';
-import searchControl from './components/searchControl';
+import searchRemitosCodUni from './components/searchRemitosCodUni';
 import searchRemitos from './components/searchRemitos';
 import searchCertificacion from './components/searchCertificacion';
 import {
@@ -44,7 +44,7 @@ render() {
           <Route path="/codigoUnificadorContainer" component={codigoUnificadorContainer} />
           <Route path="/generarDatosControlContainer" component={generarDatosControlContainer} />
           <Route path="/certificacionAutomatica" component={certificacionAutomatica} />
-          <Route path="/searchControl" component={searchControl} />
+          <Route path="/searchRemitosCodUni" component={searchRemitosCodUni} />
           <Route path="/searchRemitos" component={searchRemitos} />
           <Route path="/searchCertificacion" component={searchCertificacion} />
         </Switch>

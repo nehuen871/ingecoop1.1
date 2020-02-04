@@ -85,5 +85,14 @@ router.put('/:id', (req, res) => {
   });
 
 });
-
+router.get('/codigoUnificador/:code', (req, res) => {
+  const { code } = req.params;
+  mysqlConnection.query('SELECT datosRemitos.*,remitos.codigo_unificador FROM datosRemitos join remitos on remitos.id = datosRemitos.remitos_id where remitos.codigo_unificador = ?;',[code], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      console.log(err);
+    }
+  });
+});
 module.exports = router;

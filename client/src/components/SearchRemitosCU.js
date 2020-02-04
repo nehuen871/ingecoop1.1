@@ -153,21 +153,28 @@ export default class proyecto extends React.Component {
   formatType(cell) {
     return `TYPE_${cell}`;
   }
-
+  componentDidUpdate(prevProps) {
+    if (this.props.idSearch !== prevProps.idSearch) {
+        this.callApi();
+    }
+  }
   callApi = async () => {
     jobs = [];
-    const response = await fetch('/datosRemitos');
-    var data = await response.json();
-    if (response.status !== 200) throw Error(data.message);
-    for (let i = 0; i < data.length; i++) {
-      jobs.push({
-        id: data[i].id,
-        remitos_id: data[i].remitos_id,
-        calificacion: data[i].calificacion,
-        remitos_control_id: data[i].remitos_control_id,
-        list_docs_id: data[i].list_docs_id,
-        remitos_control_cotizacion_id: data[i].remitos_control_cotizacion_id
-      });
+    if(this.props.idSearch){
+      let test = this.props.idSearch;
+      const response = await fetch('/datosRemitos/codigoUnificador' + test);
+      var data = await response.json();
+      if (response.status !== 200) throw Error(data.message);
+      for (let i = 0; i < data.length; i++) {
+        jobs.push({
+          id: data[i].id,
+          remitos_id: data[i].remitos_id,
+          calificacion: data[i].calificacion,
+          remitos_control_id: data[i].remitos_control_id,
+          list_docs_id: data[i].list_docs_id,
+          remitos_control_cotizacion_id: data[i].remitos_control_cotizacion_id
+        });
+      }
     }
   }
 
