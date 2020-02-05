@@ -5,11 +5,11 @@ USE `ingecoop`$$
 
 CREATE PROCEDURE `datosRemitosAddOrEdit` (
   IN _id INT(11),
-  IN remitos_id INT(11),
-  IN remitos_control_id INT(10),
-  IN remitos_control_cotizacion_id INT(10),
-  IN calificacion VARCHAR(255),
-  IN list_docs_id INT(11)
+  IN _remitos_id INT(11),
+  IN _remitos_control_id INT(10),
+  IN _remitos_control_cotizacion_id INT(10),
+  IN _calificacion VARCHAR(255),
+  IN _list_docs_id INT(11)
 )
 BEGIN
   IF _id = 0 THEN
