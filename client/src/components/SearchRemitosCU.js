@@ -38,7 +38,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
         'Content-Type': 'application/json',
     }
   };
-  let url = "/remitos/" + row.id;
+  let url = "/datosRemitos/" + row.id;
   try {
       const fetchResponse = await fetch(url, settings);
       const data = await fetchResponse.json();
@@ -56,7 +56,7 @@ async function onAfterInsertRow(row) {
     }
   };
   try {
-      const fetchResponse = await fetch(`/remitos`, settings);
+      const fetchResponse = await fetch(`/datosRemitos`, settings);
       const data = await fetchResponse.json();
   } catch (e) {
       console.log(e);
@@ -65,7 +65,7 @@ async function onAfterInsertRow(row) {
 
 async function onAfterDeleteRow(rowKeys,rows) {
   for(let i = 0; i<rowKeys.length; i++){
-    let url = '/remitos/' + rows[i].id;
+    let url = '/datosRemitos/' + rows[i].id;
     const settings = {
     method: 'DELETE'
     };
@@ -162,7 +162,7 @@ export default class proyecto extends React.Component {
     jobs = [];
     if(this.props.idSearch){
       let test = this.props.idSearch;
-      const response = await fetch('/datosRemitos/codigoUnificador' + test);
+      const response = await fetch('/datosRemitos/codigoUnificador/' + test);
       var data = await response.json();
       if (response.status !== 200) throw Error(data.message);
       for (let i = 0; i < data.length; i++) {

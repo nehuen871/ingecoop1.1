@@ -40,7 +40,7 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An proyecto
 router.post('/', (req, res) => {
-  let {nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador} = req.body;
+  let {nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador,activo} = req.body;
   if(fehca_inicio == ''  || fehca_inicio === 'Invalid date'){fehca_inicio = null};
   if(fecha_fin == ''  || fecha_fin === 'Invalid date'){fecha_fin = null};
   if(nombre == ''){nombre = null};
@@ -55,9 +55,10 @@ router.post('/', (req, res) => {
     SET @fecha_fin = ?;
     SET @cotizacion_id = ?;
     SET @codigo_unificador = ?;
-    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente_id,@fehca_inicio,@fecha_fin,@cotizacion_id,@codigo_unificador);
+    SET @activo = ?;
+    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente_id,@fehca_inicio,@fecha_fin,@cotizacion_id,@codigo_unificador,@activo);
   `;
-  mysqlConnection.query(query, [nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador], (err, rows, fields) => {
+  mysqlConnection.query(query, [nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador,activo], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'proyecto Saved'});
     } else {
@@ -80,7 +81,7 @@ router.get('/codigoUnificador/:code', (req, res) => {
 
 
 router.put('/:id', (req, res) => {
-  let { nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador} = req.body;
+  let { nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador,activo} = req.body;
   if(fehca_inicio == ''  || fehca_inicio === 'Invalid date'){fehca_inicio = null};
   if(fecha_fin == ''  || fecha_fin === 'Invalid date'){fecha_fin = null};
   if(nombre == ''){nombre = null};
@@ -96,9 +97,10 @@ router.put('/:id', (req, res) => {
     SET @fecha_fin = ?;
     SET @cotizacion_id = ?;
     SET @codigo_unificador = ?;
-    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente_id,@fehca_inicio,@fecha_fin,@cotizacion_id,@codigo_unificador);
+    SET @activo = ?;
+    CALL proyectoAddOrEdit(@id, @nombre,@numero_proyecto,@cliente_id,@fehca_inicio,@fecha_fin,@cotizacion_id,@codigo_unificador,@activo);
   `;
-  mysqlConnection.query(query, [id, nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador,activo], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'proyecto Updated'});
     } else {

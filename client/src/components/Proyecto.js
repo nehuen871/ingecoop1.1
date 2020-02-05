@@ -174,6 +174,7 @@ export default class proyecto extends React.Component {
           cliente_id: data[i].cliente_id,
           fehca_inicio: fecha1,
           codigo_unificador: data[i].codigo_unificador,
+          activo: data[i].activo,
           fecha_fin: fecha2
         });
       }
@@ -193,6 +194,7 @@ export default class proyecto extends React.Component {
           cliente_id: data[i].cliente_id,
           fehca_inicio: fecha1,
           codigo_unificador: data[i].codigo_unificador,
+          activo: data[i].activo,
           fecha_fin: fecha2
         });
       }
@@ -233,6 +235,7 @@ export default class proyecto extends React.Component {
         <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_fin</TableHeaderColumn>
         <TableHeaderColumn dataField='cotizacion_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cotizacion_id</TableHeaderColumn>
         <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
+        <TableHeaderColumn dataField='activo' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>activo</TableHeaderColumn>
       </BootstrapTable>
     );
   }

@@ -11,6 +11,7 @@ CREATE PROCEDURE `proyectoAddOrEdit` (
   IN _fehca_inicio DATE,
   IN _fecha_fin DATE,
   IN _cotizacion_id INT(10),
+  IN _activo BOOLEAN,
   IN _codigo_unificador VARCHAR(255)
 )
 BEGIN
@@ -32,8 +33,8 @@ BEGIN
     VALUES (_idControl,_idCotizacion,NULL,NULL,NULL,NULL,NULL,_codigo_unificador);
     SET _idCerti = LAST_INSERT_ID();*/
 
-    INSERT INTO proyecto (nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador)
-    VALUES (_nombre, _numero_proyecto, _cliente_id, _fehca_inicio, _fecha_fin,_cotizacion_id,_codigo_unificador);
+    INSERT INTO proyecto (nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador,activo)
+    VALUES (_nombre, _numero_proyecto, _cliente_id, _fehca_inicio, _fecha_fin,_cotizacion_id,_codigo_unificador,_activo);
     SET _id = LAST_INSERT_ID();
     
   ELSE
@@ -44,6 +45,7 @@ BEGIN
     cliente_id = _cliente_id,
     fehca_inicio = _fehca_inicio,
     fecha_fin = _fecha_fin,
+    activo = _activo,
     cotizacion_id = _cotizacion_id
     WHERE id = _id;
   END IF;
