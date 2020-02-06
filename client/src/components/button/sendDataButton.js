@@ -10,24 +10,25 @@ export default class SendDataButton extends React.Component {
   }
   
   searchData = async () => {
-    for(let i = 0; i < this.props.changeLink.length; i++){
-      let idSend = {'id' : this.props.changeLink[i].id};
-      let settings = {
-        method: 'POST',
-        body: JSON.stringify(idSend),
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
+    if(window.confirm('Desea generar los datos?')){
+      for(let i = 0; i < this.props.changeLink.length; i++){
+        let idSend = {'id' : this.props.changeLink[i].id};
+        let settings = {
+          method: 'POST',
+          body: JSON.stringify(idSend),
+          headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+          }
+        };
+        try {
+          let fetchResponse = await fetch(`/cotizacion/updateControl`, settings);
+          let data = await fetchResponse.json();
+        } catch (e) {
+          console.log(e);
         }
-      };
-      try {
-        console.log(idSend);
-        let fetchResponse = await fetch(`/cotizacion/updateControl`, settings);
-        let data = await fetchResponse.json();
-        console.log(data);
-      } catch (e) {
-        console.log(e);
       }
+      alert("Datos Generados");
     }
   }
 
