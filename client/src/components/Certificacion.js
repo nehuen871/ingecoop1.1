@@ -232,7 +232,7 @@ export default class certificacion extends React.Component {
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
         <TableHeaderColumn dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numeroDePedido</TableHeaderColumn>
+        <TableHeaderColumn dataField='numeroDePedido' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numeroDePedido</TableHeaderColumn>
         <TableHeaderColumn dataField='proyecto' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>proyecto</TableHeaderColumn>
         <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>especialidad</TableHeaderColumn>
         <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fechaDeEmision</TableHeaderColumn>

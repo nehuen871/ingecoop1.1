@@ -28,7 +28,7 @@ BEGIN
     SET
     porcentajeAvanceAnterior = _porcentajeAvancePrecente,
     porcentajeAvancePrecente = _porcentajeAvance,
-    porcentajeAvanceAcumulado = _porcentajeAvanceAnterior + _porcentajeAvanceAcumulado + _porcentajeAvance
+    porcentajeAvanceAcumulado = _porcentajeAvanceAcumulado + _porcentajeAvance
     WHERE id = _id;
   SELECT _id AS 'id';
 END

@@ -223,9 +223,9 @@ export default class control extends React.Component {
         <TableHeaderColumn dataField='fecha_emision_proyectada' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_emision_proyectada</TableHeaderColumn>
         <TableHeaderColumn dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_calificaion' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_calificaion</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_documento' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_documento</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_control' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_control</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_documento' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_documento</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_control' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_control</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_doc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
         <TableHeaderColumn dataField='codigo_doc_cliente' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_doc_cliente</TableHeaderColumn>
         <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
       </BootstrapTable>

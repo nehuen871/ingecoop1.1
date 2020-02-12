@@ -16,6 +16,13 @@ const selectRowProp = {
   mode: 'checkbox'
 }
 
+function jobStatusValidator(value, row) {
+  const nan = isNaN(parseInt(value, 10));
+  if (nan) {
+    return 'Job Status must be a integer!';
+  }
+  return true;
+}
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha"){
     row.fecha = moment(cellValue).format('YYYY-MM-DD');
@@ -200,7 +207,7 @@ export default class Cotizacion extends React.Component {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
       <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>ID</TableHeaderColumn>
-      <TableHeaderColumn dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
+      <TableHeaderColumn dataField='revision' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
       <TableHeaderColumn dataField='fecha' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha</TableHeaderColumn>
       <TableHeaderColumn dataField='titulo_cotiazacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>titulo_cotiazacion</TableHeaderColumn>
       <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
