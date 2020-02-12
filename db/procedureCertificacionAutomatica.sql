@@ -27,7 +27,7 @@ BEGIN
   UPDATE datosCertificacion
     SET
     porcentajeAvanceAnterior = _porcentajeAvancePrecente,
-    porcentajeAvancePrecente = _porcentajeAvancePrecente + _porcentajeAvance,
+    porcentajeAvancePrecente = _porcentajeAvance,
     porcentajeAvanceAcumulado = _porcentajeAvanceAnterior + _porcentajeAvanceAcumulado + _porcentajeAvance
     WHERE id = _id;
   SELECT _id AS 'id';
