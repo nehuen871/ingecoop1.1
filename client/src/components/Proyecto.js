@@ -169,6 +169,7 @@ export default class proyecto extends React.Component {
         jobs.push({
           id: data[i].id,
           nombre: data[i].nombre,
+          revision: data[i].revision,
           cotizacion_id: data[i].cotizacion_id,
           numero_proyecto: data[i].numero_proyecto,
           cliente_id: data[i].cliente_id,
@@ -189,6 +190,7 @@ export default class proyecto extends React.Component {
         jobs.push({
           id: data[i].id,
           nombre: data[i].nombre,
+          revision: data[i].revision,
           cotizacion_id: data[i].cotizacion_id,
           numero_proyecto: data[i].numero_proyecto,
           cliente_id: data[i].cliente_id,
@@ -228,13 +230,14 @@ export default class proyecto extends React.Component {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } hidden>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
         <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'input',validator: jobStatusValidator } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_proyecto</TableHeaderColumn>
+        <TableHeaderColumn dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'TextFilter', delay: 1000 } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_proyecto</TableHeaderColumn>
         <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypesCliente } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cliente_id</TableHeaderColumn>
         <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_inicio</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_fin</TableHeaderColumn>
         <TableHeaderColumn dataField='cotizacion_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
         <TableHeaderColumn dataField='activo' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>activo</TableHeaderColumn>
       </BootstrapTable>
     );

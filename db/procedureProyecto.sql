@@ -6,7 +6,8 @@ USE `ingecoop`$$
 CREATE PROCEDURE `proyectoAddOrEdit` (
   IN _id INT,
   IN _nombre VARCHAR(255),
-  IN _numero_proyecto INT(11),
+  IN _revision VARCHAR(255),
+  IN _numero_proyecto VARCHAR(255),
   IN _cliente_id INT(10),
   IN _fehca_inicio DATE,
   IN _fecha_fin DATE,
@@ -33,14 +34,15 @@ BEGIN
     VALUES (_idControl,_idCotizacion,NULL,NULL,NULL,NULL,NULL,_codigo_unificador);
     SET _idCerti = LAST_INSERT_ID();*/
 
-    INSERT INTO proyecto (nombre,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador,activo)
-    VALUES (_nombre, _numero_proyecto, _cliente_id, _fehca_inicio, _fecha_fin,_cotizacion_id,_codigo_unificador,_activo);
+    INSERT INTO proyecto (nombre,revision,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador,activo)
+    VALUES (_nombre,_revision, _numero_proyecto, _cliente_id, _fehca_inicio, _fecha_fin,_cotizacion_id,_codigo_unificador,_activo);
     SET _id = LAST_INSERT_ID();
     
   ELSE
     UPDATE proyecto
     SET
     nombre = _nombre,
+    revision = _revision,
     numero_proyecto = _numero_proyecto,
     cliente_id = _cliente_id,
     fehca_inicio = _fehca_inicio,
