@@ -1,0 +1,194 @@
+https://docs.tryton.org/projects/server/en/latest/topics/install.html
+https://discuss.tryton.org/t/installing-tryton-d-5-2-on-ubuntu-18-04-3-with-postgres-11-for-newbys-by-newby/1809
+
+sudo apt-get install tryton
+sudo apt-get install tryton-*
+
+sudo apt-get install postgresql
+sudo apt-get install postgresql-*
+sudo systemctl restart postgresql
+sudo ufw allow 5432/tcp
+sudo apt-get install python-psycopg2
+sudo apt-get install libpq-dev
+sudo apt-get install python3-psycopg2
+
+
+/*create database*/
+
+sudo -u postgres psql
+
+CREATE DATABASE tryton_test WITH OWNER = postgres ENCODING = 'UTF8' LC_COLLATE = 'C' LC_CTYPE = 'C' TABLESPACE = pg_default CONNECTION LIMIT = -1 TEMPLATE template0;
+
+/*create role*/
+
+CREATE ROLE tryton_test WITH LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT NOREPLICATION CONNECTION LIMIT -1 PASSWORD 'tryton_test';
+
+postgres=# \q
+
+
+/*modificar archivo de configuracion*/
+[database]
+ uri = postgresql://tryton_test:tryton_test@localhost:5432/
+
+/*initialize database*/
+
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test --all
+
+
+/*iniciar server*/
+trytond -c /etc/tryton/trytond.conf
+
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_asset --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_be --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_credit_limit --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_deposit --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_de_skr03 --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_dunning --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_dunning_email --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_dunning_fee --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_dunning_letter --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_es --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_eu --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_fr --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_fr_chorus --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_invoice --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_invoice_correction --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_invoice_history --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_invoice_line_standalone --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_invoice_secondary_unit --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_invoice_stock --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_payment --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_payment_clearing --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_payment_sepa --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_payment_sepa_cfonb --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_payment_stripe --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_product --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_statement --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_statement_aeb43 --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_statement_coda --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_statement_ofx --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_statement_rule --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_stock_anglo_saxon --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_stock_continental --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_stock_landed_cost --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_stock_landed_cost_weight --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_tax_cash --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u account_tax_rule_country --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u analytic_account --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u analytic_invoice --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u analytic_purchase --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u analytic_sale --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u authentication_sms --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u bank --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u carrier --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u carrier_percentage --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u carrier_weight --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u commission --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u commission_waiting --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u company --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u company_work_time --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u country --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u currency --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u customs --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u dashboard --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u edocument_uncefact --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u edocument_unece --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u google_maps --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u ldap_authentication --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u marketing --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u marketing_automation --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u notification_email --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u party --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u party_relationship --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u party_siret --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u product --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u product_attribute --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u product_classification --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u product_classification_taxonomic --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u product_cost_fifo --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u product_cost_history --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u production --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u production_outsourcing --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u production_routing --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u production_split --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u production_work --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u production_work_timesheet --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u product_measurements --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u product_price_list --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u product_price_list_dates --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u product_price_list_parent --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u project --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u project_invoice --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u project_plan --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u project_revenue --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u purchase --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u purchase_amendment --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u purchase_history --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u purchase_invoice_line_standalone --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u purchase_request --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u purchase_request_quotation --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u purchase_requisition --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u purchase_secondary_unit --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u purchase_shipment_cost --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_advance_payment --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_amendment --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_complaint --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_credit_limit --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_extra --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_history --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_invoice_grouping --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_opportunity --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_payment --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_price_list --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_product_customer --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_promotion --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_promotion_coupon --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_secondary_unit --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_shipment_cost --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_shipment_grouping --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_shipment_tolerance --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_stock_quantity --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_subscription --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_subscription_asset --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_supply --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u sale_supply_drop_shipment --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_consignment --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_forecast --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_inventory_location --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_location_move --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_location_sequence --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_lot --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_lot_sled --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_lot_unit --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_package --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_package_shipping --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_package_shipping_dpd --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_package_shipping_ups --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_product_location --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_secondary_unit --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_shipment_measurements --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_split --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_supply --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_supply_day --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_supply_forecast --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u stock_supply_production --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u timesheet --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u timesheet_cost --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u user_role --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u web_user --activate-dependencies
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test -u web_shortener --activate-dependencies
+
+/*actualizar lista de modulos*/
+trytond-admin -c /etc/tryton/trytond.conf -d tryton_test --update-modules-list
+
+
+/*ruta de los modulos*/
+/usr/local/lib/python3.6/dist-packages/trytond/modules
+
+/*login app*/
+Host: localhost
+Database: tryton_test
+username: admin

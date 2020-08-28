@@ -1,0 +1,3 @@
+.react-bs-table table td, .react-bs-table table th {
+    text-overflow: unset !important;
+}
