@@ -11,7 +11,7 @@ CREATE PROCEDURE `proyectoAddOrEdit` (
   IN _fehca_inicio DATE,
   IN _fecha_fin DATE,
   IN _cotizacion_id INT(10),
-  IN _activo INT,
+  IN _activo INT(11),
   IN _codigo_unificador VARCHAR(255)
 )
 BEGIN
