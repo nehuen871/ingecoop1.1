@@ -68,21 +68,19 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An cotizacion
 router.post('/', (req, res) => {
-  let {revision, fecha, titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador} = req.body;
+  let {fecha, titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador} = req.body;
   if(fecha === '' || fecha === 'Invalid date'){fecha = null};
-  if(revision === ''){revision = null};
   if(titulo_cotiazacion === ''){titulo_cotiazacion = null};
   const query = `
     SET @id = 0;
-    SET @revision = ?;
     SET @fecha = ?;
     SET @titulo_cotiazacion = ?;
     SET @numero_doc = ?;
     SET @cliente_id = ?;
     SET @codigo_unificador = ?;
-    CALL cotizacionAddOrEdit(@id, @revision,@fecha,@titulo_cotiazacion,@numero_doc,@cliente_id,@codigo_unificador);
+    CALL cotizacionAddOrEdit(@id,@fecha,@titulo_cotiazacion,@numero_doc,@cliente_id,@codigo_unificador);
   `;
-  mysqlConnection.query(query, [revision, fecha,titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador], (err, rows, fields) => {
+  mysqlConnection.query(query, [fecha,titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cotizacion Saved'});
     } else {
@@ -108,22 +106,20 @@ router.post('/updateControl', (req, res) => {
 
 
 router.put('/:id', (req, res) => {
-  let { revision, fecha, titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador} = req.body;
+  let { fecha, titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador} = req.body;
   if(fecha === '' || fecha === 'Invalid date'){fecha = null};
-  if(revision === ''){revision = null};
   if(titulo_cotiazacion === ''){titulo_cotiazacion = null};
   const { id } = req.params;
   const query = `
     SET @id = ?;
-    SET @revision = ?;
     SET @fecha = ?;
     SET @titulo_cotiazacion = ?;
     SET @numero_doc = ?;
     SET @cliente_id = ?;
     SET @codigo_unificador = ?;
-    CALL cotizacionAddOrEdit(@id, @revision,@fecha,@titulo_cotiazacion,@numero_doc,@cliente_id,@codigo_unificador);
+    CALL cotizacionAddOrEdit(@id,@fecha,@titulo_cotiazacion,@numero_doc,@cliente_id,@codigo_unificador);
   `;
-  mysqlConnection.query(query, [id, revision, fecha,titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, fecha,titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'cotizacion Updated'});
     } else {

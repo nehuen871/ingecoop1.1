@@ -163,7 +163,6 @@ export default class Cotizacion extends React.Component {
         let fecha1 = moment(data[i].fecha).format('YYYY-MM-DD');
         jobs.push({
           id: data[i].id,
-          revision: data[i].revision,
           fecha: fecha1,
           titulo_cotiazacion: data[i].titulo_cotiazacion,
           numero_doc: data[i].numero_doc,
@@ -180,7 +179,6 @@ export default class Cotizacion extends React.Component {
         let fecha1 = moment(data[i].fecha).format('YYYY-MM-DD');
         jobs.push({
           id: data[i].id,
-          revision: data[i].revision,
           fecha: fecha1,
           titulo_cotiazacion: data[i].titulo_cotiazacion,
           numero_doc: data[i].numero_doc,
@@ -208,7 +206,6 @@ export default class Cotizacion extends React.Component {
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
       <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
       <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
-      <TableHeaderColumn dataField='revision' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
       <TableHeaderColumn dataField='fecha' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha</TableHeaderColumn>
       <TableHeaderColumn dataField='titulo_cotiazacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>titulo_cotiazacion</TableHeaderColumn>
       <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>

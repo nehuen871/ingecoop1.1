@@ -9,7 +9,7 @@ import moment from 'moment';
 let jobs = [];
 let jobTypesCotizacion = [];
 let jobTypesControl = [];
-
+let jobTypesProyecto = [];
 const cellEditProp = {
   mode: 'click',
   blurToSave: true,
@@ -151,6 +151,9 @@ export default class certificacion extends React.Component {
     this.callApiDroopControl()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
+    this.callApiDroopProyecto()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
   }
 
   componentDidUpdate(prevProps) {
@@ -225,6 +228,18 @@ export default class certificacion extends React.Component {
     }
   }
 
+  callApiDroopProyecto = async () => {
+    const response = await fetch('/proyecto');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    for (let i = 0; i < data.length; i++) {
+      jobTypesProyecto.push({
+        value: data[i].id,
+        text: data[i].nombre
+      });
+    }
+  }
+
   render() {
     // custom attributes on editor
     return (
@@ -233,8 +248,8 @@ export default class certificacion extends React.Component {
         <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
         <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
         <TableHeaderColumn dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='numeroDePedido' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numeroDePedido</TableHeaderColumn>
-        <TableHeaderColumn dataField='proyecto' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>proyecto</TableHeaderColumn>
+        <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numeroDePedido</TableHeaderColumn>
+        <TableHeaderColumn dataField='proyecto' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesProyecto } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>proyecto</TableHeaderColumn>
         <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>especialidad</TableHeaderColumn>
         <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fechaDeEmision</TableHeaderColumn>
         <TableHeaderColumn dataField='moneda' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>moneda</TableHeaderColumn>
@@ -242,3 +257,5 @@ export default class certificacion extends React.Component {
     );
   }
 }
+
+/**<TableHeaderColumn dataField='proyecto' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>proyecto</TableHeaderColumn> */

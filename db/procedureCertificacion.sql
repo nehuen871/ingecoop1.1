@@ -7,7 +7,7 @@ CREATE PROCEDURE `certificacionAddOrEdit` (
   IN _id INT(10),
   IN _control_id INT(10),
   IN _control_cotizacion_id INT(10),
-  IN _numeroDePedido INT(11),
+  IN _numeroDePedido VARCHAR(255),
   IN _proyecto VARCHAR(255),
   IN _especialidad VARCHAR(255),
   IN _fechaDeEmision DATE,
