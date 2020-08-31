@@ -16,12 +16,13 @@ CREATE PROCEDURE `datosCertificacionAddOrEdit` (
   IN _porcentajeAvanceAcumulado INT(11),
   IN _horasCertificadas FLOAT,
   IN _total_certificacion INT(11),
+  IN _numero_documento INT(11);
   IN _list_docs_id INT(11)
 )
 BEGIN
   IF _id = 0 THEN
-    INSERT INTO datosCertificacion (certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs,porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,list_docs_id)
-    VALUES (_certificacion_id,_certificacion_control_id,_certificacion_control_cotizacion_id,_costoHoraDoc,_cantidadDeHoras,_cantidadDeDocs,_porcentajeAvanceAnterior,_porcentajeAvancePrecente,_porcentajeAvanceAcumulado,_horasCertificadas,_total_certificacion,_list_docs_id);
+    INSERT INTO datosCertificacion (certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs,porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id)
+    VALUES (_certificacion_id,_certificacion_control_id,_certificacion_control_cotizacion_id,_costoHoraDoc,_cantidadDeHoras,_cantidadDeDocs,_porcentajeAvanceAnterior,_porcentajeAvancePrecente,_porcentajeAvanceAcumulado,_horasCertificadas,_total_certificacion,_numero_documento,_list_docs_id);
 
     SET _id = LAST_INSERT_ID();
   ELSE
@@ -38,6 +39,7 @@ BEGIN
     porcentajeAvanceAcumulado = _porcentajeAvanceAcumulado,
     horasCertificadas = _horasCertificadas,
     total_certificacion = _total_certificacion,
+    numero_documento = _numero_documento,
     list_docs_id = _list_docs_id
     WHERE id = _id;
   END IF;

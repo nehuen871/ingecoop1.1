@@ -16,13 +16,14 @@ CREATE PROCEDURE `datosCotizacionAddOrEdit` (
   IN _HH_asociado TINYINT(1),
   IN _proveerdor TINYINT(1),
   IN _viatico TINYINT(1),
+  IN _numero_documento INT(11),
   IN _list_docs_id INT(11)
 )
 BEGIN 
   DECLARE _idCotizacion,_idControl,_idCerti INT DEFAULT 0;
   IF _id = 0 THEN
-    INSERT INTO datosCotizacion (numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total,observacion, HH_asociado, proveerdor, viatico, list_docs_id)
-    VALUES (_numeroRecotizacion, _cotizacion_id, _descripcion_doc, _revicion, _cantidad_doc,_HHUnidades,_total,_observacion,_HH_asociado,_proveerdor,_viatico,_list_docs_id);
+    INSERT INTO datosCotizacion (numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total,observacion, HH_asociado, proveerdor, viatico, numero_documento,list_docs_id)
+    VALUES (_numeroRecotizacion, _cotizacion_id, _descripcion_doc, _revicion, _cantidad_doc,_HHUnidades,_total,_observacion,_HH_asociado,_proveerdor,_viatico,_numero_documento,_list_docs_id);
 
     /*SELECT id INTO _idControl FROM control WHERE cotizacion_id = _cotizacion_id;
 
@@ -49,6 +50,7 @@ BEGIN
     HH_asociado = _HH_asociado,
     proveerdor = _proveerdor,
     viatico = _viatico,
+    numero_documento = _numero_documento,
     list_docs_id = _list_docs_id
     WHERE id = _id;
   END IF;
