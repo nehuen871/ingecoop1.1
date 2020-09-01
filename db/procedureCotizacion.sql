@@ -19,8 +19,8 @@ BEGIN
     VALUES (_fecha,_titulo_cotiazacion,_numero_doc,_cliente_id,_codigo_unificador);
     SET _idCotizacion = LAST_INSERT_ID();
 
-    /*INSERT INTO control (cotizacion_id, fecha_emision_proyectada, revision, fecha_calificaion, numero_documento, numero_control, numero_doc, codigo_doc_cliente,codigo_unificador)
-    VALUES (_idCotizacion,NULL,NULL,NULL,NULL,NULL,NULL,NULL,_codigo_unificador);*/
+    INSERT INTO proyecto (nombre,revision,numero_proyecto,cliente_id,fehca_inicio,fecha_fin,cotizacion_id,codigo_unificador,activo)
+    VALUES (_titulo_cotiazacion,NULL, NULL, _cliente_id, _fecha, _fecha,_idCotizacion,_codigo_unificador,1);
 
     SET _id = LAST_INSERT_ID();
   ELSE
