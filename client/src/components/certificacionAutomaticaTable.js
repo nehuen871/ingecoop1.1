@@ -29,22 +29,29 @@ async function onAfterSaveCell(row, cellName, cellValue) {
     row.fechaDeEmision = moment(cellValue).format('YYYY-MM-DD');
   }
   if(window.confirm('Desea Certificar?')){
-    const settings = {
-      method: 'POST',
-      body: JSON.stringify(row),
-      headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+    let suma = parseInt(row.porcentajeAvanceAcumulado) +  parseInt(row.inputSend);
+    console.log(suma);
+    if(suma < 100){
+      const settings = {
+        method: 'POST',
+        body: JSON.stringify(row),
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+      };
+      let url = "/datosCertificacion/updateAvance/";
+      try {
+          const fetchResponse = await fetch(url, settings);
+          const data = await fetchResponse.json();
+          alert("Avace certificado");
+      } catch (e) {
+        console.log(e);
       }
-    };
-    let url = "/datosCertificacion/updateAvance/";
-    try {
-        const fetchResponse = await fetch(url, settings);
-        const data = await fetchResponse.json();
-        alert("Avace certificado");
-    } catch (e) {
-      console.log(e);
+    }else{
+      alert("No se puede certificar mas del 100%");
     }
+    
   }
 }
 
@@ -203,11 +210,11 @@ export default class datosCertificacion extends React.Component {
         <div>
         <BootstrapTable data={ jobs } cellEdit={ cellEditProp } pagination={ true } options={ options } exportCSV={ true }>
             <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
-            <TableHeaderColumn dataField='certificacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCertificacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_id</TableHeaderColumn>
-            <TableHeaderColumn dataField='certificacion_control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_id</TableHeaderColumn>
-            <TableHeaderColumn dataField='certificacion_control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_cotizacion_id</TableHeaderColumn>
-            <TableHeaderColumn dataField='list_docs_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>list_docs_id</TableHeaderColumn>
-            <TableHeaderColumn dataField='porcentajeAvanceAcumulado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvanceAcumulado</TableHeaderColumn>
+            <TableHeaderColumn dataField='certificacion_id' editable={ false } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_id</TableHeaderColumn>
+            <TableHeaderColumn dataField='certificacion_control_id' editable={ false } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_id</TableHeaderColumn>
+            <TableHeaderColumn dataField='certificacion_control_cotizacion_id' editable={ false } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_cotizacion_id</TableHeaderColumn>
+            <TableHeaderColumn dataField='list_docs_id' editable={ false } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>list_docs_id</TableHeaderColumn>
+            <TableHeaderColumn dataField='porcentajeAvanceAcumulado' editable={ false } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvanceAcumulado</TableHeaderColumn>
             <TableHeaderColumn dataField='inputSend' editable={ { validator: jobStatusValidator,type: 'input'} }y>inputSend</TableHeaderColumn>
         </BootstrapTable>
       </div>
