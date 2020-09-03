@@ -20,10 +20,12 @@ CREATE PROCEDURE `datoControlAddOrEdit` (
   IN _list_docs_id INT(11)
 )
 BEGIN 
-  DECLARE _idCotizacion,_idControl,_idCerti INT DEFAULT 0;
+  DECLARE _idCotizacion,_idControl,_idCerti,_cantDoc,_hhUni,_totalMulti INT DEFAULT 0;
   IF _id = 0 THEN
+    SELECT total_hh , cantidad_de_doc, total_hh * cantidad_de_doc INTO _hhUni,_cantDoc,_totalMulti FROM list_docs WHERE id = _list_docs_id;
+
     INSERT INTO datosControl (descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento, list_docs_id)
-    VALUES (_descripcion_doc,_revicion,_cantidad_doc,_HHUnidades,_total,_observacion,_HH_asociado,_proveedor,_viatico,_control_id,_control_cotizacion_id,_numero_documento,_list_docs_id);
+    VALUES (_descripcion_doc,_revicion,_cantDoc,_hhUni,_totalMulti,_observacion,_HH_asociado,_proveedor,_viatico,_control_id,_control_cotizacion_id,_numero_documento,_list_docs_id);
 
     SELECT id INTO _idCerti FROM certificacion WHERE control_cotizacion_id = _control_cotizacion_id;
 

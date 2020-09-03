@@ -26,19 +26,19 @@ CREATE USER 'ingecoop'@'localhost' IDENTIFIED BY 'ingecoop';
 GRANT ALL PRIVILEGES ON * . * TO 'ingecoop'@'localhost';
 FLUSH PRIVILEGES;
   
-source /opt/ingecoop1.1/db/procedureProyecto.sql
-source /opt/ingecoop1.1/db/procedureDatosControl.sql
-source /opt/ingecoop1.1/db/procedureCotizacion.sql
-source /opt/ingecoop1.1/db/procedureControl.sql
-source /opt/ingecoop1.1/db/procedureCliente.sql
-source /opt/ingecoop1.1/db/procedureCertificacion.sql
-source /opt/ingecoop1.1/db/procedureList_Docs.sql
-source /opt/ingecoop1.1/db/procedureDatosCotizacion.sql
-source /opt/ingecoop1.1/db/procedureRemitos.sql
-source /opt/ingecoop1.1/db/procedureRemitosDatos.sql
-source /opt/ingecoop1.1/db/procedureClienteHasCotizacion.sql
-source /opt/ingecoop1.1/db/proceduraDatosCertificacion.sql
-source /opt/ingecoop1.1/db/proceduraUpdateControl.sql
-source /opt/ingecoop1.1/db/procedureCertificacionAutomatica.sql
+source /opt/ingecoop/db/procedureProyecto.sql
+source /opt/ingecoop/db/procedureDatosControl.sql
+source /opt/ingecoop/db/procedureCotizacion.sql
+source /opt/ingecoop/db/procedureControl.sql
+source /opt/ingecoop/db/procedureCliente.sql
+source /opt/ingecoop/db/procedureCertificacion.sql
+source /opt/ingecoop/db/procedureList_Docs.sql
+source /opt/ingecoop/db/procedureDatosCotizacion.sql
+source /opt/ingecoop/db/procedureRemitos.sql
+source /opt/ingecoop/db/procedureRemitosDatos.sql
+source /opt/ingecoop/db/procedureClienteHasCotizacion.sql
+source /opt/ingecoop/db/proceduraDatosCertificacion.sql
+source /opt/ingecoop/db/proceduraUpdateControl.sql
+source /opt/ingecoop/db/procedureCertificacionAutomatica.sql
  * 
  */

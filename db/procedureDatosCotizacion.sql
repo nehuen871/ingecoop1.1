@@ -20,10 +20,12 @@ CREATE PROCEDURE `datosCotizacionAddOrEdit` (
   IN _list_docs_id INT(11)
 )
 BEGIN 
-  DECLARE _idCotizacion,_idControl,_idCerti INT DEFAULT 0;
+  DECLARE _idCotizacion,_idControl,_idCerti,_cantDoc,_hhUni,_totalMulti INT DEFAULT 0;
   IF _id = 0 THEN
+
+    SELECT total_hh , cantidad_de_doc, total_hh * cantidad_de_doc INTO _hhUni,_cantDoc,_totalMulti FROM list_docs WHERE id = _list_docs_id;
     INSERT INTO datosCotizacion (numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total,observacion, HH_asociado, proveerdor, viatico, numero_documento,list_docs_id)
-    VALUES (_numeroRecotizacion, _cotizacion_id, _descripcion_doc, _revicion, _cantidad_doc,_HHUnidades,_total,_observacion,_HH_asociado,_proveerdor,_viatico,_numero_documento,_list_docs_id);
+    VALUES (_numeroRecotizacion, _cotizacion_id, _descripcion_doc, _revicion, _cantDoc,_hhUni,_totalMulti,_observacion,_HH_asociado,_proveerdor,_viatico,_numero_documento,_list_docs_id);
 
     /*SELECT id INTO _idControl FROM control WHERE cotizacion_id = _cotizacion_id;
 
