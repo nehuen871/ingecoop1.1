@@ -1,14 +1,14 @@
 import React from "react";
 
 /* Import Components */
-//import Tree from "TreeProyecto";
-import Proyecto from './Proyecto';
-import Certificacion from './Certificacion';
-import DatosCertificacion from './DatosCertificacion';
-import Control from './Control';
-import Cotizacion from './Cotizacion';
-import DatosControl from './DatosControl';
-import DatosCotiazacion from './DatosCotizacion';
+
+import Proyecto from './tablas/Proyecto';
+import Certificacion from './tablas/Certificacion';
+import DatosCertificacion from './tablas/DatosCertificacion';
+import Control from './tablas/Control';
+import Cotizacion from './tablas/Cotizacion';
+import DatosControl from './tablas/DatosControl';
+import DatosCotiazacion from './tablas/DatosCotizacion';
 
 export default class NameForm extends React.Component {
   constructor(props) {

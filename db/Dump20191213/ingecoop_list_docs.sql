@@ -27,7 +27,7 @@ CREATE TABLE `list_docs` (
   `cantidad_de_doc` int(11) DEFAULT NULL,
   `total_hh` float DEFAULT NULL COMMENT '		',
   `especialidad` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `lista_de_cable` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `tipodocumento` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `nombre` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=316 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

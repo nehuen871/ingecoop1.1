@@ -31,7 +31,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
   if(window.confirm('Desea Certificar?')){
     let suma = parseInt(row.porcentajeAvanceAcumulado) +  parseInt(row.inputSend);
     console.log(suma);
-    if(suma < 100){
+    if(suma <= 100){
       const settings = {
         method: 'POST',
         body: JSON.stringify(row),
