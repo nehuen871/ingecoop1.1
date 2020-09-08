@@ -23,12 +23,29 @@ function jobStatusValidator(value, row) {
   }
   return true;
 }
+function erroHandrle(data){
+  switch(data.errno) {
+    case 1451:
+      alert("No se puede editar o borrar el registro ya que tiene asociado un dato");
+      break;
+    default:
+      // code block
+  } 
+}
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha_emision_proyectada"){
     row.fecha_emision_proyectada = moment(cellValue).format('YYYY-MM-DD');
   }else if(cellName === "fecha_calificaion"){
     row.fecha_calificaion = moment(cellValue).format('YYYY-MM-DD');
   }
+
+  switch(cellName) {
+    case "tituloCotiazacion":
+      row.cotizacion_id = row.tituloCotiazacion;
+      break;
+    default:
+      // code block
+  } 
 
   const settings = {
     method: 'PUT',
@@ -42,6 +59,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
   try {
       const fetchResponse = await fetch(url, settings);
       const data = await fetchResponse.json();
+      erroHandrle(data);
       console.log(data);
   } catch (e) {
     console.log(e);
@@ -168,14 +186,11 @@ export default class control extends React.Component {
         jobs.push({
           id: data[i].id,
           cotizacion_id: data[i].cotizacion_id,
+          tituloCotiazacion: data[i].tituloCotiazacion,
           fecha_emision_proyectada: fecha1,
           revision: data[i].revision,
           fecha_calificaion: fecha3,
-          numero_documento: data[i].numero_documento,
-          numero_control: data[i].numero_control,
-          numero_doc: data[i].numero_doc,
-          codigo_unificador: data[i].codigo_unificador,
-          codigo_doc_cliente: data[i].codigo_doc_cliente
+          codigo_unificador: data[i].codigo_unificador
         });
       }
     }else{
@@ -189,14 +204,11 @@ export default class control extends React.Component {
         jobs.push({
           id: data[i].id,
           cotizacion_id: data[i].cotizacion_id,
+          tituloCotiazacion: data[i].tituloCotiazacion,
           fecha_emision_proyectada: fecha1,
           revision: data[i].revision,
           fecha_calificaion: fecha3,
-          numero_documento: data[i].numero_documento,
-          numero_control: data[i].numero_control,
-          numero_doc: data[i].numero_doc,
-          codigo_unificador: data[i].codigo_unificador,
-          codigo_doc_cliente: data[i].codigo_doc_cliente
+          codigo_unificador: data[i].codigo_unificador
         });
       }
     }
@@ -220,14 +232,11 @@ export default class control extends React.Component {
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp } >
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='tituloCotiazacion' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>tituloCotiazacion</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_emision_proyectada' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_emision_proyectada</TableHeaderColumn>
         <TableHeaderColumn dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_calificaion' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_calificaion</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_documento' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_documento</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_control' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_control</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_doc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
-        <TableHeaderColumn dataField='codigo_doc_cliente' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_doc_cliente</TableHeaderColumn>
       </BootstrapTable>
     );
   }

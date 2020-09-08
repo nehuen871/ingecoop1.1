@@ -5,11 +5,11 @@ const mysqlConnection  = require('../db/database.js');
 
 // GET all cotizacion
 router.get('/', (req, res) => {
-  mysqlConnection.query('SELECT * FROM cotizacion', (err, rows, fields) => {
+  mysqlConnection.query('SELECT cotizacion.*,cliente.nombre as nombreCliente FROM cotizacion join cliente on cliente.id = cotizacion.cliente_id', (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -20,7 +20,7 @@ router.get('/generarDatosControlData', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -37,7 +37,7 @@ router.post('/getListDocsFormCotizacion', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -49,7 +49,7 @@ router.get('/:id', (req, res) => {
     if (!err) {
       res.json(rows[0]);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -61,7 +61,7 @@ router.delete('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'cotizacion Deleted'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -84,7 +84,7 @@ router.post('/', (req, res) => {
     if(!err) {
       res.json({status: 'cotizacion Saved'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -99,7 +99,7 @@ router.post('/updateControl', (req, res) => {
     if(!err) {
       res.json({status: 'Datos Generados'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -123,7 +123,7 @@ router.put('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'cotizacion Updated'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -134,7 +134,7 @@ router.get('/codigoUnificador/:code', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });

@@ -17,6 +17,8 @@ CREATE PROCEDURE `datoControlAddOrEdit` (
   IN _control_id INT(10),
   IN _control_cotizacion_id INT(10),
   IN _numero_documento INT(11),
+  IN _numero_remito INT(11),
+  IN _fecha_envio_remito DATE,
   IN _list_docs_id INT(11)
 )
 BEGIN 
@@ -24,8 +26,8 @@ BEGIN
   IF _id = 0 THEN
     SELECT total_hh , cantidad_de_doc, total_hh * cantidad_de_doc INTO _hhUni,_cantDoc,_totalMulti FROM list_docs WHERE id = _list_docs_id;
 
-    INSERT INTO datosControl (descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento, list_docs_id)
-    VALUES (_descripcion_doc,_revicion,_cantDoc,_hhUni,_totalMulti,_observacion,_HH_asociado,_proveedor,_viatico,_control_id,_control_cotizacion_id,_numero_documento,_list_docs_id);
+    INSERT INTO datosControl (descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id)
+    VALUES (_descripcion_doc,_revicion,_cantDoc,_hhUni,_totalMulti,_observacion,_HH_asociado,_proveedor,_viatico,_control_id,_control_cotizacion_id,_numero_documento,_numero_remito,_fecha_envio_remito,_list_docs_id);
 
     SELECT id INTO _idCerti FROM certificacion WHERE control_cotizacion_id = _control_cotizacion_id;
 
@@ -48,6 +50,8 @@ BEGIN
     control_id = _control_id,
     control_cotizacion_id = _control_cotizacion_id,
     numero_documento = _numero_documento,
+    numero_remito = _numero_remito,
+    fecha_envio_remito = _fecha_envio_remito,
     list_docs_id = _list_docs_id
   WHERE id = _id;
   END IF;

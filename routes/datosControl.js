@@ -5,11 +5,11 @@ const mysqlConnection  = require('../db/database.js');
 
 // GET all datosControl
 router.get('/', (req, res) => {
-  mysqlConnection.query('SELECT * FROM datosControl', (err, rows, fields) => {
+  mysqlConnection.query('SELECT datosControl.*,cotizacion.titulo_cotiazacion as tituloCotiazacion,control.codigo_unificador, CONCAT_WS("",list_docs.nombre," ",list_docs.titulo_documento) as nombreDocumento FROM datosControl join cotizacion on cotizacion.id = datosControl.control_cotizacion_id join control on control.id = datosControl.control_id join list_docs on list_docs.id = datosControl.list_docs_id', (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
     if (!err) {
       res.json(rows[0]);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -33,7 +33,7 @@ router.delete('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'datosControl Deleted'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -70,7 +70,7 @@ router.post('/', (req, res) => {
     if(!err) {
       res.json({status: 'datosControl Saved'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 
@@ -108,7 +108,7 @@ router.put('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'datosControl Updated'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -119,7 +119,7 @@ router.get('/codigoUnificador/:code', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });

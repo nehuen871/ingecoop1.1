@@ -24,6 +24,17 @@ async function onAfterSaveCell(row, cellName, cellValue) {
   }else if(cellName === "fecha_inicio"){
     row.fehca_inicio = moment(cellValue).format('YYYY-MM-DD');
   }
+  switch(cellName) {
+    case "nombreCliente":
+      row.cliente_id = row.nombreCliente;
+      break;
+    case "nombreCotizacion":
+      row.cotizacion_id = row.nombreCotizacion;
+      break;
+    default:
+      // code block
+  } 
+  
   const settings = {
     method: 'PUT',
     body: JSON.stringify(row),
@@ -173,6 +184,8 @@ export default class proyecto extends React.Component {
           cotizacion_id: data[i].cotizacion_id,
           numero_proyecto: data[i].numero_proyecto,
           cliente_id: data[i].cliente_id,
+          nombreCliente: data[i].nombreCliente,
+          nombreCotizacion: data[i].nombreCotizacion,
           fehca_inicio: fecha1,
           codigo_unificador: data[i].codigo_unificador,
           activo: data[i].activo,
@@ -194,6 +207,8 @@ export default class proyecto extends React.Component {
           cotizacion_id: data[i].cotizacion_id,
           numero_proyecto: data[i].numero_proyecto,
           cliente_id: data[i].cliente_id,
+          nombreCliente: data[i].nombreCliente,
+          nombreCotizacion: data[i].nombreCotizacion,
           fehca_inicio: fecha1,
           codigo_unificador: data[i].codigo_unificador,
           activo: data[i].activo,
@@ -234,10 +249,12 @@ export default class proyecto extends React.Component {
         <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>nombre</TableHeaderColumn>
         <TableHeaderColumn dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
         <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'TextFilter', delay: 1000 } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_proyecto</TableHeaderColumn>
-        <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypesCliente } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cliente_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypesCliente } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>cliente_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='nombreCliente' editable={ { type: 'select', options: { values: jobTypesCliente } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>nombreCliente</TableHeaderColumn>
         <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_inicio</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_fin</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='cotizacion_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='nombreCotizacion'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } >nombreCotizacion</TableHeaderColumn>
         <TableHeaderColumn dataField='activo' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>activo</TableHeaderColumn>
       </BootstrapTable>
     );

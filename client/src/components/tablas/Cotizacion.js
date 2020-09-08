@@ -27,6 +27,15 @@ async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha"){
     row.fecha = moment(cellValue).format('YYYY-MM-DD');
   }
+
+  switch(cellName) {
+    case "nombreCliente":
+      row.cliente_id = row.nombreCliente;
+      break;
+    default:
+      // code block
+  } 
+
   const settings = {
     method: 'PUT',
     body: JSON.stringify(row),
@@ -167,6 +176,7 @@ export default class Cotizacion extends React.Component {
           titulo_cotiazacion: data[i].titulo_cotiazacion,
           numero_doc: data[i].numero_doc,
           codigo_unificador: data[i].codigo_unificador,
+          nombreCliente: data[i].nombreCliente,
           cliente_id: data[i].cliente_id
         });
       }
@@ -183,6 +193,7 @@ export default class Cotizacion extends React.Component {
           titulo_cotiazacion: data[i].titulo_cotiazacion,
           numero_doc: data[i].numero_doc,
           codigo_unificador: data[i].codigo_unificador,
+          nombreCliente: data[i].nombreCliente,
           cliente_id: data[i].cliente_id
         });
       }
@@ -209,7 +220,8 @@ export default class Cotizacion extends React.Component {
       <TableHeaderColumn dataField='fecha' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha</TableHeaderColumn>
       <TableHeaderColumn dataField='titulo_cotiazacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>titulo_cotiazacion</TableHeaderColumn>
       <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
-      <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cliente_id</TableHeaderColumn>
+      <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>cliente_id</TableHeaderColumn>
+      <TableHeaderColumn dataField='nombreCliente' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>nombreCliente</TableHeaderColumn>
       </BootstrapTable>
     );
   }

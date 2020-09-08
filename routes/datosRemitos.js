@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
     if(!err) {
       res.json({status: 'datosRemitos Saved'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -41,7 +41,7 @@ router.put('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'datosRemitos Updated'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -63,7 +63,7 @@ router.get('/codigoUnificador/:code', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -74,7 +74,7 @@ router.get('/:id', (req, res) => {
     if (!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -86,7 +86,7 @@ router.delete('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'datosRemitos Deleted'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });

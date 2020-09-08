@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
     if (!err) {
       res.json(rows[0]);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -33,7 +33,7 @@ router.delete('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'certificacion Deleted'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -46,7 +46,7 @@ router.post('/dataById', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -59,7 +59,7 @@ router.post('/dataByIdControl', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -87,7 +87,7 @@ router.post('/', (req, res) => {
     if(!err) {
       res.json({status: 'certificacion Saved'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 
@@ -117,7 +117,7 @@ router.put('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'certificacion Updated'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -129,7 +129,7 @@ router.get('/codigoUnificador/:code', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });

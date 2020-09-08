@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     if(!err) {
       res.send(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
     if (!err) {
       res.json(rows[0]);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -33,7 +33,7 @@ router.delete('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'cliente Deleted'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -52,7 +52,7 @@ router.post('/all', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -70,7 +70,7 @@ router.post('/getClienteById', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -91,7 +91,7 @@ router.post('/', (req, res) => {
     if(!err) {
       res.json({status: 'cliente Saved'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -111,7 +111,7 @@ router.put('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'cliente Updated'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 

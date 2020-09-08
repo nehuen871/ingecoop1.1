@@ -3,6 +3,7 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../styles/react-bootstrap-table.css';
+import moment from 'moment';
 
 let jobs = [];
 let jobTypesCotizacion = [];
@@ -17,6 +18,18 @@ const cellEditProp = {
 const selectRowProp = {
   mode: 'checkbox'
 };
+function erroHandrle(data){
+  switch(data.errno) {
+    case 1451:
+      alert("No se puede editar o borrar el registro ya que tiene asociado un dato");
+      break;
+    case 1452:
+        alert("No se puede editar o borrar el registro ya que tiene asociado un dato");
+        break;
+    default:
+      // code block
+  } 
+}
 function jobStatusValidator(value, row) {
   const nan = isNaN(parseInt(value, 10));
   if (nan) {
@@ -25,6 +38,22 @@ function jobStatusValidator(value, row) {
   return true;
 }
 async function onAfterSaveCell(row, cellName, cellValue) {
+  if(cellName === "fecha_envio_remito"){
+    row.fecha_envio_remito = moment(cellValue).format('YYYY-MM-DD');
+  }
+  switch(cellName) {
+    case "codigo_unificador":
+      row.control_id = row.codigo_unificador;
+      break;
+    case "tituloCotiazacion":
+      row.control_cotizacion_id = row.tituloCotiazacion;
+      break;
+    case "nombreDocumento":
+      row.list_docs_id = row.nombreDocumento;
+      break;
+    default:
+      // code block
+  } 
   const settings = {
     method: 'PUT',
     body: JSON.stringify(row),
@@ -37,6 +66,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
   try {
       const fetchResponse = await fetch(url, settings);
       const data = await fetchResponse.json();
+      erroHandrle(data);
       console.log(data);
   } catch (e) {
     console.log(e);
@@ -162,10 +192,12 @@ export default class datosControl extends React.Component {
       var data = await response.json();
       if (response.status !== 200) throw Error(data.message);
       for (let i = 0; i < data.length; i++) {
+        let fecha1 = moment(data[i].fecha_envio_remito).format('YYYY-MM-DD');
         jobs.push({
           id: data[i].id,
           descripcion_doc: data[i].descripcion_doc,
           revicion: data[i].revicion,
+          numero_documento: data[i].numero_documento,
           cantidad_doc: data[i].cantidad_doc,
           HHUnidades: data[i].HHUnidades,
           total: data[i].total,
@@ -174,8 +206,13 @@ export default class datosControl extends React.Component {
           HH_asociado: data[i].HH_asociado,
           proveedor: data[i].proveedor,
           viatico: data[i].viatico,
+          numero_remito: data[i].numero_remito,
+          fecha_envio_remito: fecha1,
           control_id: data[i].control_id,
           control_cotizacion_id: data[i].control_cotizacion_id,
+          tituloCotiazacion: data[i].tituloCotiazacion,
+          codigo_unificador: data[i].codigo_unificador,
+          nombreDocumento: data[i].nombreDocumento,
           list_docs_id: data[i].list_docs_id
         });
       }
@@ -185,10 +222,12 @@ export default class datosControl extends React.Component {
       var data = await response.json();
       if (response.status !== 200) throw Error(data.message);
       for (let i = 0; i < data.length; i++) {
+        let fecha1 = moment(data[i].fecha_envio_remito).format('YYYY-MM-DD');
         jobs.push({
           id: data[i].id,
           descripcion_doc: data[i].descripcion_doc,
           revicion: data[i].revicion,
+          numero_documento: data[i].numero_documento,
           cantidad_doc: data[i].cantidad_doc,
           HHUnidades: data[i].HHUnidades,
           total: data[i].total,
@@ -197,8 +236,13 @@ export default class datosControl extends React.Component {
           HH_asociado: data[i].HH_asociado,
           proveedor: data[i].proveedor,
           viatico: data[i].viatico,
+          numero_remito: data[i].numero_remito,
+          fecha_envio_remito: fecha1,
           control_id: data[i].control_id,
           control_cotizacion_id: data[i].control_cotizacion_id,
+          tituloCotiazacion: data[i].tituloCotiazacion,
+          codigo_unificador: data[i].codigo_unificador,
+          nombreDocumento: data[i].nombreDocumento,
           list_docs_id: data[i].list_docs_id
         });
       }
@@ -237,7 +281,7 @@ export default class datosControl extends React.Component {
     for (let i = 0; i < data.length; i++) {
       jobTypesControl.push({
         value: data[i].id,
-        text: data[i].numero_control
+        text: data[i].codigo_unificador
       });
     }
   }
@@ -246,18 +290,24 @@ export default class datosControl extends React.Component {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='list_docs_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>list_docs_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='list_docs_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>list_docs_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='nombreDocumento' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>nombreDocumento</TableHeaderColumn>
         <TableHeaderColumn dataField='descripcion_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>descripcion_doc</TableHeaderColumn>
         <TableHeaderColumn dataField='revicion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revicion</TableHeaderColumn>
         <TableHeaderColumn dataField='cantidad_doc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidad_doc</TableHeaderColumn>
         <TableHeaderColumn dataField='HHUnidades' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HHUnidades</TableHeaderColumn>
         <TableHeaderColumn dataField='total' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>total</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_documento' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>numero_documento</TableHeaderColumn>
         <TableHeaderColumn dataField='observacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>observacion</TableHeaderColumn>
         <TableHeaderColumn dataField='HH_asociado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HH_asociado</TableHeaderColumn>
         <TableHeaderColumn dataField='proveedor' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>proveedor</TableHeaderColumn>
         <TableHeaderColumn dataField='viatico' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>viatico</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='numero_remito' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_remito</TableHeaderColumn>
+        <TableHeaderColumn dataField='fecha_envio_remito' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_envio_remito</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>control_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='codigo_unificador' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>codigo_unificador</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='tituloCotiazacion' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>tituloCotiazacion</TableHeaderColumn>
       </BootstrapTable>
     );
   }

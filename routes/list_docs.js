@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     if(!err) {
       res.json(rows);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
     if (!err) {
       res.json(rows[0]);
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -33,7 +33,7 @@ router.delete('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'list_docs Deleted'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -61,7 +61,7 @@ router.post('/', (req, res) => {
     if(!err) {
       res.json({status: 'list_docs Saved'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 });
@@ -89,7 +89,7 @@ router.put('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'list_docs Updated'});
     } else {
-      console.log(err);
+      res.json(err);
     }
   });
 
