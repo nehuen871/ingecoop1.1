@@ -221,7 +221,7 @@ export default class Cotizacion extends React.Component {
       <TableHeaderColumn dataField='titulo_cotiazacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>titulo_cotiazacion</TableHeaderColumn>
       <TableHeaderColumn dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_doc</TableHeaderColumn>
       <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>cliente_id</TableHeaderColumn>
-      <TableHeaderColumn dataField='nombreCliente' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>nombreCliente</TableHeaderColumn>
+      <TableHeaderColumn hiddenOnInsert dataField='nombreCliente' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>nombreCliente</TableHeaderColumn>
       </BootstrapTable>
     );
   }

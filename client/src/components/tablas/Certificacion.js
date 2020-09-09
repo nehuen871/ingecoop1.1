@@ -9,7 +9,6 @@ import moment from 'moment';
 let jobs = [];
 let jobTypesCotizacion = [];
 let jobTypesControl = [];
-let jobTypesProyecto = [];
 const cellEditProp = {
   mode: 'click',
   blurToSave: true,
@@ -18,7 +17,18 @@ const cellEditProp = {
 const selectRowProp = {
   mode: 'checkbox'
 };
-
+function erroHandrle(data){
+  switch(data.errno) {
+    case 1451:
+      alert("No se puede editar o borrar el registro ya que tiene asociado un dato");
+      break;
+    case 1452:
+        alert("No se puede editar o borrar el registro ya que tiene asociado un dato");
+        break;
+    default:
+      // code block
+  } 
+}
 function jobStatusValidator(value, row) {
   const nan = isNaN(parseInt(value, 10));
   if (nan) {
@@ -31,6 +41,16 @@ async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fechaDeEmision"){
     row.fechaDeEmision = moment(cellValue).format('YYYY-MM-DD');
   }
+  switch(cellName) {
+    case "tituloCotiazacion":
+      row.control_cotizacion_id = row.tituloCotiazacion;
+      break;
+    case "codigoControl":
+      row.control_id = row.codigoControl;
+      break;
+    default:
+      // code block
+  } 
   const settings = {
     method: 'PUT',
     body: JSON.stringify(row),
@@ -43,6 +63,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
   try {
       const fetchResponse = await fetch(url, settings);
       const data = await fetchResponse.json();
+      erroHandrle(data);
       console.log(data);
   } catch (e) {
     console.log(e);
@@ -151,9 +172,6 @@ export default class certificacion extends React.Component {
     this.callApiDroopControl()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
-    this.callApiDroopProyecto()
-      .then(res => this.setState({ response: res }))
-      .catch(err => console.log(err));
   }
 
   componentDidUpdate(prevProps) {
@@ -180,6 +198,8 @@ export default class certificacion extends React.Component {
           especialidad: data[i].especialidad,
           fechaDeEmision: fecha1,
           codigo_unificador: data[i].codigo_unificador,
+          codigoControl: data[i].codigoControl,
+          tituloCotiazacion: data[i].tituloCotiazacion,
           moneda: data[i].moneda
         });
       }
@@ -199,6 +219,8 @@ export default class certificacion extends React.Component {
           especialidad: data[i].especialidad,
           fechaDeEmision: fecha1,
           codigo_unificador: data[i].codigo_unificador,
+          codigoControl: data[i].codigoControl,
+          tituloCotiazacion: data[i].tituloCotiazacion,
           moneda: data[i].moneda
         });
       }
@@ -223,22 +245,11 @@ export default class certificacion extends React.Component {
     for (let i = 0; i < data.length; i++) {
       jobTypesControl.push({
         value: data[i].id,
-        text: data[i].numero_control
+        text: data[i].codigo_unificador
       });
     }
   }
 
-  callApiDroopProyecto = async () => {
-    const response = await fetch('/proyecto');
-    var data = await response.json();
-    if (response.status !== 200) throw Error(data.message);
-    for (let i = 0; i < data.length; i++) {
-      jobTypesProyecto.push({
-        value: data[i].id,
-        text: data[i].nombre
-      });
-    }
-  }
 
   render() {
     // custom attributes on editor
@@ -246,10 +257,12 @@ export default class certificacion extends React.Component {
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>control_id</TableHeaderColumn>
+        <TableHeaderColumn hiddenOnInsert dataField='codigoControl' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>codigoControl</TableHeaderColumn>        
+        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn hiddenOnInsert dataField='tituloCotiazacion' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>tituloCotiazacion</TableHeaderColumn>
         <TableHeaderColumn dataField='numeroDePedido' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>numeroDePedido</TableHeaderColumn>
-        <TableHeaderColumn dataField='proyecto' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesProyecto } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>proyecto</TableHeaderColumn>
+        <TableHeaderColumn dataField='proyecto' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>proyecto</TableHeaderColumn>
         <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>especialidad</TableHeaderColumn>
         <TableHeaderColumn dataField='fechaDeEmision' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fechaDeEmision</TableHeaderColumn>
         <TableHeaderColumn dataField='moneda' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>moneda</TableHeaderColumn>

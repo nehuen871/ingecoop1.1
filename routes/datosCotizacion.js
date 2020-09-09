@@ -5,7 +5,7 @@ const mysqlConnection  = require('../db/database.js');
 
 // GET all datosCotizacion
 router.get('/', (req, res) => {
-  mysqlConnection.query('SELECT * FROM datosCotizacion', (err, rows, fields) => {
+  mysqlConnection.query('SELECT datosCotizacion.*,cotizacion.titulo_cotiazacion as tituloCotiazacion,CONCAT_WS("",list_docs.nombre," ",list_docs.titulo_documento) as nombreDocumento FROM datosCotizacion join cotizacion on cotizacion.id = datosCotizacion.cotizacion_id join list_docs on list_docs.id = datosCotizacion.list_docs_id', (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {

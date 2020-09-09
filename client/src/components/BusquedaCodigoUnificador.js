@@ -9,6 +9,8 @@ import Control from './tablas/Control';
 import Cotizacion from './tablas/Cotizacion';
 import DatosControl from './tablas/DatosControl';
 import DatosCotiazacion from './tablas/DatosCotizacion';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 export default class NameForm extends React.Component {
   constructor(props) {

@@ -5,7 +5,7 @@ const mysqlConnection  = require('../db/database.js');
 
 // GET all certificacion
 router.get('/', (req, res) => {
-  mysqlConnection.query('SELECT * FROM datosCertificacion', (err, rows, fields) => {
+  mysqlConnection.query('SELECT datosCertificacion.*,cotizacion.titulo_cotiazacion as tituloCotiazacion,control.codigo_unificador as codigoControl,certificacion.numeroDePedido as certificaCionPedido,CONCAT_WS("",list_docs.nombre," ",list_docs.titulo_documento) as nombreDocumento FROM datosCertificacion join cotizacion on cotizacion.id = datosCertificacion.certificacion_control_cotizacion_id join control on control.id = datosCertificacion.certificacion_control_id join certificacion on certificacion.id =  datosCertificacion.certificacion_id join list_docs on list_docs.id = datosCertificacion.list_docs_id', (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {
