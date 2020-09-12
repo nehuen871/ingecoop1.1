@@ -49,7 +49,7 @@ router.put('/:id', (req, res) => {
 
 // GET all datosRemitos
 router.get('/', (req, res) => {
-  mysqlConnection.query('SELECT * FROM datosRemitos', (err, rows, fields) => {
+  mysqlConnection.query('SELECT datosRemitos.*,remitos.remito as nombreRemito,cotizacion.titulo_cotiazacion as tituloCotiazacion,control.codigo_unificador,CONCAT_WS("",list_docs.nombre," ",list_docs.titulo_documento) as nombreDocumento FROM datosRemitos join remitos on remitos.id = datosRemitos.remitos_id join cotizacion on cotizacion.id = datosRemitos.remitos_control_cotizacion_id join control on control.id = datosRemitos.remitos_control_id join list_docs on list_docs.id = datosRemitos.list_docs_id', (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {

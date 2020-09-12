@@ -36,7 +36,7 @@ source /opt/ingecoop/db/procedureList_Docs.sql
 source /opt/ingecoop/db/procedureDatosCotizacion.sql
 source /opt/ingecoop/db/procedureRemitos.sql
 source /opt/ingecoop/db/procedureRemitosDatos.sql
-source /opt/ingecoop/db/procedureClienteHasCotizacion.sql
+source /opt/ingecoop/db/procedureRecotizacion.sql
 source /opt/ingecoop/db/proceduraDatosCertificacion.sql
 source /opt/ingecoop/db/proceduraUpdateControl.sql
 source /opt/ingecoop/db/procedureCertificacionAutomatica.sql

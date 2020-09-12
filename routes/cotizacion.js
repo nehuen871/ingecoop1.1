@@ -25,6 +25,7 @@ router.get('/generarDatosControlData', (req, res) => {
   });
 });
 
+
 //Get all datosCotizaicon childs
 router.post('/getListDocsFormCotizacion', (req, res) => {
   let {id} = req.body;
@@ -95,6 +96,20 @@ router.post('/updateControl', (req, res) => {
   const query = `
   SET @id = ?;
   CALL updateControl(@id);`;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json({status: 'Datos Generados'});
+    } else {
+      res.json(err);
+    }
+  });
+});
+
+router.post('/recotizacion', (req, res) => {
+  let {id} = req.body;
+  const query = `
+  SET @id = ?;
+  CALL recotizacion(@id);`;
   mysqlConnection.query(query,[id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'Datos Generados'});

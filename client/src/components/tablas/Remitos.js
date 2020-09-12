@@ -24,9 +24,31 @@ function jobStatusValidator(value, row) {
   }
   return true;
 }
+function erroHandrle(data){
+  switch(data.errno) {
+    case 1451:
+      alert("No se puede editar o borrar el registro ya que tiene asociado un dato");
+      break;
+    case 1452:
+        alert("No se puede editar o borrar el registro ya que tiene asociado un dato");
+        break;
+    default:
+      // code block
+  } 
+}
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha_envio"){
     row.fecha_envio = moment(cellValue).format('YYYY-MM-DD');
+  }
+  switch(cellName) {
+    case "identificadorControl":
+      row.control_id = row.identificadorControl;
+      break;
+    case "tituloCotiazacion":
+      row.control_cotizacion_id = row.tituloCotiazacion;
+      break;
+    default:
+      // code block
   }
   const settings = {
     method: 'PUT',
@@ -40,6 +62,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
   try {
       const fetchResponse = await fetch(url, settings);
       const data = await fetchResponse.json();
+      erroHandrle(data);
   } catch (e) {
       console.log(e);
   }
@@ -159,6 +182,8 @@ export default class proyecto extends React.Component {
         fecha_envio: fecha1,
         control_id: data[i].control_id,
         control_cotizacion_id: data[i].control_cotizacion_id,
+        tituloCotiazacion: data[i].tituloCotiazacion,
+        identificadorControl: data[i].identificadorControl,
         codigo_unificador: data[i].codigo_unificador
       });
     }
@@ -183,7 +208,7 @@ export default class proyecto extends React.Component {
     for (let i = 0; i < data.length; i++) {
       jobTypesControl.push({
         value: data[i].id,
-        text: data[i].numero_control
+        text: data[i].codigo_unificador
       });
     }
   }
@@ -192,11 +217,13 @@ export default class proyecto extends React.Component {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>control_id</TableHeaderColumn>
+        <TableHeaderColumn hiddenOnInsert dataField='identificadorControl' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>identificadorControl</TableHeaderColumn>
+        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>control_cotizacion_id</TableHeaderColumn>
+        <TableHeaderColumn hiddenOnInsert dataField='tituloCotiazacion' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>tituloCotiazacion</TableHeaderColumn>
         <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
         <TableHeaderColumn dataField='remito' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>remito</TableHeaderColumn>
         <TableHeaderColumn dataField='fecha_envio' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_envio</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>control_cotizacion_id</TableHeaderColumn>
       </BootstrapTable>
     );
   }

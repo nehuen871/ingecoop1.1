@@ -170,6 +170,8 @@ export default class datosCotizacion extends React.Component {
           HH_asociado: data[i].HH_asociado,
           proveerdor: data[i].proveerdor,
           viatico: data[i].viatico,
+          tituloCotiazacion: data[i].tituloCotiazacion,
+          nombreDocumento: data[i].nombreDocumento,
           list_docs_id: data[i].list_docs_id
         });
       }
@@ -192,6 +194,8 @@ export default class datosCotizacion extends React.Component {
           HH_asociado: data[i].HH_asociado,
           proveerdor: data[i].proveerdor,
           viatico: data[i].viatico,
+          tituloCotiazacion: data[i].tituloCotiazacion,
+          nombreDocumento: data[i].nombreDocumento,
           list_docs_id: data[i].list_docs_id
         });
       }

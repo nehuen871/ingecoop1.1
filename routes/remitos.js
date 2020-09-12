@@ -5,7 +5,7 @@ const mysqlConnection  = require('../db/database.js');
 
 // GET all remitos
 router.get('/', (req, res) => {
-  mysqlConnection.query('SELECT * FROM remitos', (err, rows, fields) => {
+  mysqlConnection.query('SELECT remitos.*,cotizacion.titulo_cotiazacion as tituloCotiazacion,control.codigo_unificador as identificadorControl FROM remitos join cotizacion on cotizacion.id = remitos.control_cotizacion_id join control on control.id = remitos.control_id', (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {
