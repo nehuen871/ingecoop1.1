@@ -149,6 +149,8 @@ export default class datosCertificacion extends React.Component {
                 certificacion_control_id: data[i].certificacion_control_id,
                 certificacion_control_cotizacion_id: data[i].certificacion_control_cotizacion_id,
                 porcentajeAvanceAcumulado: data[i].porcentajeAvanceAcumulado,
+                porcentajeAvanceAnterior: data[i].porcentajeAvanceAnterior,
+                porcentajeAvancePrecente: data[i].porcentajeAvancePrecente,
                 list_docs_id: data[i].list_docs_id,
                 inputSend: 0,
             });
@@ -214,6 +216,8 @@ export default class datosCertificacion extends React.Component {
             <TableHeaderColumn dataField='certificacion_control_id' editable={ false } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_id</TableHeaderColumn>
             <TableHeaderColumn dataField='certificacion_control_cotizacion_id' editable={ false } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>certificacion_control_cotizacion_id</TableHeaderColumn>
             <TableHeaderColumn dataField='list_docs_id' editable={ false } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>list_docs_id</TableHeaderColumn>
+            <TableHeaderColumn dataField='porcentajeAvanceAnterior' editable={ false } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvanceAnterior</TableHeaderColumn>
+            <TableHeaderColumn dataField='porcentajeAvancePrecente' editable={ false } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvancePrecente</TableHeaderColumn>
             <TableHeaderColumn dataField='porcentajeAvanceAcumulado' editable={ false } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvanceAcumulado</TableHeaderColumn>
             <TableHeaderColumn dataField='inputSend' editable={ { validator: jobStatusValidator,type: 'input'} }y>inputSend</TableHeaderColumn>
         </BootstrapTable>

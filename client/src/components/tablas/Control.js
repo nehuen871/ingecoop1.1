@@ -194,22 +194,24 @@ export default class control extends React.Component {
         });
       }
     }else{
-      jobs = [];
-      const response = await fetch('/control');
-      var data = await response.json();
-      if (response.status !== 200) throw Error(data.message);
-      for (let i = 0; i < data.length; i++) {
-        let fecha1 = moment(data[i].fecha_emision_proyectada).format('YYYY-MM-DD');
-        let fecha3 = moment(data[i].fecha_calificaion).format('YYYY-MM-DD');
-        jobs.push({
-          id: data[i].id,
-          cotizacion_id: data[i].cotizacion_id,
-          tituloCotiazacion: data[i].tituloCotiazacion,
-          fecha_emision_proyectada: fecha1,
-          revision: data[i].revision,
-          fecha_calificaion: fecha3,
-          codigo_unificador: data[i].codigo_unificador
-        });
+      if(this.props.sendData != "0"){
+        jobs = [];
+        const response = await fetch('/control');
+        var data = await response.json();
+        if (response.status !== 200) throw Error(data.message);
+        for (let i = 0; i < data.length; i++) {
+          let fecha1 = moment(data[i].fecha_emision_proyectada).format('YYYY-MM-DD');
+          let fecha3 = moment(data[i].fecha_calificaion).format('YYYY-MM-DD');
+          jobs.push({
+            id: data[i].id,
+            cotizacion_id: data[i].cotizacion_id,
+            tituloCotiazacion: data[i].tituloCotiazacion,
+            fecha_emision_proyectada: fecha1,
+            revision: data[i].revision,
+            fecha_calificaion: fecha3,
+            codigo_unificador: data[i].codigo_unificador
+          });
+        }
       }
     }
   }

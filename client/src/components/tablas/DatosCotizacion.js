@@ -176,28 +176,30 @@ export default class datosCotizacion extends React.Component {
         });
       }
     }else{
-      jobs = [];
-      const response = await fetch('/datosCotizacion');
-      var data = await response.json();
-      if (response.status !== 200) throw Error(data.message);
-      for (let i = 0; i < data.length; i++) {
-        jobs.push({
-          id: data[i].id,
-          numeroRecotizacion: data[i].numeroRecotizacion,
-          cotizacion_id: data[i].cotizacion_id,
-          descripcion_doc: data[i].descripcion_doc,
-          revicion: data[i].revicion,
-          cantidad_doc: data[i].cantidad_doc,
-          HHUnidades: data[i].HHUnidades,
-          total: data[i].total,
-          observacion: data[i].observacion,
-          HH_asociado: data[i].HH_asociado,
-          proveerdor: data[i].proveerdor,
-          viatico: data[i].viatico,
-          tituloCotiazacion: data[i].tituloCotiazacion,
-          nombreDocumento: data[i].nombreDocumento,
-          list_docs_id: data[i].list_docs_id
-        });
+      if(this.props.sendData != "0"){
+        jobs = [];
+        const response = await fetch('/datosCotizacion');
+        var data = await response.json();
+        if (response.status !== 200) throw Error(data.message);
+        for (let i = 0; i < data.length; i++) {
+          jobs.push({
+            id: data[i].id,
+            numeroRecotizacion: data[i].numeroRecotizacion,
+            cotizacion_id: data[i].cotizacion_id,
+            descripcion_doc: data[i].descripcion_doc,
+            revicion: data[i].revicion,
+            cantidad_doc: data[i].cantidad_doc,
+            HHUnidades: data[i].HHUnidades,
+            total: data[i].total,
+            observacion: data[i].observacion,
+            HH_asociado: data[i].HH_asociado,
+            proveerdor: data[i].proveerdor,
+            viatico: data[i].viatico,
+            tituloCotiazacion: data[i].tituloCotiazacion,
+            nombreDocumento: data[i].nombreDocumento,
+            list_docs_id: data[i].list_docs_id
+          });
+        }
       }
     }
   }

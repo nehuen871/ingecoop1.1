@@ -223,30 +223,32 @@ export default class datosCertificacion extends React.Component {
         });
       }
     }else{
-      jobs = [];
-      const response = await fetch('/datosCertificacion');
-      var data = await response.json();
-      if (response.status !== 200) throw Error(data.message);
-      for (let i = 0; i < data.length; i++) {
-        jobs.push({
-          id: data[i].id,
-          certificacion_id: data[i].certificacion_id,
-          certificacion_control_id: data[i].certificacion_control_id,
-          certificacion_control_cotizacion_id: data[i].certificacion_control_cotizacion_id,
-          costoHoraDoc: data[i].costoHoraDoc,
-          cantidadDeHoras: data[i].cantidadDeHoras,
-          cantidadDeDocs: data[i].cantidadDeDocs,
-          porcentajeAvanceAnterior: data[i].porcentajeAvanceAnterior,
-          porcentajeAvancePrecente: data[i].porcentajeAvancePrecente,
-          porcentajeAvanceAcumulado: data[i].porcentajeAvanceAcumulado,
-          total_certificacion: data[i].total_certificacion,
-          numero_documento: data[i].numero_documento,
-          nombreDocumento: data[i].nombreDocumento,
-          tituloCotiazacion: data[i].tituloCotiazacion,
-          codigoControl: data[i].codigoControl,
-          certificaCionPedido: data[i].certificaCionPedido,
-          list_docs_id: data[i].list_docs_id
-        });
+      if(this.props.sendData != "0"){
+        jobs = [];
+        const response = await fetch('/datosCertificacion');
+        var data = await response.json();
+        if (response.status !== 200) throw Error(data.message);
+        for (let i = 0; i < data.length; i++) {
+          jobs.push({
+            id: data[i].id,
+            certificacion_id: data[i].certificacion_id,
+            certificacion_control_id: data[i].certificacion_control_id,
+            certificacion_control_cotizacion_id: data[i].certificacion_control_cotizacion_id,
+            costoHoraDoc: data[i].costoHoraDoc,
+            cantidadDeHoras: data[i].cantidadDeHoras,
+            cantidadDeDocs: data[i].cantidadDeDocs,
+            porcentajeAvanceAnterior: data[i].porcentajeAvanceAnterior,
+            porcentajeAvancePrecente: data[i].porcentajeAvancePrecente,
+            porcentajeAvanceAcumulado: data[i].porcentajeAvanceAcumulado,
+            total_certificacion: data[i].total_certificacion,
+            numero_documento: data[i].numero_documento,
+            nombreDocumento: data[i].nombreDocumento,
+            tituloCotiazacion: data[i].tituloCotiazacion,
+            codigoControl: data[i].codigoControl,
+            certificaCionPedido: data[i].certificaCionPedido,
+            list_docs_id: data[i].list_docs_id
+          });
+        }
       }
     }
   }

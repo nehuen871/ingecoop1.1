@@ -181,21 +181,23 @@ export default class Cotizacion extends React.Component {
         });
       }
     }else{
-      jobs = [];
-      const response = await fetch('/cotizacion');
-      var data = await response.json();
-      if (response.status !== 200) throw Error(data.message);
-      for (let i = 0; i < data.length; i++) {
-        let fecha1 = moment(data[i].fecha).format('YYYY-MM-DD');
-        jobs.push({
-          id: data[i].id,
-          fecha: fecha1,
-          titulo_cotiazacion: data[i].titulo_cotiazacion,
-          numero_doc: data[i].numero_doc,
-          codigo_unificador: data[i].codigo_unificador,
-          nombreCliente: data[i].nombreCliente,
-          cliente_id: data[i].cliente_id
-        });
+      if(this.props.sendData != "0"){
+        jobs = [];
+        const response = await fetch('/cotizacion');
+        var data = await response.json();
+        if (response.status !== 200) throw Error(data.message);
+        for (let i = 0; i < data.length; i++) {
+          let fecha1 = moment(data[i].fecha).format('YYYY-MM-DD');
+          jobs.push({
+            id: data[i].id,
+            fecha: fecha1,
+            titulo_cotiazacion: data[i].titulo_cotiazacion,
+            numero_doc: data[i].numero_doc,
+            codigo_unificador: data[i].codigo_unificador,
+            nombreCliente: data[i].nombreCliente,
+            cliente_id: data[i].cliente_id
+          });
+        }
       }
     }
   }

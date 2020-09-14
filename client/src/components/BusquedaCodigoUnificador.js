@@ -27,23 +27,42 @@ export default class NameForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <Tabs>
       <button onClick={this.searchData} className="btn btn-primary">Buscar</button>
       <br/>
       <br/>
       <br/>
-      <label>Proyecto</label>
-      <Proyecto sendData={this.state.searchCodigoUnificador}/>
-      <label>Cotizacion</label>
-      <Cotizacion sendData={this.state.searchCodigoUnificador}/>
-      <DatosCotiazacion sendData={this.state.searchCodigoUnificador}/>
-      <label>Control</label>
-      <Control sendData={this.state.searchCodigoUnificador}/>
-      <DatosControl sendData={this.state.searchCodigoUnificador}/>
-      <label>Certificacion</label>
-      <Certificacion sendData={this.state.searchCodigoUnificador}/>
-      <DatosCertificacion sendData={this.state.searchCodigoUnificador}/>
-      </div>
+      <TabList>
+        <Tab>Proyecto</Tab>
+        <Tab>Cotizacion</Tab>
+        <Tab>DatosCotiazacion</Tab>
+        <Tab>Control</Tab>
+        <Tab>DatosControl</Tab>
+        <Tab>Certificacion</Tab>
+        <Tab>DatosCertificacion</Tab>
+      </TabList>
+      <TabPanel>
+        <Proyecto sendData={this.state.searchCodigoUnificador}/>
+      </TabPanel>
+      <TabPanel>
+        <Cotizacion sendData={this.state.searchCodigoUnificador}/>
+      </TabPanel>
+      <TabPanel>
+        <DatosCotiazacion sendData={this.state.searchCodigoUnificador}/>
+      </TabPanel>
+      <TabPanel>
+        <Control sendData={this.state.searchCodigoUnificador}/>
+      </TabPanel>
+      <TabPanel>
+        <DatosControl sendData={this.state.searchCodigoUnificador}/>
+      </TabPanel>
+      <TabPanel>
+        <Certificacion sendData={this.state.searchCodigoUnificador}/>
+      </TabPanel>
+      <TabPanel>
+        <DatosCertificacion sendData={this.state.searchCodigoUnificador}/>
+      </TabPanel>
+      </Tabs>
     );
   }
 }

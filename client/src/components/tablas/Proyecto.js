@@ -193,27 +193,29 @@ export default class proyecto extends React.Component {
         });
       }
     }else{
-      jobs = [];
-      const response = await fetch('/proyecto');
-      var data = await response.json();
-      if (response.status !== 200) throw Error(data.message);
-      for (let i = 0; i < data.length; i++) {
-        let fecha1 = moment(data[i].fehca_inicio).format('YYYY-MM-DD');
-        let fecha2 = moment(data[i].fecha_fin).format('YYYY-MM-DD');
-        jobs.push({
-          id: data[i].id,
-          nombre: data[i].nombre,
-          revision: data[i].revision,
-          cotizacion_id: data[i].cotizacion_id,
-          numero_proyecto: data[i].numero_proyecto,
-          cliente_id: data[i].cliente_id,
-          nombreCliente: data[i].nombreCliente,
-          nombreCotizacion: data[i].nombreCotizacion,
-          fehca_inicio: fecha1,
-          codigo_unificador: data[i].codigo_unificador,
-          activo: data[i].activo,
-          fecha_fin: fecha2
-        });
+      if(this.props.sendData != "0"){
+        jobs = [];
+        const response = await fetch('/proyecto');
+        var data = await response.json();
+        if (response.status !== 200) throw Error(data.message);
+        for (let i = 0; i < data.length; i++) {
+          let fecha1 = moment(data[i].fehca_inicio).format('YYYY-MM-DD');
+          let fecha2 = moment(data[i].fecha_fin).format('YYYY-MM-DD');
+          jobs.push({
+            id: data[i].id,
+            nombre: data[i].nombre,
+            revision: data[i].revision,
+            cotizacion_id: data[i].cotizacion_id,
+            numero_proyecto: data[i].numero_proyecto,
+            cliente_id: data[i].cliente_id,
+            nombreCliente: data[i].nombreCliente,
+            nombreCotizacion: data[i].nombreCotizacion,
+            fehca_inicio: fecha1,
+            codigo_unificador: data[i].codigo_unificador,
+            activo: data[i].activo,
+            fecha_fin: fecha2
+          });
+        }
       }
     }
   }

@@ -217,34 +217,36 @@ export default class datosControl extends React.Component {
         });
       }
     }else{
-      jobs = [];
-      const response = await fetch('/datosControl');
-      var data = await response.json();
-      if (response.status !== 200) throw Error(data.message);
-      for (let i = 0; i < data.length; i++) {
-        let fecha1 = moment(data[i].fecha_envio_remito).format('YYYY-MM-DD');
-        jobs.push({
-          id: data[i].id,
-          descripcion_doc: data[i].descripcion_doc,
-          revicion: data[i].revicion,
-          numero_documento: data[i].numero_documento,
-          cantidad_doc: data[i].cantidad_doc,
-          HHUnidades: data[i].HHUnidades,
-          total: data[i].total,
-          revision: data[i].revision,
-          observacion: data[i].observacion,
-          HH_asociado: data[i].HH_asociado,
-          proveedor: data[i].proveedor,
-          viatico: data[i].viatico,
-          numero_remito: data[i].numero_remito,
-          fecha_envio_remito: fecha1,
-          control_id: data[i].control_id,
-          control_cotizacion_id: data[i].control_cotizacion_id,
-          tituloCotiazacion: data[i].tituloCotiazacion,
-          codigo_unificador: data[i].codigo_unificador,
-          nombreDocumento: data[i].nombreDocumento,
-          list_docs_id: data[i].list_docs_id
-        });
+      if(this.props.sendData != "0"){
+        jobs = [];
+        const response = await fetch('/datosControl');
+        var data = await response.json();
+        if (response.status !== 200) throw Error(data.message);
+        for (let i = 0; i < data.length; i++) {
+          let fecha1 = moment(data[i].fecha_envio_remito).format('YYYY-MM-DD');
+          jobs.push({
+            id: data[i].id,
+            descripcion_doc: data[i].descripcion_doc,
+            revicion: data[i].revicion,
+            numero_documento: data[i].numero_documento,
+            cantidad_doc: data[i].cantidad_doc,
+            HHUnidades: data[i].HHUnidades,
+            total: data[i].total,
+            revision: data[i].revision,
+            observacion: data[i].observacion,
+            HH_asociado: data[i].HH_asociado,
+            proveedor: data[i].proveedor,
+            viatico: data[i].viatico,
+            numero_remito: data[i].numero_remito,
+            fecha_envio_remito: fecha1,
+            control_id: data[i].control_id,
+            control_cotizacion_id: data[i].control_cotizacion_id,
+            tituloCotiazacion: data[i].tituloCotiazacion,
+            codigo_unificador: data[i].codigo_unificador,
+            nombreDocumento: data[i].nombreDocumento,
+            list_docs_id: data[i].list_docs_id
+          });
+        }
       }
     }
   }
