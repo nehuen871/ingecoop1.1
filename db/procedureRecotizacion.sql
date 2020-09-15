@@ -46,7 +46,7 @@ BEGIN
     SELECT id,control_cotizacion_id INTO _datosControid,_datosControidOld FROM datosControl WHERE control_cotizacion_id = _id LIMIT 0,1;
     SELECT id,certificacion_control_cotizacion_id INTO _datosCertificacionid,_datosCertificacionidOld FROM datosCertificacion WHERE certificacion_control_cotizacion_id = _id LIMIT 0,1;
 
-    UPDATE datosCotizacion
+    UPDATE datosCertificacion
     SET
       certificacion_control_cotizacion_id = _idCotizacion
     WHERE id = _datosCertificacionid;

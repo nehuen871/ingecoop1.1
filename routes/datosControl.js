@@ -40,11 +40,12 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An datosControl
 router.post('/', (req, res) => {
-  let {descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,list_docs_id} = req.body;
+  let {descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id} = req.body;
   if(descripcion_doc===''){descripcion_doc=null};
   if(revicion===''){revicion=null};
   if(cantidad_doc===''){cantidad_doc=null};
   if(HHUnidades===''){HHUnidades=null};
+  if(fecha_envio_remito === '' || fecha_envio_remito === 'Invalid date'){fecha_envio_remito = null};
   if(total===''){total=null};
   if(observacion===''){observacion=null};
   if(proveedor===''){proveedor=null};
@@ -63,10 +64,12 @@ router.post('/', (req, res) => {
     SET @control_id = ?;
     SET @control_cotizacion_id = ?;
     SET @numero_documento = ?;
+    SET @numero_remito = ?;
+    SET @fecha_envio_remito = ?;
     SET @list_docs_id = ?;
-    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveedor,@viatico,@control_id,@control_cotizacion_id,@numero_documento,@list_docs_id);
+    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveedor,@viatico,@control_id,@control_cotizacion_id,@numero_documento,@numero_remito,@fecha_envio_remito,@list_docs_id);
   `;
-  mysqlConnection.query(query, [descripcion_doc, revicion, cantidad_doc, HHUnidades, total,observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [descripcion_doc, revicion, cantidad_doc, HHUnidades, total,observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosControl Saved'});
     } else {
@@ -77,11 +80,12 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,list_docs_id } = req.body;
+  const { descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id } = req.body;
   if(descripcion_doc===''){descripcion_doc=null};
   if(revicion===''){revicion=null};
   if(cantidad_doc===''){cantidad_doc=null};
   if(HHUnidades===''){HHUnidades=null};
+  if(fecha_envio_remito === '' || fecha_envio_remito === 'Invalid date'){fecha_envio_remito = null};
   if(total===''){total=null};
   if(observacion===''){observacion=null};
   if(proveedor===''){proveedor=null};
@@ -101,10 +105,12 @@ router.put('/:id', (req, res) => {
     SET @control_id = ?;
     SET @control_cotizacion_id = ?;
     SET @numero_documento = ?;
+    SET @numero_remito = ?;
+    SET @fecha_envio_remito = ?;
     SET @list_docs_id = ?;
-    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveedor,@viatico,@control_id,@control_cotizacion_id,@numero_documento,@list_docs_id);
+    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveedor,@viatico,@control_id,@control_cotizacion_id,@numero_documento,@numero_remito,@fecha_envio_remito,@list_docs_id);
   `;
-  mysqlConnection.query(query, [id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosControl Updated'});
     } else {
