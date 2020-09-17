@@ -23,6 +23,16 @@ function jobStatusValidator(value, row) {
   return true;
 }
 async function onAfterSaveCell(row, cellName, cellValue) {
+  switch(cellName) {
+    case "tituloCotiazacion":
+      row.control_cotizacion_id = row.tituloCotiazacion;
+      break;
+    case "nombreDocumento":
+      row.list_docs_id = row.nombreDocumento;
+      break;
+    default:
+      // code block
+  } 
   const settings = {
     method: 'PUT',
     body: JSON.stringify(row),
@@ -233,15 +243,15 @@ export default class datosCotizacion extends React.Component {
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='cotizacion_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn hiddenOnInsert dataField='tituloCotiazacion' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>tituloCotiazacion</TableHeaderColumn>
+        <TableHeaderColumn hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>tituloCotiazacion</TableHeaderColumn>
         <TableHeaderColumn dataField='list_docs_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>list_docs_id</TableHeaderColumn>
-        <TableHeaderColumn hiddenOnInsert dataField='nombreDocumento' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>nombreDocumento</TableHeaderColumn>
+        <TableHeaderColumn hiddenOnInsert dataField='nombreDocumento' editable={ { type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>nombreDocumento</TableHeaderColumn>
         <TableHeaderColumn dataField='numeroRecotizacion'  editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>numeroRecotizacion</TableHeaderColumn>
         <TableHeaderColumn dataField='descripcion_doc'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>descripcion_doc</TableHeaderColumn>
         <TableHeaderColumn dataField='revicion'  editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revicion</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantidad_doc' hiddenOnInsert editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>cantidad_doc</TableHeaderColumn>
-        <TableHeaderColumn dataField='HHUnidades' hiddenOnInsert editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HHUnidades</TableHeaderColumn>
-        <TableHeaderColumn dataField='total' hiddenOnInsert editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total de control datos</TableHeaderColumn>
+        <TableHeaderColumn dataField='cantidad_doc' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>cantidad_doc</TableHeaderColumn>
+        <TableHeaderColumn dataField='HHUnidades' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HHUnidades</TableHeaderColumn>
+        <TableHeaderColumn dataField='total' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total de control datos</TableHeaderColumn>
         <TableHeaderColumn dataField='observacion'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>observacion</TableHeaderColumn>
         <TableHeaderColumn dataField='HH_asociado'  editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HH_asociado</TableHeaderColumn>
         <TableHeaderColumn dataField='proveerdor'  editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>proveerdor</TableHeaderColumn>

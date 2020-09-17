@@ -115,7 +115,6 @@ router.post('/', (req, res) => {
   if(fecha_emision_proyectada == '' || fecha_emision_proyectada === 'Invalid date'){fecha_emision_proyectada = null};
   if(revision == ''){revision = null};
   if(fecha_calificaion == '' || fecha_calificaion === 'Invalid date'){fecha_calificaion = null};
-  if(numero_documento == ''){numero_documento = null};
   const query = `
     SET @id = 0;
     SET @cotizacion_id = ?;
@@ -129,8 +128,8 @@ router.post('/', (req, res) => {
     if(!err) {
       res.json({status: 'control Saved'});
     } else {
-      res.json(err);
       console.log(err);
+      res.json(err);
     }
   });
 
@@ -155,8 +154,8 @@ router.put('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'control Updated'});
     } else {
-      res.json(err);
       console.log(err);
+      res.json(err); 
     }
   });
 });
@@ -172,8 +171,5 @@ router.get('/codigoUnificador/:code', (req, res) => {
     }
   });
 });
-
-
-
 
 module.exports = router;
