@@ -118,9 +118,20 @@ router.put('/:id', (req, res) => {
 });
 
 
-router.get('/codigoUnificador/:code', (req, res) => {
-  const { code } = req.params;
-  mysqlConnection.query('SELECT datosCotizacion.*,cotizacion.codigo_unificador FROM datosCotizacion join cotizacion on cotizacion.id = datosCotizacion.cotizacion_id where cotizacion.codigo_unificador = ?;',[code], (err, rows, fields) => {
+router.get('/codigoUnificador/:code/:code2', (req, res) => {
+  const { code,code2 } = req.params;
+  if(code2===''){code2=1};
+  if(code2===0){code2=1};
+  const query =`
+    SELECT datosCotizacion.*,
+    cotizacion.codigo_unificador 
+    FROM datosCotizacion 
+    join cotizacion on cotizacion.id = datosCotizacion.cotizacion_id 
+    where 
+    cotizacion.codigo_unificador = ?
+    and datosCotizacion.numeroRecotizacion = ?;
+  `;
+  mysqlConnection.query(query,[code,code2], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {

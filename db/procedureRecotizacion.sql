@@ -42,35 +42,6 @@ BEGIN
     VALUES (_fecha,_titulo_cotiazacionNew,_numero_doc,_cliente_id,_codigo_unificador);
     SET _idCotizacion = LAST_INSERT_ID();
     
-    simple_loop: LOOP
-    SELECT id,control_cotizacion_id INTO _datosControid,_datosControidOld FROM datosControl WHERE control_cotizacion_id = _id LIMIT 0,1;
-    SELECT id,certificacion_control_cotizacion_id INTO _datosCertificacionid,_datosCertificacionidOld FROM datosCertificacion WHERE certificacion_control_cotizacion_id = _id LIMIT 0,1;
-
-    UPDATE datosCertificacion
-    SET
-      certificacion_control_cotizacion_id = _idCotizacion
-    WHERE id = _datosCertificacionid;
-
-    UPDATE datosControl
-    SET
-      control_cotizacion_id = _idCotizacion
-    WHERE id = _datosControid;
-
-    SET _b=_b+1;
-    IF _b = _countTotal THEN
-        LEAVE simple_loop;
-    END IF;
-    END LOOP;
-
-    UPDATE certificacion
-    SET
-      control_cotizacion_id = _idCotizacion
-    WHERE id = _datosControidOld;
-
-    UPDATE control
-    SET
-      control_cotizacion_id = _idCotizacion
-    WHERE id = _datosControidOld;
 
     simple_loop: LOOP
     SET _a=_a+1;

@@ -162,8 +162,15 @@ export default class datosCotizacion extends React.Component {
 
   callApi = async () => {
     if(this.props.sendData){
+      let numReco;
+      if(!this.props.senDataRecotizacion){
+        numReco = 0;
+        
+      }else{
+        numReco = this.props.senDataRecotizacion;
+      }
       jobs = [];
-      const response = await fetch('/datosCotizacion/codigoUnificador/'+this.props.sendData);
+      const response = await fetch('/datosCotizacion/codigoUnificador/'+this.props.sendData+'/'+numReco);
       var data = await response.json();
       if (response.status !== 200) throw Error(data.message);
       for (let i = 0; i < data.length; i++) {

@@ -162,7 +162,6 @@ export default class Cotizacion extends React.Component {
   }
 
   callApi = async () => {
-    console.log("cotizacion " + this.props.sendData);
     if(this.props.sendData){
       jobs = [];
       const response = await fetch('/cotizacion/codigoUnificador/'+this.props.sendData);

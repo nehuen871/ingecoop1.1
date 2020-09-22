@@ -17,12 +17,13 @@ export default class NameForm extends React.Component {
     super(props);
     this.state = {
       searchCodigoUnificador: 0,
+      searchRecotizacion: 0,
     };
     this.searchData = this.searchData.bind(this);
   }
 
   searchData = async () => {
-    this.setState({searchCodigoUnificador: this.props.changeLink});
+    this.setState({searchCodigoUnificador: this.props.changeLink,searchRecotizacion: this.props.changeLinkRecotizacion});
   }
 
   render() {
@@ -48,7 +49,7 @@ export default class NameForm extends React.Component {
         <Cotizacion sendData={this.state.searchCodigoUnificador}/>
       </TabPanel>
       <TabPanel>
-        <DatosCotiazacion sendData={this.state.searchCodigoUnificador}/>
+        <DatosCotiazacion sendData={this.state.searchCodigoUnificador} senDataRecotizacion={this.state.searchRecotizacion}/>
       </TabPanel>
       <TabPanel>
         <Control sendData={this.state.searchCodigoUnificador}/>
