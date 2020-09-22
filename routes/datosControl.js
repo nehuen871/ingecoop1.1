@@ -121,7 +121,7 @@ router.put('/:id', (req, res) => {
 
 router.get('/codigoUnificador/:code', (req, res) => {
   const { code } = req.params;
-  mysqlConnection.query('SELECT datosControl.*,control.codigo_unificador FROM datosControl join control on control.id = datosControl.control_id where control.codigo_unificador = ?;',[code], (err, rows, fields) => {
+  mysqlConnection.query('SELECT datosControl.*,cotizacion.titulo_cotiazacion as tituloCotiazacion,control.codigo_unificador, CONCAT_WS("",list_docs.nombre," ",list_docs.titulo_documento) as nombreDocumento FROM datosControl join cotizacion on cotizacion.id = datosControl.control_cotizacion_id join control on control.id = datosControl.control_id join list_docs on list_docs.id = datosControl.list_docs_id where control.codigo_unificador = ?;',[code], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {

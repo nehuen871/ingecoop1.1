@@ -123,10 +123,10 @@ router.get('/codigoUnificador/:code/:code2', (req, res) => {
   if(code2===''){code2=1};
   if(code2===0){code2=1};
   const query =`
-    SELECT datosCotizacion.*,
-    cotizacion.codigo_unificador 
+    SELECT 
+    datosCotizacion.*,cotizacion.titulo_cotiazacion as tituloCotiazacion,CONCAT_WS("",list_docs.nombre," ",list_docs.titulo_documento) as nombreDocumento
     FROM datosCotizacion 
-    join cotizacion on cotizacion.id = datosCotizacion.cotizacion_id 
+    join cotizacion on cotizacion.id = datosCotizacion.cotizacion_id join list_docs on list_docs.id = datosCotizacion.list_docs_id
     where 
     cotizacion.codigo_unificador = ?
     and datosCotizacion.numeroRecotizacion = ?;

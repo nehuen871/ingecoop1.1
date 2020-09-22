@@ -125,7 +125,7 @@ router.put('/:id', (req, res) => {
 
 router.get('/codigoUnificador/:code', (req, res) => {
   const { code } = req.params;
-  mysqlConnection.query('SELECT * FROM certificacion WHERE codigo_unificador = ?;',[code], (err, rows, fields) => {
+  mysqlConnection.query('SELECT certificacion.*,cotizacion.titulo_cotiazacion as tituloCotiazacion,control.codigo_unificador as codigoControl FROM certificacion join cotizacion on cotizacion.id = certificacion.control_cotizacion_id join control on control.id = certificacion.control_id WHERE certificacion.codigo_unificador = ?;',[code], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {
