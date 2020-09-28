@@ -156,7 +156,7 @@ export default class cliente extends React.Component {
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
         <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='codigoCliente' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigoCliente</TableHeaderColumn>
+        <TableHeaderColumn dataField='codigoCliente' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Codigo de cliente</TableHeaderColumn>
       </BootstrapTable>
     );
   }

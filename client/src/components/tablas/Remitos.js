@@ -193,6 +193,7 @@ export default class proyecto extends React.Component {
     const response = await fetch('/cotizacion');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
+    jobTypesControl = [];
     for (let i = 0; i < data.length; i++) {
       jobTypesCotizacion.push({
         value: data[i].id,
@@ -205,6 +206,7 @@ export default class proyecto extends React.Component {
     const response = await fetch('/control');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
+    jobTypesControl = [];
     for (let i = 0; i < data.length; i++) {
       jobTypesControl.push({
         value: data[i].id,
@@ -216,14 +218,14 @@ export default class proyecto extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_id' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>control_id</TableHeaderColumn>
-        <TableHeaderColumn hiddenOnInsert dataField='identificadorControl' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>identificadorControl</TableHeaderColumn>
-        <TableHeaderColumn dataField='control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>tituloCotiazacion</TableHeaderColumn>
-        <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
-        <TableHeaderColumn dataField='remito' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>remito</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_envio' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_envio</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='control_id' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'TextFilter', delay: 1000} } hidden>Codigo Control</TableHeaderColumn>
+        <TableHeaderColumn width='200' hiddenOnInsert dataField='identificadorControl' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Codigo del control</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'TextFilter', delay: 1000 } } hidden>Titulo de la cotizacion</TableHeaderColumn>
+        <TableHeaderColumn width='200' hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'TextFilter', delay: 1000 } }>Titulo de la cotizacion</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Codigo unificado</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='remito' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Remito</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='fecha_envio' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de envio</TableHeaderColumn>
       </BootstrapTable>
     );
   }

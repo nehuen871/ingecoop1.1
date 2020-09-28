@@ -220,6 +220,7 @@ export default class control extends React.Component {
     const response = await fetch('/cotizacion');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
+    jobTypes = [];
     for (let i = 0; i < data.length; i++) {
       jobTypes.push({
         value: data[i].id,
@@ -231,13 +232,13 @@ export default class control extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp } >
-        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>tituloCotiazacion</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_emision_proyectada' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_emision_proyectada</TableHeaderColumn>
-        <TableHeaderColumn dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_calificaion' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_calificaion</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Codigo unificado</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='cotizacion_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>Cotizacion</TableHeaderColumn>
+        <TableHeaderColumn width='200' hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'TextFilter', delay: 1000 } }>Titulo de cotizacion</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='fecha_emision_proyectada' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de emision proyectada</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Revision</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='fecha_calificaion' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de calificacion</TableHeaderColumn>
       </BootstrapTable>
     );
   }

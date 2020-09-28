@@ -235,6 +235,7 @@ export default class proyecto extends React.Component {
     const response = await fetch('/cliente');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
+    jobTypesCliente = [];
     for (let i = 0; i < data.length; i++) {
       jobTypesCliente.push({
         value: data[i].id,
@@ -246,18 +247,18 @@ export default class proyecto extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } hidden>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>codigo_unificador</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revision</TableHeaderColumn>
-        <TableHeaderColumn dataField='numero_proyecto' editable={ { type: 'TextFilter', delay: 1000 } } filter={ { type: 'TextFilter', delay: 1000 } }>numero_proyecto</TableHeaderColumn>
-        <TableHeaderColumn dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypesCliente } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>cliente_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombreCliente' editable={ { type: 'select', options: { values: jobTypesCliente } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>nombreCliente</TableHeaderColumn>
-        <TableHeaderColumn dataField='fehca_inicio' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_inicio</TableHeaderColumn>
-        <TableHeaderColumn dataField='fecha_fin' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>fecha_fin</TableHeaderColumn>
-        <TableHeaderColumn dataField='cotizacion_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombreCotizacion'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } >nombreCotizacion</TableHeaderColumn>
-        <TableHeaderColumn dataField='activo' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>activo</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='id' isKey={ true } autoValue={ true } hidden>ID</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Codigo unificado</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Nombre</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Revision</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='numero_proyecto' editable={ { type: 'TextFilter', delay: 1000 } } filter={ { type: 'TextFilter', delay: 1000 } }>Numero de proyecto</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypesCliente } } } filter={ { type: 'TextFilter', delay: 1000 } } hidden>Cliente</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='nombreCliente' editable={ { type: 'select', options: { values: jobTypesCliente } } } filter={ { type: 'TextFilter', delay: 1000 } }>Cliente</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='fehca_inicio' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de inicio</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='fecha_fin' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de fin</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='cotizacion_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>Nombre de cotizacion</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='nombreCotizacion'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } >Nombre de cotizacion</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='activo' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Activo</TableHeaderColumn>
       </BootstrapTable>
     );
   }

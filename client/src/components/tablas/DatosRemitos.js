@@ -203,6 +203,7 @@ export default class proyecto extends React.Component {
     const response = await fetch('/cotizacion');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
+    jobTypesCotizacion = [];
     for (let i = 0; i < data.length; i++) {
       jobTypesCotizacion.push({
         value: data[i].id,
@@ -215,6 +216,7 @@ export default class proyecto extends React.Component {
     const response = await fetch('/control');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
+    jobTypesControl = [];
     for (let i = 0; i < data.length; i++) {
       jobTypesControl.push({
         value: data[i].id,
@@ -227,6 +229,7 @@ export default class proyecto extends React.Component {
     const response = await fetch('/list_docs');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
+    jobTypesDocumentos = [];
     for (let i = 0; i < data.length; i++) {
         let mergeNombre = data[i].nombre + " " + data[i].titulo_documento;
         jobTypesDocumentos.push({
@@ -240,6 +243,7 @@ export default class proyecto extends React.Component {
     const response = await fetch('/remitos');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
+    jobTypesRemitos = [];
     for (let i = 0; i < data.length; i++) {
       jobTypesRemitos.push({
         value: data[i].id,
@@ -251,16 +255,16 @@ export default class proyecto extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='remitos_id' editable={ { type: 'select', options: { values: jobTypesRemitos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>remitos_id</TableHeaderColumn>
-        <TableHeaderColumn hiddenOnInsert dataField='nombreRemito' editable={ { type: 'select', options: { values: jobTypesRemitos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>nombreRemito</TableHeaderColumn>
-        <TableHeaderColumn dataField='remitos_control_id' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>remitos_control_id</TableHeaderColumn>
-        <TableHeaderColumn hiddenOnInsert dataField='codigo_unificador' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>codigo_unificador</TableHeaderColumn>
-        <TableHeaderColumn dataField='remitos_control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>remitos_control_cotizacion_id</TableHeaderColumn>
-        <TableHeaderColumn hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>tituloCotiazacion</TableHeaderColumn>
-        <TableHeaderColumn dataField='calificacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>calificacion</TableHeaderColumn>
-        <TableHeaderColumn dataField='list_docs_id' editable={ { type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>list_docs_id</TableHeaderColumn>
-        <TableHeaderColumn hiddenOnInsert dataField='nombreDocumento' editable={ { type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>nombreDocumento</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='remitos_id' editable={ { type: 'select', options: { values: jobTypesRemitos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>Nombre del remito</TableHeaderColumn>
+        <TableHeaderColumn width='200' hiddenOnInsert dataField='nombreRemito' editable={ { type: 'select', options: { values: jobTypesRemitos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Nombre del remito</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='remitos_control_id' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>Control</TableHeaderColumn>
+        <TableHeaderColumn width='200' hiddenOnInsert dataField='codigo_unificador' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Codigo unificado</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='remitos_control_cotizacion_id' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>Titulo de la cotizacion</TableHeaderColumn>
+        <TableHeaderColumn width='200' hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Titulo de la cotizacion</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='calificacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Calificacion</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='list_docs_id' editable={ { type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>Nombre del documento</TableHeaderColumn>
+        <TableHeaderColumn width='200' hiddenOnInsert dataField='nombreDocumento' editable={ { type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Nombre del documento</TableHeaderColumn>
       </BootstrapTable>
     );
   }

@@ -156,13 +156,13 @@ export default class list_docs extends React.Component {
   render() {
     return (
       <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>nombre</TableHeaderColumn>
-        <TableHeaderColumn dataField='cantidad_de_doc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>cantidad_de_doc</TableHeaderColumn>
-        <TableHeaderColumn dataField='total_hh' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>total_hh</TableHeaderColumn>
-        <TableHeaderColumn dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>especialidad</TableHeaderColumn>
-        <TableHeaderColumn dataField='tipodocumento' editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>tipodocumento</TableHeaderColumn>
-        <TableHeaderColumn dataField='titulo_documento' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>titulo_documento</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Nombre</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='cantidad_de_doc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Cantidad de documentos</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='total_hh' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total HH</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Especialidad</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='tipodocumento' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Tipo de documento</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='titulo_documento' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>Titulo del documento</TableHeaderColumn>
       </BootstrapTable>
     );
   }
