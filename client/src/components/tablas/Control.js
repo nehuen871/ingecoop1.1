@@ -35,8 +35,13 @@ function erroHandrle(data){
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha_emision_proyectada"){
     row.fecha_emision_proyectada = moment(cellValue).format('YYYY-MM-DD');
+    row.fecha_calificaion = moment(row.fecha_calificaion,'DD-MM-YYYY').format('YYYY-MM-DD');
   }else if(cellName === "fecha_calificaion"){
     row.fecha_calificaion = moment(cellValue).format('YYYY-MM-DD');
+    row.fecha_emision_proyectada = moment(row.fecha_emision_proyectada,'DD-MM-YYYY').format('YYYY-MM-DD');
+  }else{
+    row.fecha_calificaion = moment(row.fecha_calificaion,'DD-MM-YYYY').format('YYYY-MM-DD');
+    row.fecha_emision_proyectada = moment(row.fecha_emision_proyectada,'DD-MM-YYYY').format('YYYY-MM-DD');
   }
 
   switch(cellName) {
@@ -181,8 +186,8 @@ export default class control extends React.Component {
       var data = await response.json();
       if (response.status !== 200) throw Error(data.message);
       for (let i = 0; i < data.length; i++) {
-        let fecha1 = moment(data[i].fecha_emision_proyectada).format('YYYY-MM-DD');
-        let fecha3 = moment(data[i].fecha_calificaion).format('YYYY-MM-DD');
+        let fecha1 = moment(data[i].fecha_emision_proyectada).format('yyyy-MM-DD');
+        let fecha3 = moment(data[i].fecha_calificaion).format('yyyy-MM-DD');
         jobs.push({
           id: data[i].id,
           cotizacion_id: data[i].cotizacion_id,
@@ -200,8 +205,8 @@ export default class control extends React.Component {
         var data = await response.json();
         if (response.status !== 200) throw Error(data.message);
         for (let i = 0; i < data.length; i++) {
-          let fecha1 = moment(data[i].fecha_emision_proyectada).format('YYYY-MM-DD');
-          let fecha3 = moment(data[i].fecha_calificaion).format('YYYY-MM-DD');
+          let fecha1 = moment(data[i].fecha_emision_proyectada).format('yyyy-MM-DD');
+          let fecha3 = moment(data[i].fecha_calificaion).format('yyyy-MM-DD');
           jobs.push({
             id: data[i].id,
             cotizacion_id: data[i].cotizacion_id,
@@ -237,9 +242,11 @@ export default class control extends React.Component {
         <TableHeaderColumn width='200' dataField='cotizacion_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>Cotizacion</TableHeaderColumn>
         <TableHeaderColumn width='200' hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'TextFilter', delay: 1000 } }>Titulo de cotizacion</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='fecha_emision_proyectada' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de emision proyectada</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Revision</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='fecha_calificaion' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de calificacion</TableHeaderColumn>
       </BootstrapTable>
     );
   }
 }
+
+
+/*<TableHeaderColumn width='200' dataField='revision' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Revision</TableHeaderColumn>*/

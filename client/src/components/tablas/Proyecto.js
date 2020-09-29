@@ -20,9 +20,14 @@ const selectRowProp = {
 
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha_fin"){
-    row.fecha_fin = moment(cellValue).format('YYYY-MM-DD');
-  }else if(cellName === "fecha_inicio"){
-    row.fehca_inicio = moment(cellValue).format('YYYY-MM-DD');
+    row.fecha_fin = moment(cellValue).format('yyyy-MM-DD');
+    row.fehca_inicio = moment(row.fehca_inicio,'DD-MM-YYYY').format('yyyy-MM-DD');
+  }else if(cellName === "fehca_inicio"){
+    row.fehca_inicio = moment(cellValue).format('yyyy-MM-DD');
+    row.fecha_fin = moment(row.fecha_fin,'DD-MM-YYYY').format('yyyy-MM-DD');
+  }else{
+    row.fehca_inicio = moment(row.fehca_inicio,'DD-MM-YYYY').format('yyyy-MM-DD');
+    row.fecha_fin = moment(row.fecha_fin,'DD-MM-YYYY').format('yyyy-MM-DD');
   }
   switch(cellName) {
     case "nombreCliente":
@@ -175,8 +180,8 @@ export default class proyecto extends React.Component {
       var data = await response.json();
       if (response.status !== 200) throw Error(data.message);
       for (let i = 0; i < data.length; i++) {
-        let fecha1 = moment(data[i].fehca_inicio).format('YYYY-MM-DD');
-        let fecha2 = moment(data[i].fecha_fin).format('YYYY-MM-DD');
+        let fecha1 = moment(data[i].fehca_inicio).format('DD-MM-YYYY');
+        let fecha2 = moment(data[i].fecha_fin).format('DD-MM-YYYY');
         jobs.push({
           id: data[i].id,
           nombre: data[i].nombre,
@@ -199,8 +204,8 @@ export default class proyecto extends React.Component {
         var data = await response.json();
         if (response.status !== 200) throw Error(data.message);
         for (let i = 0; i < data.length; i++) {
-          let fecha1 = moment(data[i].fehca_inicio).format('YYYY-MM-DD');
-          let fecha2 = moment(data[i].fecha_fin).format('YYYY-MM-DD');
+          let fecha1 = moment(data[i].fehca_inicio).format('DD-MM-YYYY');
+          let fecha2 = moment(data[i].fecha_fin).format('DD-MM-YYYY');
           jobs.push({
             id: data[i].id,
             nombre: data[i].nombre,

@@ -145,7 +145,7 @@ export default class list_docs extends React.Component {
         id: data[i].id,
         nombre: data[i].nombre,
         cantidad_de_doc: data[i].cantidad_de_doc,
-        total_hh: data[i].total_hh,
+        unidad_hh: data[i].unidad_hh,
         especialidad: data[i].especialidad,
         tipodocumento: data[i].tipodocumento,
         titulo_documento: data[i].titulo_documento
@@ -159,7 +159,7 @@ export default class list_docs extends React.Component {
         <TableHeaderColumn width='200' dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='nombre' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Nombre</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='cantidad_de_doc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Cantidad de documentos</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='total_hh' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total HH</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='unidad_hh' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Unidad HH</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Especialidad</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='tipodocumento' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Tipo de documento</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='titulo_documento' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>Titulo del documento</TableHeaderColumn>

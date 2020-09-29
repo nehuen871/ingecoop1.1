@@ -16,7 +16,7 @@ CREATE PROCEDURE `datosCertificacionAddOrEdit` (
   IN _porcentajeAvanceAcumulado INT(11),
   IN _horasCertificadas FLOAT,
   IN _total_certificacion INT(11),
-  IN _numero_documento INT(11),
+  IN _numero_documento VARCHAR(255),
   IN _list_docs_id INT(11)
 )
 BEGIN

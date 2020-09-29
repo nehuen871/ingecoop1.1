@@ -38,7 +38,9 @@ function erroHandrle(data){
 }
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha_envio"){
-    row.fecha_envio = moment(cellValue).format('YYYY-MM-DD');
+    row.fecha_envio = moment(cellValue).format('yyyy-MM-DD');
+  }else{
+    row.fecha_envio = moment(row.fecha_envio,'DD-MM-YYYY').format('yyyy-MM-DD');
   }
   switch(cellName) {
     case "identificadorControl":
@@ -175,7 +177,7 @@ export default class proyecto extends React.Component {
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
     for (let i = 0; i < data.length; i++) {
-      let fecha1 = moment(data[i].fecha_envio).format('YYYY-MM-DD');
+      let fecha1 = moment(data[i].fecha_envio).format('DD-MM-YYYY');
       jobs.push({
         id: data[i].id,
         remito: data[i].remito,

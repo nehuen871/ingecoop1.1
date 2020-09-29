@@ -40,6 +40,8 @@ function jobStatusValidator(value, row) {
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fechaDeEmision"){
     row.fechaDeEmision = moment(cellValue).format('YYYY-MM-DD');
+  }else{
+    row.fechaDeEmision = moment(row.fechaDeEmision,'DD-MM-YYYY').format('YYYY-MM-DD');
   }
   switch(cellName) {
     case "tituloCotiazacion":
@@ -188,7 +190,7 @@ export default class certificacion extends React.Component {
       var data = await response.json();
       if (response.status !== 200) throw Error(data.message);
       for (let i = 0; i < data.length; i++) {
-        let fecha1 = moment(data[i].fechaDeEmision).format('YYYY-MM-DD');
+        let fecha1 = moment(data[i].fechaDeEmision).format('DD-MM-YYYY');
         jobs.push({
           id: data[i].id,
           control_id: data[i].control_id,
@@ -210,7 +212,7 @@ export default class certificacion extends React.Component {
         var data = await response.json();
         if (response.status !== 200) throw Error(data.message);
         for (let i = 0; i < data.length; i++) {
-          let fecha1 = moment(data[i].fechaDeEmision).format('YYYY-MM-DD');
+          let fecha1 = moment(data[i].fechaDeEmision).format('DD-MM-YYYY');
           jobs.push({
             id: data[i].id,
             control_id: data[i].control_id,

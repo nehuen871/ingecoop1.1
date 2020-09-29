@@ -40,7 +40,7 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An datosControl
 router.post('/', (req, res) => {
-  let {descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id} = req.body;
+  let {descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id,porcentajeAvance} = req.body;
   if(descripcion_doc===''){descripcion_doc=null};
   if(revicion===''){revicion=null};
   if(cantidad_doc===''){cantidad_doc=null};
@@ -67,20 +67,22 @@ router.post('/', (req, res) => {
     SET @numero_remito = ?;
     SET @fecha_envio_remito = ?;
     SET @list_docs_id = ?;
-    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveedor,@viatico,@control_id,@control_cotizacion_id,@numero_documento,@numero_remito,@fecha_envio_remito,@list_docs_id);
+    SET @porcentajeAvance = ?;
+    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveedor,@viatico,@control_id,@control_cotizacion_id,@numero_documento,@numero_remito,@fecha_envio_remito,@list_docs_id,@porcentajeAvance);
   `;
-  mysqlConnection.query(query, [descripcion_doc, revicion, cantidad_doc, HHUnidades, total,observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [descripcion_doc, revicion, cantidad_doc, HHUnidades, total,observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id,porcentajeAvance], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosControl Saved'});
     } else {
       res.json(err);
+      console.log(err);
     }
   });
 
 });
 
 router.put('/:id', (req, res) => {
-  const { descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id } = req.body;
+  const { descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id,porcentajeAvance } = req.body;
   if(descripcion_doc===''){descripcion_doc=null};
   if(revicion===''){revicion=null};
   if(cantidad_doc===''){cantidad_doc=null};
@@ -108,12 +110,14 @@ router.put('/:id', (req, res) => {
     SET @numero_remito = ?;
     SET @fecha_envio_remito = ?;
     SET @list_docs_id = ?;
-    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveedor,@viatico,@control_id,@control_cotizacion_id,@numero_documento,@numero_remito,@fecha_envio_remito,@list_docs_id);
+    SET @porcentajeAvance = ?;
+    CALL datoControlAddOrEdit(@id, @descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveedor,@viatico,@control_id,@control_cotizacion_id,@numero_documento,@numero_remito,@fecha_envio_remito,@list_docs_id,@porcentajeAvance);
   `;
-  mysqlConnection.query(query, [id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion,HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id,porcentajeAvance], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosControl Updated'});
     } else {
+      console.log(err);
       res.json(err);
     }
   });

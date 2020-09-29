@@ -42,6 +42,8 @@ function jobStatusValidator(value, row) {
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fechaDeEmision"){
     row.fechaDeEmision = moment(cellValue).format('YYYY-MM-DD');
+  }else{
+    row.fechaDeEmision = moment(row.fechaDeEmision,'DD-MM-YYYY').format('YYYY-MM-DD');
   }
   switch(cellName) {
     case "tituloCotiazacion":

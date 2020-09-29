@@ -189,6 +189,7 @@ export default class datosCotizacion extends React.Component {
           viatico: data[i].viatico,
           tituloCotiazacion: data[i].tituloCotiazacion,
           nombreDocumento: data[i].nombreDocumento,
+          numero_documento: data[i].numero_documento,
           list_docs_id: data[i].list_docs_id
         });
       }
@@ -214,6 +215,7 @@ export default class datosCotizacion extends React.Component {
             viatico: data[i].viatico,
             tituloCotiazacion: data[i].tituloCotiazacion,
             nombreDocumento: data[i].nombreDocumento,
+            numero_documento: data[i].numero_documento,
             list_docs_id: data[i].list_docs_id
           });
         }
@@ -255,12 +257,13 @@ export default class datosCotizacion extends React.Component {
         <TableHeaderColumn width='200' hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'TextFilter', delay: 1000 } }>Titulo cotizacion</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='list_docs_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'TextFilter', delay: 1000 } } hidden>Nombre del documento</TableHeaderColumn>
         <TableHeaderColumn width='200' hiddenOnInsert dataField='nombreDocumento' editable={ { type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'TextFilter', delay: 1000 } }>Nombre del documento</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='numero_documento' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Numero del documento</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='numeroRecotizacion'  editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Numero de recotizacion</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='descripcion_doc'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>descripcion_doc</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='revicion'  editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revicion</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='cantidad_doc' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>cantidad_doc</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='descripcion_doc'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Descripcion del documento</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='cantidad_doc' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Cantidad de documentos</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='HHUnidades' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HHUnidades</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='total' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total de control datos</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='revicion'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revicion</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='observacion'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Observacion</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='HH_asociado'  editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HH_asociado</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='proveerdor'  editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Proveedor</TableHeaderColumn>

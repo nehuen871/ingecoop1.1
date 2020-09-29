@@ -8,7 +8,7 @@ CREATE PROCEDURE `datosCotizacionAddOrEdit` (
   IN _numeroRecotizacion INT(11),
   IN _cotizacion_id INT(10),
   IN _descripcion_doc VARCHAR(255),
-  IN _revicion INT(11),
+  IN _revicion VARCHAR(255),
   IN _cantidad_doc INT(11),
   IN _HHUnidades INT(11),
   IN _total INT(11),
@@ -16,7 +16,7 @@ CREATE PROCEDURE `datosCotizacionAddOrEdit` (
   IN _HH_asociado TINYINT(1),
   IN _proveerdor TINYINT(1),
   IN _viatico TINYINT(1),
-  IN _numero_documento INT(11),
+  IN _numero_documento VARCHAR(255),
   IN _list_docs_id INT(11)
 )
 BEGIN 

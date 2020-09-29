@@ -19,7 +19,7 @@ BEGIN
     DECLARE _cliente_id INT DEFAULT 0;
     DECLARE _numeroRecotizacion INT DEFAULT 0;
     DECLARE _descripcion_docNew VARCHAR(255);
-    DECLARE _revicion INT DEFAULT 0;
+    DECLARE _revicion VARCHAR(255);
     DECLARE _cantidad_doc INT DEFAULT 0;
     DECLARE _HHUnidades INT DEFAULT 0;
     DECLARE _total INT DEFAULT 0;
@@ -27,7 +27,7 @@ BEGIN
     DECLARE _HH_asociado BOOLEAN DEFAULT 0;
     DECLARE _proveerdor BOOLEAN DEFAULT 0;
     DECLARE _viatico BOOLEAN DEFAULT 0;
-    DECLARE _numero_documento INT DEFAULT 0;
+    DECLARE _numero_documento VARCHAR(255);
     DECLARE _list_docs_id INT DEFAULT 0;
     DECLARE _datosControid INT DEFAULT 0;
     DECLARE _datosCertificacionid INT DEFAULT 0;

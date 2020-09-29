@@ -32,7 +32,7 @@ BEGIN
     SET _a=_a+1;
     SELECT list_docs_id INTO _list_docs_id FROM datosCotizacion WHERE cotizacion_id = _id LIMIT _count,1;
     SET _count = _count + 1;
-    SELECT total_hh , cantidad_de_doc, total_hh * cantidad_de_doc INTO _hhUni,_cantDoc,_totalMulti FROM list_docs WHERE id = _list_docs_id;
+    SELECT unidad_hh , cantidad_de_doc, unidad_hh * cantidad_de_doc INTO _hhUni,_cantDoc,_totalMulti FROM list_docs WHERE id = _list_docs_id;
     INSERT INTO datosControl (descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveedor, viatico, control_id, control_cotizacion_id, numero_remito,fecha_envio_remito,list_docs_id)
     VALUES (NULL,NULL,_cantDoc,_hhUni,_totalMulti,NULL,NULL,NULL,NULL,_idControl,_id,NULL,NULL,_list_docs_id);
     INSERT INTO datosCertificacion (certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,list_docs_id)
