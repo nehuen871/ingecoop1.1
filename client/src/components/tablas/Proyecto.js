@@ -18,6 +18,14 @@ const selectRowProp = {
   mode: 'checkbox'
 };
 
+const inStockStatus = {
+  1: 'Si',
+  0: 'No'
+};
+
+function enumFormatter(cell, row, enumObject) {
+  return enumObject[cell];
+}
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha_fin"){
     row.fecha_fin = moment(cellValue).format('yyyy-MM-DD');
@@ -263,7 +271,7 @@ export default class proyecto extends React.Component {
         <TableHeaderColumn width='200' dataField='fecha_fin' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de fin</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='cotizacion_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>Nombre de cotizacion</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='nombreCotizacion'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } >Nombre de cotizacion</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='activo' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Activo</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='activo' dataFormat={ enumFormatter } formatExtraData={ inStockStatus } editable={ { type: 'checkbox', options: { values: '1:0' } } }>Activo</TableHeaderColumn>
       </BootstrapTable>
     );
   }

@@ -270,7 +270,7 @@ export default class certificacion extends React.Component {
         <TableHeaderColumn width='200' dataField='numeroDePedido' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Numero de pedido</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='proyecto' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Proyecto</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Especialidad</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='fechaDeEmision' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Decha de emision</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='fechaDeEmision' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de emision</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='moneda' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Moneda</TableHeaderColumn>
       </BootstrapTable>
     );

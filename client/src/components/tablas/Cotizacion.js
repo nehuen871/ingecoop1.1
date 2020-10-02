@@ -223,7 +223,7 @@ export default class Cotizacion extends React.Component {
       <TableHeaderColumn width='200' dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Codigo unificado</TableHeaderColumn>
       <TableHeaderColumn width='200' dataField='fecha' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha</TableHeaderColumn>
       <TableHeaderColumn width='200' dataField='titulo_cotiazacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Titulo de cotizacion</TableHeaderColumn>
-      <TableHeaderColumn width='200' dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Numero de documento</TableHeaderColumn>
+      <TableHeaderColumn width='200' hiddenOnInsert dataField='numero_doc' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Numero de documento</TableHeaderColumn>
       <TableHeaderColumn width='200' dataField='cliente_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>Nombre del Cliente</TableHeaderColumn>
       <TableHeaderColumn width='200' hiddenOnInsert dataField='nombreCliente' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'TextFilter', delay: 1000 } }>Nombre del cliente</TableHeaderColumn>
       </BootstrapTable>

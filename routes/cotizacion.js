@@ -72,6 +72,7 @@ router.post('/', (req, res) => {
   let {fecha, titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador} = req.body;
   if(fecha === '' || fecha === 'Invalid date'){fecha = null};
   if(titulo_cotiazacion === ''){titulo_cotiazacion = null};
+  numero_doc = codigo_unificador + "-" + titulo_cotiazacion + "-" +"1";
   const query = `
     SET @id = 0;
     SET @fecha = ?;

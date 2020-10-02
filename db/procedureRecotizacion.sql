@@ -35,7 +35,9 @@ BEGIN
     DECLARE _datosCertificacionidOld INT DEFAULT 0;
     DECLARE _fecha DATE DEFAULT NULL;
     
-    SELECT fecha,titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador INTO _fecha,_titulo_cotiazacionNew,_numero_doc,_cliente_id,_codigo_unificador FROM cotizacion WHERE id = _id;
+    SELECT fecha,titulo_cotiazacion,cliente_id,codigo_unificador INTO _fecha,_titulo_cotiazacionNew,_cliente_id,_codigo_unificador FROM cotizacion WHERE id = _id;
+    SELECT (numeroRecotizacion + 1) as newSum INTO _numeroRecotizacion FROM datosCotizacion WHERE cotizacion_id = _id LIMIT _count,1;
+    SELECT CONCAT(codigo_unificador,"-",titulo_cotiazacion,"-",_numeroRecotizacion)  INTO _numero_doc  FROM cotizacion WHERE id = _id;
     SELECT COUNT(*) as total INTO _countTotal FROM datosCotizacion WHERE datosCotizacion.cotizacion_id = _id;
 
     INSERT INTO cotizacion (fecha,titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador)

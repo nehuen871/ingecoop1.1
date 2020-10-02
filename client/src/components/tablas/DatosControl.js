@@ -203,7 +203,6 @@ export default class datosControl extends React.Component {
           cantidad_doc: data[i].cantidad_doc,
           HHUnidades: data[i].HHUnidades,
           total: data[i].total,
-          revision: data[i].revision,
           observacion: data[i].observacion,
           HH_asociado: data[i].HH_asociado,
           proveedor: data[i].proveedor,
@@ -215,8 +214,8 @@ export default class datosControl extends React.Component {
           tituloCotiazacion: data[i].tituloCotiazacion,
           codigo_unificador: data[i].codigo_unificador,
           nombreDocumento: data[i].nombreDocumento,
-          porcentajeAvance: data[i].porcentajeAvance,
-          list_docs_id: data[i].list_docs_id
+          list_docs_id: data[i].list_docs_id,
+          porcentajeAvance: data[i].porcentajeAvance
         });
       }
     }else{
@@ -226,7 +225,7 @@ export default class datosControl extends React.Component {
         var data = await response.json();
         if (response.status !== 200) throw Error(data.message);
         for (let i = 0; i < data.length; i++) {
-          let fecha1 = moment(data[i].fecha_envio_remito).format('yyyy-MM-DD');
+          let fecha1 = moment(data[i].fecha_envio_remito).format('DD-MM-yyyy');
           jobs.push({
             id: data[i].id,
             descripcion_doc: data[i].descripcion_doc,
@@ -235,7 +234,6 @@ export default class datosControl extends React.Component {
             cantidad_doc: data[i].cantidad_doc,
             HHUnidades: data[i].HHUnidades,
             total: data[i].total,
-            revision: data[i].revision,
             observacion: data[i].observacion,
             HH_asociado: data[i].HH_asociado,
             proveedor: data[i].proveedor,
@@ -247,8 +245,8 @@ export default class datosControl extends React.Component {
             tituloCotiazacion: data[i].tituloCotiazacion,
             codigo_unificador: data[i].codigo_unificador,
             nombreDocumento: data[i].nombreDocumento,
-            porcentajeAvance: data[i].porcentajeAvance,
-            list_docs_id: data[i].list_docs_id
+            list_docs_id: data[i].list_docs_id,
+            porcentajeAvance: data[i].porcentajeAvance
           });
         }
       }

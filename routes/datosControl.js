@@ -50,6 +50,7 @@ router.post('/', (req, res) => {
   if(observacion===''){observacion=null};
   if(proveedor===''){proveedor=null};
   if(viatico===''){viatico=null};
+  if(porcentajeAvance===''){porcentajeAvance=null};
   const query = `
     SET @id = 0;
     SET @descripcion_doc = ?;
@@ -92,6 +93,7 @@ router.put('/:id', (req, res) => {
   if(observacion===''){observacion=null};
   if(proveedor===''){proveedor=null};
   if(viatico===''){viatico=null};
+  if(porcentajeAvance===''){porcentajeAvance=null};
   const { id } = req.params;
   const query = `
     SET @id = ?;
