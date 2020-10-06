@@ -170,7 +170,7 @@ export default class Cotizacion extends React.Component {
       var data = await response.json();
       if (response.status !== 200) throw Error(data.message);
       for (let i = 0; i < data.length; i++) {
-        let fecha1 = moment(data[i].fecha).format('yyyy-MM-DD');
+        let fecha1 = moment(data[i].fecha).format('DD-MM-YYYY');
         jobs.push({
           id: data[i].id,
           fecha: fecha1,
@@ -188,7 +188,7 @@ export default class Cotizacion extends React.Component {
         var data = await response.json();
         if (response.status !== 200) throw Error(data.message);
         for (let i = 0; i < data.length; i++) {
-          let fecha1 = moment(data[i].fecha).format('yyyy-MM-DD');
+          let fecha1 = moment(data[i].fecha).format('DD-MM-YYYY');
           jobs.push({
             id: data[i].id,
             fecha: fecha1,

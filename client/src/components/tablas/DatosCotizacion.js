@@ -32,12 +32,21 @@ function jobStatusValidator(value, row) {
   return true;
 }
 async function onAfterSaveCell(row, cellName, cellValue) {
+  let resultado = 0;
   switch(cellName) {
     case "tituloCotiazacion":
       row.control_cotizacion_id = row.tituloCotiazacion;
       break;
     case "nombreDocumento":
       row.list_docs_id = row.nombreDocumento;
+      break;
+    case "cantidad_doc":
+      resultado = Number(row.cantidad_doc) * Number(row.HHUnidades);
+      row.total = resultado;
+      break;
+    case "HHUnidades":
+      resultado = Number(row.cantidad_doc) * Number(row.HHUnidades);
+      row.total = resultado;
       break;
     default:
       // code block
@@ -271,8 +280,8 @@ export default class datosCotizacion extends React.Component {
         <TableHeaderColumn width='200' dataField='descripcion_doc'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Descripcion del documento</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='cantidad_doc' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Cantidad de documentos</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='HHUnidades' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HHUnidades</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='total' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total de control datos</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='revicion'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>revicion</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='total' hiddenOnInsert editable={  false  } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total de HH</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='revicion'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Revision</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='observacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Observacion</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='HH_asociado' dataFormat={ enumFormatter } formatExtraData={ inStockStatus } editable={ { type: 'checkbox', options: { values: '1:0' } } }>HH_asociado</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='proveerdor' dataFormat={ enumFormatter } formatExtraData={ inStockStatus } editable={ { type: 'checkbox', options: { values: '1:0' } } }>Proveedor</TableHeaderColumn>

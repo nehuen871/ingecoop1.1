@@ -6,7 +6,7 @@ USE `ingecoop`$$
 CREATE PROCEDURE `datoControlAddOrEdit` (
   IN _id INT(11),
   IN _descripcion_doc VARCHAR(255),
-  IN _revicion INT(11),
+  IN _revicion VARCHAR(255),
   IN _cantidad_doc INT(11),
   IN _HHUnidades INT(11),
   IN _total INT(11),

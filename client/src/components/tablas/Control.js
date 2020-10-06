@@ -186,8 +186,8 @@ export default class control extends React.Component {
       var data = await response.json();
       if (response.status !== 200) throw Error(data.message);
       for (let i = 0; i < data.length; i++) {
-        let fecha1 = moment(data[i].fecha_emision_proyectada).format('yyyy-MM-DD');
-        let fecha3 = moment(data[i].fecha_calificaion).format('yyyy-MM-DD');
+        let fecha1 = moment(data[i].fecha_emision_proyectada).format('DD-MM-YYYY');
+        let fecha3 = moment(data[i].fecha_calificaion).format('DD-MM-YYYY');
         jobs.push({
           id: data[i].id,
           cotizacion_id: data[i].cotizacion_id,
@@ -205,8 +205,8 @@ export default class control extends React.Component {
         var data = await response.json();
         if (response.status !== 200) throw Error(data.message);
         for (let i = 0; i < data.length; i++) {
-          let fecha1 = moment(data[i].fecha_emision_proyectada).format('yyyy-MM-DD');
-          let fecha3 = moment(data[i].fecha_calificaion).format('yyyy-MM-DD');
+          let fecha1 = moment(data[i].fecha_emision_proyectada).format('DD-MM-YYYY');
+          let fecha3 = moment(data[i].fecha_calificaion).format('DD-MM-YYYY');
           jobs.push({
             id: data[i].id,
             cotizacion_id: data[i].cotizacion_id,
