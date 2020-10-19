@@ -29,6 +29,21 @@ router.post('/getControlById', (req, res) => {
   });
 });
 
+
+router.post('/copiaControl', (req, res) => {
+  let {id} = req.body;
+  const query = `
+  SET @id = ?;
+  CALL copiaControl(@id);`;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json({status: 'Datos Generados'});
+    } else {
+      res.json(err);
+    }
+  });
+});
+
 //Get all datosControl childs
 router.post('/getCertificadosFormControl', (req, res) => {
   let {id} = req.body;

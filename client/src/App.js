@@ -16,6 +16,8 @@ import containerControl from './components/containerControl';
 import containerCertificacion from './components/containerCertificacion';
 import containerCotizacion from './components/containerCotizacion';
 import containerDatosControl from './components/containerDatosControl';
+import generarDatosCopiaControlContainer from './components/generarDatosCopiaControlContainer';
+import containerInsert from './components/containerInsert';
 import {
   Switch,
   Route
@@ -32,6 +34,7 @@ render() {
           <Route exact path="/" component={containerProyecto} />
           <Route path="/codigoUnificadorContainer" component={codigoUnificadorContainer} />
           <Route path="/generarDatosControlContainer" component={generarDatosControlContainer} />
+          <Route path="/generarDatosCopiaControlContainer" component={generarDatosCopiaControlContainer} />
           <Route path="/generarDatosRecotizacionContainer" component={generarDatosRecotizacionContainer} />
           <Route path="/certificacionAutomatica" component={certificacionAutomatica} />
           <Route path="/searchRemitosCodUni" component={searchRemitosCodUni} />
@@ -45,6 +48,7 @@ render() {
           <Route path="/containerCertificacion" component={containerCertificacion} />
           <Route path="/containerCotizacion" component={containerCotizacion} />
           <Route path="/containerDatosControl" component={containerDatosControl} />
+          <Route path="/containerInsert" component={containerInsert} />
           <Route path="/containerProyecto" component={containerProyecto} />
         </Switch>
         </div>

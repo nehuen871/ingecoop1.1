@@ -72,7 +72,7 @@ router.post('/dataById', (req, res) => {
 
 // INSERT An certificacion
 router.post('/', (req, res) => {
-  let {certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id} = req.body;
+  let {certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada} = req.body;
   if(costoHoraDoc === ''){costoHoraDoc=null};
   if(cantidadDeHoras === ''){cantidadDeHoras=null};
   if(cantidadDeDocs === ''){cantidadDeDocs=null};
@@ -96,9 +96,10 @@ router.post('/', (req, res) => {
     SET @total_certificacion = ?;
     SET @numero_documento = ?;
     SET @list_docs_id = ?;
-    CALL datosCertificacionAddOrEdit(@id,@certificacion_id, @certificacion_control_id,@certificacion_control_cotizacion_id,@costoHoraDoc,@cantidadDeHoras,@cantidadDeDocs,@porcentajeAvanceAnterior,@porcentajeAvancePrecente,@porcentajeAvanceAcumulado,@horasCertificadas,@total_certificacion,@numero_documento,@list_docs_id);
+    SET @totalPlataCerificada = ?;
+    CALL datosCertificacionAddOrEdit(@id,@certificacion_id, @certificacion_control_id,@certificacion_control_cotizacion_id,@costoHoraDoc,@cantidadDeHoras,@cantidadDeDocs,@porcentajeAvanceAnterior,@porcentajeAvancePrecente,@porcentajeAvanceAcumulado,@horasCertificadas,@total_certificacion,@numero_documento,@list_docs_id,@totalPlataCerificada);
   `;
-  mysqlConnection.query(query, [certificacion_id, certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [certificacion_id, certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosCertificacion Saved'});
     } else {
@@ -109,7 +110,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let {certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id } = req.body;
+  let {certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada} = req.body;
   if(costoHoraDoc === ''){costoHoraDoc=null};
   if(cantidadDeHoras === ''){cantidadDeHoras=null};
   if(cantidadDeDocs === ''){cantidadDeDocs=null};
@@ -134,9 +135,10 @@ router.put('/:id', (req, res) => {
     SET @total_certificacion = ?;
     SET @numero_documento = ?;
     SET @list_docs_id = ?;
-    CALL datosCertificacionAddOrEdit(@id,@certificacion_id,@certificacion_control_id,@certificacion_control_cotizacion_id,@costoHoraDoc,@cantidadDeHoras,@cantidadDeDocs,@porcentajeAvanceAnterior,@porcentajeAvancePrecente,@porcentajeAvanceAcumulado,@horasCertificadas,@total_certificacion,@numero_documento,@list_docs_id);
+    SET @totalPlataCerificada = ?;
+    CALL datosCertificacionAddOrEdit(@id,@certificacion_id,@certificacion_control_id,@certificacion_control_cotizacion_id,@costoHoraDoc,@cantidadDeHoras,@cantidadDeDocs,@porcentajeAvanceAnterior,@porcentajeAvancePrecente,@porcentajeAvanceAcumulado,@horasCertificadas,@total_certificacion,@numero_documento,@list_docs_id,@totalPlataCerificada);
   `;
-  mysqlConnection.query(query, [id,certificacion_id, certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [id,certificacion_id, certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosCertificacion Updated'});
     } else {

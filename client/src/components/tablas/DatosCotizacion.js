@@ -33,6 +33,7 @@ function jobStatusValidator(value, row) {
 }
 async function onAfterSaveCell(row, cellName, cellValue) {
   let resultado = 0;
+  let resultado2 = 0;
   switch(cellName) {
     case "tituloCotiazacion":
       row.control_cotizacion_id = row.tituloCotiazacion;
@@ -49,6 +50,14 @@ async function onAfterSaveCell(row, cellName, cellValue) {
       row.total = resultado;
       break;
     default:
+      case "valorHora":
+      resultado2 = Number(row.valorHora) * Number(row.HHUnidades);
+      row.totalValorHora = resultado;
+      break;
+    case "totalValorHora":
+      resultado2 = Number(row.valorHora) * Number(row.HHUnidades);
+      row.totalValorHora = resultado;
+      break;
       // code block
   } 
   const settings = {
@@ -208,6 +217,8 @@ export default class datosCotizacion extends React.Component {
           tituloCotiazacion: data[i].tituloCotiazacion,
           nombreDocumento: data[i].nombreDocumento,
           numero_documento: data[i].numero_documento,
+          valorHora: data[i].valorHora,
+          totalValorHora: data[i].totalValorHora,
           list_docs_id: data[i].list_docs_id
         });
       }
@@ -234,6 +245,8 @@ export default class datosCotizacion extends React.Component {
             tituloCotiazacion: data[i].tituloCotiazacion,
             nombreDocumento: data[i].nombreDocumento,
             numero_documento: data[i].numero_documento,
+            valorHora: data[i].valorHora,
+            totalValorHora: data[i].totalValorHora,
             list_docs_id: data[i].list_docs_id
           });
         }
@@ -281,6 +294,8 @@ export default class datosCotizacion extends React.Component {
         <TableHeaderColumn width='200' dataField='cantidad_doc' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Cantidad de documentos</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='HHUnidades' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HHUnidades</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='total' hiddenOnInsert editable={  false  } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total de HH</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='valorHora' hiddenOnInsert editable={  false  } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Valor de hora</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='totalValorHora' hiddenOnInsert editable={  false  } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total $$</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='revicion'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Revision</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='observacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Observacion</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='HH_asociado' dataFormat={ enumFormatter } formatExtraData={ inStockStatus } editable={ { type: 'checkbox', options: { values: '1:0' } } }>HH_asociado</TableHeaderColumn>

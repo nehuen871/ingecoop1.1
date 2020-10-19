@@ -92,6 +92,16 @@ export default class SideBar extends Component {
                     <i className="fa fa-info-circle" aria-hidden="true"></i> Remitos Codigo Unificador
                 </Link>
                 </li>
+                <li>
+                <Link to="/generarDatosCopiaControlContainer">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Generar copia de control
+                </Link>
+                </li>
+                <li>
+                <Link to="/containerInsert">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Insertar datos de cotizacion
+                </Link>
+                </li>
             </ul>
             </div>
       );

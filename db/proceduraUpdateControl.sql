@@ -46,7 +46,7 @@ BEGIN
     INSERT INTO datosControl (descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveedor, viatico, control_id, control_cotizacion_id, numero_remito,fecha_envio_remito,list_docs_id,numero_documento)
     VALUES (_descripcion_doc,_revicion,_cantidad_doc,_HHUnidades,_total,_observacion,_HH_asociado,_proveerdor,_viatico,_idControl,_id,NULL,NOW(),_list_docs_id,_numero_documento);
     INSERT INTO datosCertificacion (certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id)
-    VALUES (_idCerti,_idControl,_id,_HHUnidades,_cantidad_doc,_total,0,0,0,0,0,_numero_documento,_list_docs_id);
+    VALUES (_idCerti,_idControl,_id,_cantidad_doc,_HHUnidades,_total,0,0,0,0,0,_numero_documento,_list_docs_id);
     IF _a = _countTotal THEN
         LEAVE simple_loop;
     END IF;

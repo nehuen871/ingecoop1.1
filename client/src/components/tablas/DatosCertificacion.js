@@ -221,6 +221,7 @@ export default class datosCertificacion extends React.Component {
           tituloCotiazacion: data[i].tituloCotiazacion,
           codigoControl: data[i].codigoControl,
           certificaCionPedido: data[i].certificaCionPedido,
+          totalPlataCerificada: data[i].totalPlataCerificada,
           list_docs_id: data[i].list_docs_id
         });
       }
@@ -248,6 +249,7 @@ export default class datosCertificacion extends React.Component {
             tituloCotiazacion: data[i].tituloCotiazacion,
             codigoControl: data[i].codigoControl,
             certificaCionPedido: data[i].certificaCionPedido,
+            totalPlataCerificada: data[i].totalPlataCerificada,
             list_docs_id: data[i].list_docs_id
           });
         }
@@ -317,13 +319,14 @@ export default class datosCertificacion extends React.Component {
         <TableHeaderColumn width='200' dataField='list_docs_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'TextFilter', delay: 1000 } } hidden>Nombre del documento</TableHeaderColumn>
         <TableHeaderColumn width='200' hiddenOnInsert dataField='nombreDocumento' editable={ { type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'TextFilter', delay: 1000 } }>Nombre del documento</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='numero_documento' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Numero de documento</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='costoHoraDoc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Costo hora de documento</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='cantidadDeHoras' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Cantidad de horas</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='cantidadDeDocs' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Cantidad de documentos</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='costoHoraDoc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Costo hora de documento</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='cantidadDeHoras' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total HH</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='porcentajeAvanceAnterior' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Porcentaje Avance Anterior</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='porcentajeAvancePrecente' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Porcentaje Avance Precente</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='porcentajeAvanceAcumulado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Porcentaje Avance Acumulado</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='total_certificacion' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total de certificacion</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='totalPlataCerificada' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total de $$ cerficicada</TableHeaderColumn>
       </BootstrapTable>
     );
   }

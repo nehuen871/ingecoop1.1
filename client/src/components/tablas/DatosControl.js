@@ -194,7 +194,7 @@ export default class datosControl extends React.Component {
       var data = await response.json();
       if (response.status !== 200) throw Error(data.message);
       for (let i = 0; i < data.length; i++) {
-        let fecha1 = moment(data[i].fecha_envio_remito).format('yyyy-MM-DD');
+        let fecha1 = moment(data[i].fecha_envio_remito).format('DD-MM-yyyy');
         jobs.push({
           id: data[i].id,
           descripcion_doc: data[i].descripcion_doc,
@@ -214,6 +214,9 @@ export default class datosControl extends React.Component {
           tituloCotiazacion: data[i].tituloCotiazacion,
           codigo_unificador: data[i].codigo_unificador,
           nombreDocumento: data[i].nombreDocumento,
+          porcentajeAvanceAnterior: data[i].porcentajeAvanceAnterior,
+          porcentajeAvanceAcumulado: data[i].porcentajeAvanceAcumulado,
+          porcentajeAvancePrecente: data[i].porcentajeAvancePrecente,
           list_docs_id: data[i].list_docs_id,
           porcentajeAvance: data[i].porcentajeAvance
         });
@@ -245,6 +248,9 @@ export default class datosControl extends React.Component {
             tituloCotiazacion: data[i].tituloCotiazacion,
             codigo_unificador: data[i].codigo_unificador,
             nombreDocumento: data[i].nombreDocumento,
+            porcentajeAvanceAnterior: data[i].porcentajeAvanceAnterior,
+            porcentajeAvanceAcumulado: data[i].porcentajeAvanceAcumulado,
+            porcentajeAvancePrecente: data[i].porcentajeAvancePrecente,
             list_docs_id: data[i].list_docs_id,
             porcentajeAvance: data[i].porcentajeAvance
           });
@@ -311,13 +317,15 @@ export default class datosControl extends React.Component {
         <TableHeaderColumn width='200' dataField='total' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='observacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Observacion</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='porcentajeAvance' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='porcentajeAvanceAnterior' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='porcentajeAvancePrecente' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='porcentajeAvanceAcumulado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='numero_remito' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Numero de remito</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='fecha_envio_remito' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha envio del remito</TableHeaderColumn>
       </BootstrapTable>
     );
   }
 }
-
 /**
  * <TableHeaderColumn width='200' dataField='HH_asociado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HH asociado</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='proveedor' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Proveedor</TableHeaderColumn>

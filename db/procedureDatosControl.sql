@@ -20,6 +20,9 @@ CREATE PROCEDURE `datoControlAddOrEdit` (
   IN _numero_remito INT(11),
   IN _fecha_envio_remito DATE,
   IN _list_docs_id INT(11),
+  IN _porcentajeAvanceAnterior INT(11),
+  IN _porcentajeAvanceAcumulado INT(11),
+  IN _porcentajeAvancePrecente INT(11),
   IN _porcentajeAvance INT(11)
 )
 BEGIN 
@@ -27,8 +30,8 @@ BEGIN
   IF _id = 0 THEN
     SELECT unidad_hh , cantidad_de_doc, unidad_hh * cantidad_de_doc INTO _hhUni,_cantDoc,_totalMulti FROM list_docs WHERE id = _list_docs_id;
 
-    INSERT INTO datosControl (descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id,porcentajeAvance)
-    VALUES (_descripcion_doc,_revicion,_cantDoc,_hhUni,_totalMulti,_observacion,_HH_asociado,_proveedor,_viatico,_control_id,_control_cotizacion_id,_numero_documento,_numero_remito,_fecha_envio_remito,_list_docs_id,_porcentajeAvance);
+    INSERT INTO datosControl (descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveedor, viatico, control_id, control_cotizacion_id,numero_documento,numero_remito,fecha_envio_remito,list_docs_id,porcentajeAvance,porcentajeAvanceAnterior,porcentajeAvanceAcumulado,porcentajeAvancePrecente)
+    VALUES (_descripcion_doc,_revicion,_cantDoc,_hhUni,_totalMulti,_observacion,_HH_asociado,_proveedor,_viatico,_control_id,_control_cotizacion_id,_numero_documento,_numero_remito,_fecha_envio_remito,_list_docs_id,_porcentajeAvance,_porcentajeAvanceAnterior,_porcentajeAvanceAcumulado),_porcentajeAvancePrecente;
 
     /*SELECT id INTO _idCerti FROM certificacion WHERE control_cotizacion_id = _control_cotizacion_id;
 
@@ -53,6 +56,9 @@ BEGIN
     numero_documento = _numero_documento,
     numero_remito = _numero_remito,
     fecha_envio_remito = _fecha_envio_remito,
+    porcentajeAvanceAnterior = _porcentajeAvanceAnterior,
+    porcentajeAvanceAcumulado = _porcentajeAvanceAcumulado,
+    porcentajeAvancePrecente = _porcentajeAvancePrecente,
     list_docs_id = _list_docs_id,
     porcentajeAvance = _porcentajeAvance
   WHERE id = _id;

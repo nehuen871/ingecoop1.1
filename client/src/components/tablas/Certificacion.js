@@ -267,7 +267,7 @@ export default class certificacion extends React.Component {
         <TableHeaderColumn width='200' hiddenOnInsert dataField='codigoControl' editable={ { type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'TextFilter', delay: 1000 } }>Codigo de Control</TableHeaderColumn>        
         <TableHeaderColumn width='200' dataField='control_cotizacion_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>Cotizacion</TableHeaderColumn>
         <TableHeaderColumn width='200' hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'TextFilter', delay: 1000 } }>Titulo de la Cotizacion</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='numeroDePedido' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Numero de pedido</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='numeroDePedido' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Numero de certificacion</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='proyecto' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Proyecto</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Especialidad</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='fechaDeEmision' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de emision</TableHeaderColumn>

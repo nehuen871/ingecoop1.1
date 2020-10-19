@@ -39,6 +39,7 @@ source /opt/ingecoop/db/procedureRemitosDatos.sql
 source /opt/ingecoop/db/procedureRecotizacion.sql
 source /opt/ingecoop/db/proceduraDatosCertificacion.sql
 source /opt/ingecoop/db/proceduraUpdateControl.sql
+source /opt/ingecoop/db/proceduraCopiaControl.sql
 source /opt/ingecoop/db/procedureCertificacionAutomatica.sql
  * 
  */
