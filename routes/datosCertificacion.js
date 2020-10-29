@@ -72,7 +72,7 @@ router.post('/dataById', (req, res) => {
 
 // INSERT An certificacion
 router.post('/', (req, res) => {
-  let {certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada} = req.body;
+  let {certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada,porcentajeAvance} = req.body;
   if(costoHoraDoc === ''){costoHoraDoc=null};
   if(cantidadDeHoras === ''){cantidadDeHoras=null};
   if(cantidadDeDocs === ''){cantidadDeDocs=null};
@@ -97,9 +97,10 @@ router.post('/', (req, res) => {
     SET @numero_documento = ?;
     SET @list_docs_id = ?;
     SET @totalPlataCerificada = ?;
-    CALL datosCertificacionAddOrEdit(@id,@certificacion_id, @certificacion_control_id,@certificacion_control_cotizacion_id,@costoHoraDoc,@cantidadDeHoras,@cantidadDeDocs,@porcentajeAvanceAnterior,@porcentajeAvancePrecente,@porcentajeAvanceAcumulado,@horasCertificadas,@total_certificacion,@numero_documento,@list_docs_id,@totalPlataCerificada);
+    SET @porcentajeAvance = ?;
+    CALL datosCertificacionAddOrEdit(@id,@certificacion_id, @certificacion_control_id,@certificacion_control_cotizacion_id,@costoHoraDoc,@cantidadDeHoras,@cantidadDeDocs,@porcentajeAvanceAnterior,@porcentajeAvancePrecente,@porcentajeAvanceAcumulado,@horasCertificadas,@total_certificacion,@numero_documento,@list_docs_id,@totalPlataCerificada,@porcentajeAvance);
   `;
-  mysqlConnection.query(query, [certificacion_id, certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada], (err, rows, fields) => {
+  mysqlConnection.query(query, [certificacion_id, certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada,porcentajeAvance], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosCertificacion Saved'});
     } else {
@@ -110,7 +111,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let {certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada} = req.body;
+  let {certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada,porcentajeAvance} = req.body;
   if(costoHoraDoc === ''){costoHoraDoc=null};
   if(cantidadDeHoras === ''){cantidadDeHoras=null};
   if(cantidadDeDocs === ''){cantidadDeDocs=null};
@@ -136,9 +137,10 @@ router.put('/:id', (req, res) => {
     SET @numero_documento = ?;
     SET @list_docs_id = ?;
     SET @totalPlataCerificada = ?;
-    CALL datosCertificacionAddOrEdit(@id,@certificacion_id,@certificacion_control_id,@certificacion_control_cotizacion_id,@costoHoraDoc,@cantidadDeHoras,@cantidadDeDocs,@porcentajeAvanceAnterior,@porcentajeAvancePrecente,@porcentajeAvanceAcumulado,@horasCertificadas,@total_certificacion,@numero_documento,@list_docs_id,@totalPlataCerificada);
+    SET @porcentajeAvance = ?;
+    CALL datosCertificacionAddOrEdit(@id,@certificacion_id,@certificacion_control_id,@certificacion_control_cotizacion_id,@costoHoraDoc,@cantidadDeHoras,@cantidadDeDocs,@porcentajeAvanceAnterior,@porcentajeAvancePrecente,@porcentajeAvanceAcumulado,@horasCertificadas,@total_certificacion,@numero_documento,@list_docs_id,@totalPlataCerificada,@porcentajeAvance);
   `;
-  mysqlConnection.query(query, [id,certificacion_id, certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada], (err, rows, fields) => {
+  mysqlConnection.query(query, [id,certificacion_id, certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs, porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada,porcentajeAvance], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosCertificacion Updated'});
     } else {
@@ -150,7 +152,7 @@ router.put('/:id', (req, res) => {
 
 router.get('/codigoUnificador/:code', (req, res) => {
   const { code } = req.params;
-  mysqlConnection.query('SELECT datosCertificacion.*,cotizacion.titulo_cotiazacion as tituloCotiazacion,control.codigo_unificador as codigoControl,certificacion.numeroDePedido as certificaCionPedido,CONCAT_WS("",list_docs.nombre," ",list_docs.titulo_documento) as nombreDocumento FROM datosCertificacion join cotizacion on cotizacion.id = datosCertificacion.certificacion_control_cotizacion_id join control on control.id = datosCertificacion.certificacion_control_id join certificacion on certificacion.id =  datosCertificacion.certificacion_id join list_docs on list_docs.id = datosCertificacion.list_docs_id where certificacion.codigo_unificador = ?;',[code], (err, rows, fields) => {
+  mysqlConnection.query('SELECT datosCertificacion.*,cotizacion.titulo_cotiazacion as tituloCotiazacion,control.codigo_unificador as codigoControl,certificacion.numeroDePedido as certificaCionPedido,CONCAT_WS("",list_docs.nombre," ",list_docs.titulo_documento) as nombreDocumento FROM datosCertificacion join cotizacion on cotizacion.id = datosCertificacion.certificacion_control_cotizacion_id join control on control.id = datosCertificacion.certificacion_control_id join certificacion on certificacion.id =  datosCertificacion.certificacion_id join list_docs on list_docs.id = datosCertificacion.list_docs_id where certificacion.codigo_unificador = ? and datosCertificacion.certificacion_id = (SELECT id from certificacion where codigo_unificador = ? order by certificacion.fechaDeEmision desc limit 1);',[code,code], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {

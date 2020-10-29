@@ -28,6 +28,7 @@ FLUSH PRIVILEGES;
   
 source /opt/ingecoop/db/procedureProyecto.sql
 source /opt/ingecoop/db/procedureDatosControl.sql
+source /opt/ingecoop/db/proceduraDatosCertificacion.sql
 source /opt/ingecoop/db/procedureCotizacion.sql
 source /opt/ingecoop/db/procedureControl.sql
 source /opt/ingecoop/db/procedureCliente.sql
@@ -37,9 +38,9 @@ source /opt/ingecoop/db/procedureDatosCotizacion.sql
 source /opt/ingecoop/db/procedureRemitos.sql
 source /opt/ingecoop/db/procedureRemitosDatos.sql
 source /opt/ingecoop/db/procedureRecotizacion.sql
-source /opt/ingecoop/db/proceduraDatosCertificacion.sql
 source /opt/ingecoop/db/proceduraUpdateControl.sql
 source /opt/ingecoop/db/proceduraCopiaControl.sql
+source /opt/ingecoop/db/proceduraCopiaCertificacion.sql
 source /opt/ingecoop/db/procedureCertificacionAutomatica.sql
  * 
  */

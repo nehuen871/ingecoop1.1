@@ -26,6 +26,20 @@ router.get('/:id', (req, res) => {
   });
 });
 
+router.post('/copiaCertificacion', (req, res) => {
+  let {id} = req.body;
+  const query = `
+  SET @id = ?;
+  CALL copiaCertificacion(@id);`;
+  mysqlConnection.query(query,[id], (err, rows, fields) => {
+    if(!err) {
+      res.json({status: 'Datos Generados'});
+    } else {
+      res.json(err);
+    }
+  });
+});
+
 // DELETE An certificacion
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
@@ -125,7 +139,7 @@ router.put('/:id', (req, res) => {
 
 router.get('/codigoUnificador/:code', (req, res) => {
   const { code } = req.params;
-  mysqlConnection.query('SELECT certificacion.*,cotizacion.titulo_cotiazacion as tituloCotiazacion,control.codigo_unificador as codigoControl FROM certificacion join cotizacion on cotizacion.id = certificacion.control_cotizacion_id join control on control.id = certificacion.control_id WHERE certificacion.codigo_unificador = ?;',[code], (err, rows, fields) => {
+  mysqlConnection.query('SELECT certificacion.*,cotizacion.titulo_cotiazacion as tituloCotiazacion,control.codigo_unificador as codigoControl FROM certificacion join cotizacion on cotizacion.id = certificacion.control_cotizacion_id join control on control.id = certificacion.control_id WHERE certificacion.codigo_unificador = ? order by fechaDeEmision desc limit 1;',[code], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {

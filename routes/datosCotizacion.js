@@ -40,7 +40,7 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An datosCotizacion
 router.post('/', (req, res) => {
-  let {numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveerdor, viatico,numero_documento,list_docs_id} = req.body;
+  let {numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveerdor, viatico,numero_documento,list_docs_id,valorHora,totalValorHora} = req.body;
   if(numeroRecotizacion===''){numeroRecotizacion=null};
   if(descripcion_doc===''){descripcion_doc=null};
   if(revicion===''){revicion=null};
@@ -66,9 +66,11 @@ router.post('/', (req, res) => {
     SET @viatico = ?;
     SET @numero_documento = ?;
     SET @list_docs_id = ?;
-    CALL datosCotizacionAddOrEdit(@id, @numeroRecotizacion,@cotizacion_id,@descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveerdor,@viatico,@numero_documento,@list_docs_id);
+    SET @valorHora = ?;
+    SET @totalValorHora = ?;
+    CALL datosCotizacionAddOrEdit(@id, @numeroRecotizacion,@cotizacion_id,@descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveerdor,@viatico,@numero_documento,@list_docs_id,@valorHora,@totalValorHora);
   `;
-  mysqlConnection.query(query, [numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveerdor, viatico,numero_documento,list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveerdor, viatico,numero_documento,list_docs_id,valorHora,totalValorHora], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosCotizacion Saved'});
     } else {
@@ -79,7 +81,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let { numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveerdor, viatico,numero_documento,list_docs_id } = req.body;
+  let { numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveerdor, viatico,numero_documento,list_docs_id,valorHora,totalValorHora} = req.body;
   if(numeroRecotizacion===''){numeroRecotizacion=null};
   if(descripcion_doc===''){descripcion_doc=null};
   if(revicion===''){revicion=null};
@@ -106,9 +108,11 @@ router.put('/:id', (req, res) => {
     SET @viatico = ?;
     SET @numero_documento = ?;
     SET @list_docs_id = ?;
-    CALL datosCotizacionAddOrEdit(@id, @numeroRecotizacion,@cotizacion_id,@descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveerdor,@viatico,@numero_documento,@list_docs_id);
+    SET @valorHora = ?;
+    SET @totalValorHora = ?;
+    CALL datosCotizacionAddOrEdit(@id, @numeroRecotizacion,@cotizacion_id,@descripcion_doc,@revicion,@cantidad_doc,@HHUnidades,@total,@observacion,@HH_asociado,@proveerdor,@viatico,@numero_documento,@list_docs_id,@valorHora,@totalValorHora);
   `;
-  mysqlConnection.query(query, [id, numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveerdor, viatico,numero_documento,list_docs_id], (err, rows, fields) => {
+  mysqlConnection.query(query, [id, numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveerdor, viatico,numero_documento,list_docs_id,valorHora,totalValorHora], (err, rows, fields) => {
     if(!err) {
       res.json({status: 'datosCotizacion Updated'});
     } else {
@@ -120,6 +124,7 @@ router.put('/:id', (req, res) => {
 
 router.get('/codigoUnificador/:code/:code2', (req, res) => {
   const { code,code2 } = req.params;
+  console.log(code2);
   if(code2===''){code2=1};
   if(code2===0){code2=1};
   const query =`

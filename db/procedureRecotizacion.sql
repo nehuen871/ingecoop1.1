@@ -41,7 +41,7 @@ BEGIN
     SELECT COUNT(*) as total INTO _countTotal FROM datosCotizacion WHERE datosCotizacion.cotizacion_id = _id;
 
     INSERT INTO cotizacion (fecha,titulo_cotiazacion,numero_doc,cliente_id,codigo_unificador)
-    VALUES (_fecha,_titulo_cotiazacionNew,_numero_doc,_cliente_id,_codigo_unificador);
+    VALUES (NOW(),_titulo_cotiazacionNew,_numero_doc,_cliente_id,_codigo_unificador);
     SET _idCotizacion = LAST_INSERT_ID();
     
 

@@ -47,15 +47,13 @@ async function onAfterSaveCell(row, cellName, cellValue) {
       break;
     case "HHUnidades":
       resultado = Number(row.cantidad_doc) * Number(row.HHUnidades);
+      resultado2 = Number(row.valorHora) * Number(row.total);
       row.total = resultado;
+      row.totalValorHora = resultado2;
       break;
     default:
       case "valorHora":
-      resultado2 = Number(row.valorHora) * Number(row.HHUnidades);
-      row.totalValorHora = resultado;
-      break;
-    case "totalValorHora":
-      resultado2 = Number(row.valorHora) * Number(row.HHUnidades);
+      resultado = Number(row.valorHora) * Number(row.total);
       row.totalValorHora = resultado;
       break;
       // code block
@@ -189,10 +187,9 @@ export default class datosCotizacion extends React.Component {
 
   callApi = async () => {
     if(this.props.sendData){
-      let numReco;
+      let numReco = 0;
       if(!this.props.senDataRecotizacion){
         numReco = 0;
-        
       }else{
         numReco = this.props.senDataRecotizacion;
       }
@@ -294,8 +291,8 @@ export default class datosCotizacion extends React.Component {
         <TableHeaderColumn width='200' dataField='cantidad_doc' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Cantidad de documentos</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='HHUnidades' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HHUnidades</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='total' hiddenOnInsert editable={  false  } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total de HH</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='valorHora' hiddenOnInsert editable={  false  } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Valor de hora</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='totalValorHora' hiddenOnInsert editable={  false  } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total $$</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='valorHora' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Valor de hora</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='totalValorHora' hiddenOnInsert editable={ { type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total $$</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='revicion'  editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Revision</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='observacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Observacion</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='HH_asociado' dataFormat={ enumFormatter } formatExtraData={ inStockStatus } editable={ { type: 'checkbox', options: { values: '1:0' } } }>HH_asociado</TableHeaderColumn>

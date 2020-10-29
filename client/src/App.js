@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SideBar from './components/SideBar';
 import codigoUnificadorContainer from './components/codigoUnificadorContainer';
 import generarDatosControlContainer from './components/generarDatosControlContainer';
+import generarDatosCopiaCertificacionContainer from './components/generarDatosCopiaCertificacionContainer';
 import generarDatosRecotizacionContainer from './components/generarRecotizacionContainer';
 import certificacionAutomatica from './components/certificacionAutomatica';
 import searchRemitosCodUni from './components/searchRemitosCodUni';
@@ -35,6 +36,7 @@ render() {
           <Route path="/codigoUnificadorContainer" component={codigoUnificadorContainer} />
           <Route path="/generarDatosControlContainer" component={generarDatosControlContainer} />
           <Route path="/generarDatosCopiaControlContainer" component={generarDatosCopiaControlContainer} />
+          <Route path="/generarDatosCopiaCertificacionContainer" component={generarDatosCopiaCertificacionContainer} />
           <Route path="/generarDatosRecotizacionContainer" component={generarDatosRecotizacionContainer} />
           <Route path="/certificacionAutomatica" component={certificacionAutomatica} />
           <Route path="/searchRemitosCodUni" component={searchRemitosCodUni} />

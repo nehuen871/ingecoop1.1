@@ -17,15 +17,17 @@ CREATE PROCEDURE `datosCotizacionAddOrEdit` (
   IN _proveerdor TINYINT(1),
   IN _viatico TINYINT(1),
   IN _numero_documento VARCHAR(255),
-  IN _list_docs_id INT(11)
+  IN _list_docs_id INT(11),
+  IN _valorHora FLOAT,
+  IN _totalValorHora FLOAT
 )
 BEGIN 
   DECLARE _idCotizacion,_idControl,_idCerti,_cantDoc,_hhUni,_totalMulti INT DEFAULT 0;
   IF _id = 0 THEN
     SELECT numero_doc INTO _numero_documento FROM cotizacion WHERE id = _cotizacion_id;
     SELECT unidad_hh , cantidad_de_doc, unidad_hh * cantidad_de_doc INTO _hhUni,_cantDoc,_totalMulti FROM list_docs WHERE id = _list_docs_id;
-    INSERT INTO datosCotizacion (numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total,observacion, HH_asociado, proveerdor, viatico, numero_documento,list_docs_id)
-    VALUES (_numeroRecotizacion, _cotizacion_id, _descripcion_doc, _revicion, _cantDoc,_hhUni,_totalMulti,_observacion,_HH_asociado,_proveerdor,_viatico,_numero_documento,_list_docs_id);
+    INSERT INTO datosCotizacion (numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total,observacion, HH_asociado, proveerdor, viatico, numero_documento,list_docs_id,valorHora,totalValorHora)
+    VALUES (_numeroRecotizacion, _cotizacion_id, _descripcion_doc, _revicion, _cantDoc,_hhUni,_totalMulti,_observacion,_HH_asociado,_proveerdor,_viatico,_numero_documento,_list_docs_id,_valorHora,_totalValorHora);
 
     /*SELECT id INTO _idControl FROM control WHERE cotizacion_id = _cotizacion_id;
 
@@ -53,6 +55,8 @@ BEGIN
     proveerdor = _proveerdor,
     viatico = _viatico,
     numero_documento = _numero_documento,
+    valorHora = _valorHora,
+    totalValorHora = _totalValorHora,
     list_docs_id = _list_docs_id
     WHERE id = _id;
   END IF;

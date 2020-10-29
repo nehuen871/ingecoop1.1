@@ -38,6 +38,7 @@ function jobStatusValidator(value, row) {
   return true;
 }
 async function onAfterSaveCell(row, cellName, cellValue) {
+  let resultado = 0;
   if(cellName === "fecha_envio_remito"){
     row.fecha_envio_remito = moment(cellValue).format('YYYY-MM-DD');
   }else{
@@ -53,25 +54,32 @@ async function onAfterSaveCell(row, cellName, cellValue) {
     case "nombreDocumento":
       row.list_docs_id = row.nombreDocumento;
       break;
+    case "porcentajeAvancePrecente":
+      resultado = Number(row.porcentajeAvancePrecente) + Number(row.porcentajeAvanceAcumulado);
+      break;
     default:
       // code block
-  } 
-  const settings = {
-    method: 'PUT',
-    body: JSON.stringify(row),
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+  }
+  if(resultado > 100){
+    alert("El avance acumulado no puede ser mayor a 100");
+  }else{
+    const settings = {
+      method: 'PUT',
+      body: JSON.stringify(row),
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      }
+    };
+    let url = "/datosControl/" + row.id;
+    try {
+        const fetchResponse = await fetch(url, settings);
+        const data = await fetchResponse.json();
+        erroHandrle(data);
+        console.log(data);
+    } catch (e) {
+      console.log(e);
     }
-  };
-  let url = "/datosControl/" + row.id;
-  try {
-      const fetchResponse = await fetch(url, settings);
-      const data = await fetchResponse.json();
-      erroHandrle(data);
-      console.log(data);
-  } catch (e) {
-    console.log(e);
   }
 }
 async function onAfterInsertRow(row) {
@@ -316,10 +324,9 @@ export default class datosControl extends React.Component {
         <TableHeaderColumn width='200' dataField='HHUnidades' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HH Unidades</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='total' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='observacion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Observacion</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='porcentajeAvance' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='porcentajeAvanceAnterior' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='porcentajeAvancePrecente' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='porcentajeAvanceAcumulado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='porcentajeAvanceAnterior' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvanceAnterior</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='porcentajeAvancePrecente' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvancePrecente</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='porcentajeAvanceAcumulado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvanceAcumulado</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='numero_remito' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Numero de remito</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='fecha_envio_remito' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha envio del remito</TableHeaderColumn>
       </BootstrapTable>
@@ -330,4 +337,5 @@ export default class datosControl extends React.Component {
  * <TableHeaderColumn width='200' dataField='HH_asociado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HH asociado</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='proveedor' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Proveedor</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='viatico' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Viatico</TableHeaderColumn>
- */
+     <TableHeaderColumn width='200' dataField='porcentajeAvance' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvance</TableHeaderColumn>
+        */

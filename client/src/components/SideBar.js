@@ -98,6 +98,11 @@ export default class SideBar extends Component {
                 </Link>
                 </li>
                 <li>
+                <Link to="/generarDatosCopiaCertificacionContainer">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Generar copia de certificacion
+                </Link>
+                </li>
+                <li>
                 <Link to="/containerInsert">
                     <i className="fa fa-info-circle" aria-hidden="true"></i> Insertar datos de cotizacion
                 </Link>

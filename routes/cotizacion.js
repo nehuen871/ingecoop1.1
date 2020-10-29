@@ -146,7 +146,7 @@ router.put('/:id', (req, res) => {
 
 router.get('/codigoUnificador/:code', (req, res) => {
   const { code } = req.params;
-  mysqlConnection.query('SELECT cotizacion.*,cliente.nombre as nombreCliente FROM cotizacion join cliente on cliente.id = cotizacion.cliente_id WHERE codigo_unificador = ?;',[code], (err, rows, fields) => {
+  mysqlConnection.query('SELECT cotizacion.*,cliente.nombre as nombreCliente FROM cotizacion join cliente on cliente.id = cotizacion.cliente_id WHERE codigo_unificador = ? order by fecha desc limit 1;',[code], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
     } else {

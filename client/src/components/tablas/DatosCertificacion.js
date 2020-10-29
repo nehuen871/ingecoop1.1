@@ -40,6 +40,9 @@ function jobStatusValidator(value, row) {
     return true;
   }
 async function onAfterSaveCell(row, cellName, cellValue) {
+  let resultado = 0;
+  let resultado2 = 0;
+  let resultado3 = 0;
   if(cellName === "fechaDeEmision"){
     row.fechaDeEmision = moment(cellValue).format('YYYY-MM-DD');
   }else{
@@ -58,25 +61,36 @@ async function onAfterSaveCell(row, cellName, cellValue) {
     case "codigoControl":
       row.certificacion_control_id = row.codigoControl;
       break;
+    case "porcentajeAvancePrecente":
+      resultado = Number(row.porcentajeAvancePrecente) + Number(row.porcentajeAvanceAcumulado);
+       resultado2 = Number(row.porcentajeAvancePrecente) / Number(row.cantidadDeHoras);
+       resultado3 = resultado2 * Number(row.costoHoraDoc);
+       row.total_certificacion = resultado2;
+       row.totalPlataCerificada = resultado3;
+      break;
     default:
       // code block
-  } 
-  const settings = {
-    method: 'PUT',
-    body: JSON.stringify(row),
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+  }
+  if(resultado > 100){
+    alert("El avance acumulado no puede ser mayor a 100");
+  }else{
+    const settings = {
+      method: 'PUT',
+      body: JSON.stringify(row),
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      }
+    };
+    let url = "/datosCertificacion/" + row.id;
+    try {
+        const fetchResponse = await fetch(url, settings);
+        const data = await fetchResponse.json();
+        erroHandrle(data);
+        console.log(data);
+    } catch (e) {
+      console.log(e);
     }
-  };
-  let url = "/datosCertificacion/" + row.id;
-  try {
-      const fetchResponse = await fetch(url, settings);
-      const data = await fetchResponse.json();
-      erroHandrle(data);
-      console.log(data);
-  } catch (e) {
-    console.log(e);
   }
 }
 
@@ -213,6 +227,7 @@ export default class datosCertificacion extends React.Component {
           cantidadDeHoras: data[i].cantidadDeHoras,
           cantidadDeDocs: data[i].cantidadDeDocs,
           porcentajeAvanceAnterior: data[i].porcentajeAvanceAnterior,
+          porcentajeAvance: data[i].porcentajeAvance,
           porcentajeAvancePrecente: data[i].porcentajeAvancePrecente,
           porcentajeAvanceAcumulado: data[i].porcentajeAvanceAcumulado,
           total_certificacion: data[i].total_certificacion,
@@ -241,6 +256,7 @@ export default class datosCertificacion extends React.Component {
             cantidadDeHoras: data[i].cantidadDeHoras,
             cantidadDeDocs: data[i].cantidadDeDocs,
             porcentajeAvanceAnterior: data[i].porcentajeAvanceAnterior,
+            porcentajeAvance: data[i].porcentajeAvance,
             porcentajeAvancePrecente: data[i].porcentajeAvancePrecente,
             porcentajeAvanceAcumulado: data[i].porcentajeAvanceAcumulado,
             total_certificacion: data[i].total_certificacion,
@@ -326,8 +342,10 @@ export default class datosCertificacion extends React.Component {
         <TableHeaderColumn width='200' dataField='porcentajeAvancePrecente' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Porcentaje Avance Precente</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='porcentajeAvanceAcumulado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Porcentaje Avance Acumulado</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='total_certificacion' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total de certificacion</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='totalPlataCerificada' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total de $$ cerficicada</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='totalPlataCerificada' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total de $$ certificada</TableHeaderColumn>
       </BootstrapTable>
     );
   }
 }
+
+/*<TableHeaderColumn width='200' dataField='porcentajeAvance' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Porcentaje Avance</TableHeaderColumn>*/
