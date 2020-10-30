@@ -4,20 +4,40 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../styles/react-bootstrap-table.css';
 
 
-const optionsSelect = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
+let optionsSelect = [
 ];
 let jobs = [];
 const selectRowProp = {
-  mode: 'checkbox'
+  mode: 'checkbox',
+  onSelect: onRowSelect
 };
 const cellEditProp = {
   mode: 'click',
   blurToSave: true,
   afterSaveCell: onAfterSaveCell
 };
+
+async function onRowSelect(row, isSelected, e) {
+  let a = Number(row.cantidadDedocs);
+  console.log(row);
+  for(let i = 0; i< a; i++){
+    const settings = {
+      method: 'POST',
+      body: JSON.stringify(row),
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      }
+    };
+    try {
+        const fetchResponse = await fetch(`/datosCotizacion/datosCotizacionInsert`, settings);
+        const data = await fetchResponse.json();
+        console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
 
 async function onAfterSaveCell(row, cellName, cellValue) {
   const settings = {
@@ -123,10 +143,16 @@ export default class insertCotizacion extends Component {
   constructor(props) {
     super(props);
     this.formatType = this.formatType.bind(this);
+    this.state = {
+      searchDataId: 0,
+    };
   }
 
   componentDidMount() {
     this.callApi()
+      .then(res => this.setState({ response: res }))
+      .catch(err => console.log(err));
+    this.callApiDroopCotizacion()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
   }
@@ -148,8 +174,28 @@ export default class insertCotizacion extends Component {
         unidad_hh: data[i].unidad_hh,
         especialidad: data[i].especialidad,
         tipodocumento: data[i].tipodocumento,
+        idCoti: data[i].idCoti,
         titulo_documento: data[i].titulo_documento
       });
+    }
+  }
+
+  callApiDroopCotizacion = async () => {
+    jobs = [];
+    const response = await fetch('/cotizacion');
+    var data = await response.json();
+    if (response.status !== 200) throw Error(data.message);
+    optionsSelect = [];
+    for (let i = 0; i < data.length; i++) {
+      optionsSelect.push({
+        value: data[i].id,
+        label: data[i].numero_doc
+      });
+    }
+  }
+  asignarIdCoti = async (test,row) => {
+    for (let i = 0; i < jobs.length; i++) {
+      jobs[i].idCoti = test.value;
     }
   }
   state = {
@@ -157,7 +203,7 @@ export default class insertCotizacion extends Component {
   };
   handleChange = selectedOption => {
     this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+    this.asignarIdCoti(selectedOption);
   };
   
   render() {
@@ -176,6 +222,7 @@ export default class insertCotizacion extends Component {
         <TableHeaderColumn width='200' dataField='tipodocumento' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Tipo de documento</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='titulo_documento' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>Titulo del documento</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='cantidadDedocs' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>Cantidad de documentos</TableHeaderColumn>
+        <TableHeaderColumn width='200' dataField='idCoti' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>idCoti</TableHeaderColumn>
       </BootstrapTable>
       </div>
     );

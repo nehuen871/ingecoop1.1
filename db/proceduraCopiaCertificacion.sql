@@ -28,7 +28,7 @@ BEGIN
     DECLARE _horasCertificadas FLOAT;
     DECLARE _valorHora FLOAT;
     DECLARE _totalValorHora FLOAT;
-    DECLARE _total_certificacion INT(11);
+    DECLARE _total_certificacion FLOAT;
     DECLARE _numero_documento VARCHAR(255);
     DECLARE _list_docs_id INT(11);
     DECLARE _idCertificacion INT(11);
@@ -53,7 +53,7 @@ BEGIN
     SET _a=_a+1;
     SELECT list_docs_id INTO _list_docs_id FROM datosCertificacion WHERE certificacion_id = _id LIMIT _count,1;
     SELECT certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs,porcentajeAvance,porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada INTO _certificacion_id,_certificacion_control_id,_certificacion_control_cotizacion_id,_costoHoraDoc,_cantidadDeHoras,_cantidadDeDocs,_porcentajeAvance,_porcentajeAvanceAnterior,_porcentajeAvancePrecente,_porcentajeAvanceAcumulado,_horasCertificadas,_total_certificacion,_numero_documento,_list_docs_id,_totalPlataCerificada FROM  datosCertificacion WHERE certificacion_id = _id LIMIT _count,1;
-    SELECT SUM(porcentajeAvanceAnterior + porcentajeAvancePrecente + porcentajeAvanceAcumulado) INTO _porcentajeAvanceAcumuladoSUM FROM datosCertificacion WHERE certificacion_id = _id LIMIT _count,1;
+    SELECT porcentajeAvancePrecente + porcentajeAvanceAcumulado INTO _porcentajeAvanceAcumuladoSUM FROM datosCertificacion WHERE certificacion_id = _id LIMIT _count,1;
     SET _count = _count + 1;
     INSERT INTO datosCertificacion (certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs,porcentajeAvance,porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada)
     VALUES (_idCertificacion,_certificacion_control_id,_certificacion_control_cotizacion_id,_costoHoraDoc,_cantidadDeHoras,_cantidadDeDocs,0,_porcentajeAvancePrecente,0,_porcentajeAvanceAcumuladoSUM,_horasCertificadas,_total_certificacion,_numero_documento,_list_docs_id,_totalPlataCerificada);

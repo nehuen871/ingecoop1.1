@@ -37,7 +37,21 @@ router.delete('/:id', (req, res) => {
     }
   });
 });
-
+router.post('/datosCotizacionInsert', (req, res) => {
+  let {id,idCoti} = req.body;
+  const query =`
+  SET @id = ?;
+  SET @idCoti = ?;
+  CALL datosCotizacionInsert(@id,@idCoti);
+  `;
+  mysqlConnection.query(query,[id,idCoti], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+    } else {
+      res.json(err);
+    }
+  });
+});
 // INSERT An datosCotizacion
 router.post('/', (req, res) => {
   let {numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveerdor, viatico,numero_documento,list_docs_id,valorHora,totalValorHora} = req.body;
@@ -144,4 +158,5 @@ router.get('/codigoUnificador/:code/:code2', (req, res) => {
     }
   });
 });
+
 module.exports = router;

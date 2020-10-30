@@ -276,6 +276,7 @@ export default class datosCertificacion extends React.Component {
     const response = await fetch('/cotizacion');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
+    jobTypesCotizacion = [];
     for (let i = 0; i < data.length; i++) {
       jobTypesCotizacion.push({
         value: data[i].id,
@@ -288,6 +289,7 @@ export default class datosCertificacion extends React.Component {
     const response = await fetch('/control');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
+    jobTypesControl =  [];
     for (let i = 0; i < data.length; i++) {
       jobTypesControl.push({
         value: data[i].id,
@@ -300,6 +302,7 @@ export default class datosCertificacion extends React.Component {
     const response = await fetch('/certificacion');
     var data = await response.json();
     if (response.status !== 200) throw Error(data.message);
+    jobTypesCertificacion = [];
     for (let i = 0; i < data.length; i++) {
       jobTypesCertificacion.push({
         value: data[i].id,
