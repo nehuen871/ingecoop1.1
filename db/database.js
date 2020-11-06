@@ -43,5 +43,6 @@ source /opt/ingecoop/db/proceduraCopiaControl.sql
 source /opt/ingecoop/db/proceduraCopiaCertificacion.sql
 source /opt/ingecoop/db/procedureDatosCotizacionInsert.sql
 source /opt/ingecoop/db/procedureCertificacionAutomatica.sql
+source /opt/ingecoop/db/procedureCotizacionTotales.sql
  * 
  */

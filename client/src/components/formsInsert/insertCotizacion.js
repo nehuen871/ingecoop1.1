@@ -222,7 +222,7 @@ export default class insertCotizacion extends Component {
         <TableHeaderColumn width='200' dataField='tipodocumento' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Tipo de documento</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='titulo_documento' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>Titulo del documento</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='cantidadDedocs' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>Cantidad de documentos</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='idCoti' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>idCoti</TableHeaderColumn>
+        <TableHeaderColumn hidden width='200' dataField='idCoti' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>idCoti</TableHeaderColumn>
       </BootstrapTable>
       </div>
     );

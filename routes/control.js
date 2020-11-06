@@ -14,6 +14,18 @@ router.get('/', (req, res) => {
     }
   });
 });
+router.get('/codigoUnificador/:code', (req, res) => {
+  const { code } = req.params;
+  mysqlConnection.query('SELECT control.*, cotizacion.titulo_cotiazacion as tituloCotiazacion FROM control join cotizacion on cotizacion.id = control.cotizacion_id WHERE control.codigo_unificador = ? order by fecha_emision_proyectada DESC LIMIT 1',[code], (err, rows, fields) => {
+    if(!err) {
+      res.json(rows);
+      console.log(rows);
+    } else {
+      res.json(err);
+      console.log(err);
+    }
+  });
+});
 //Get all datosControl childs
 router.post('/getControlById', (req, res) => {
   let {id} = req.body;
@@ -97,7 +109,6 @@ router.post('/getListDocsFormCotizacion', (req, res) => {
   });
 });
 
-
 // GET An control
 router.get('/:id', (req, res) => {
   const { id } = req.params;
@@ -174,17 +185,4 @@ router.put('/:id', (req, res) => {
     }
   });
 });
-
-router.get('/codigoUnificador/:code', (req, res) => {
-  const { code } = req.params;
-  mysqlConnection.query('SELECT control.*, cotizacion.titulo_cotiazacion as tituloCotiazacion FROM control join cotizacion on cotizacion.id = control.cotizacion_id WHERE control.codigo_unificador = ? order by fecha_emision_proyectada DESC LIMIT 1;',[code], (err, rows, fields) => {
-    if(!err) {
-      res.json(rows);
-    } else {
-      res.json(err);
-      console.log(err);
-    }
-  });
-});
-
 module.exports = router;

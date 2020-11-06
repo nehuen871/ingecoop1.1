@@ -44,17 +44,20 @@ async function onAfterSaveCell(row, cellName, cellValue) {
     case "cantidad_doc":
       resultado = Number(row.cantidad_doc) * Number(row.HHUnidades);
       row.total = resultado;
+      updateTotales(row);
       break;
     case "HHUnidades":
       resultado = Number(row.cantidad_doc) * Number(row.HHUnidades);
       resultado2 = Number(row.valorHora) * Number(row.total);
       row.total = resultado;
       row.totalValorHora = resultado2;
+      updateTotales(row);
       break;
     default:
       case "valorHora":
       resultado = Number(row.valorHora) * Number(row.total);
       row.totalValorHora = resultado;
+      updateTotales(row);
       break;
       // code block
   } 
@@ -75,6 +78,24 @@ async function onAfterSaveCell(row, cellName, cellValue) {
     console.log(e);
   }
 }
+async function updateTotales(row) {
+  const settings = {
+    method: 'POST',
+    body: JSON.stringify(row),
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    }
+  };
+  try {
+      const fetchResponse = await fetch(`/datosCotizacion/datosCotizacionTotales`, settings);
+      const data = await fetchResponse.json();
+      console.log(data);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 async function onAfterInsertRow(row) {
   const settings = {
     method: 'POST',
@@ -283,7 +304,7 @@ export default class datosCotizacion extends React.Component {
         <TableHeaderColumn width='200' dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='cotizacion_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'TextFilter', delay: 1000 } } hidden>Cotizacion</TableHeaderColumn>
         <TableHeaderColumn width='200' hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypesCotizacion } } } filter={ { type: 'TextFilter', delay: 1000 } }>Titulo cotizacion</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='list_docs_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'TextFilter', delay: 1000 } } hidden>Nombre del documento</TableHeaderColumn>
+        <TableHeaderColumn width='400' dataField='list_docs_id'  editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'TextFilter', delay: 1000 } } hidden>Nombre del documento</TableHeaderColumn>
         <TableHeaderColumn width='200' hiddenOnInsert dataField='nombreDocumento' editable={ { type: 'select', options: { values: jobTypesDocumentos } } } filter={ { type: 'TextFilter', delay: 1000 } }>Nombre del documento</TableHeaderColumn>
         <TableHeaderColumn width='200' hiddenOnInsert dataField='numero_documento' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Numero del documento</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='numeroRecotizacion'  editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Numero de recotizacion</TableHeaderColumn>

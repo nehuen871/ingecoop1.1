@@ -37,6 +37,7 @@ router.delete('/:id', (req, res) => {
     }
   });
 });
+
 router.post('/datosCotizacionInsert', (req, res) => {
   let {id,idCoti} = req.body;
   const query =`
@@ -94,6 +95,24 @@ router.post('/', (req, res) => {
 
 });
 
+router.post('/datosCotizacionTotales', (req, res) => {
+  let {cotizacion_id} = req.body;
+  console.log(cotizacion_id);
+  const query =`
+  SET @cotizacion_id = ?;
+  CALL cotizacionTotales(@cotizacion_id);
+  `;
+  mysqlConnection.query(query,[cotizacion_id], (err, rows, fields) => {
+    if(!err) {
+      console.log(rows);
+      res.json(rows);
+    } else {
+      console.log(rows);
+      res.json(err);
+    }
+  });
+});
+
 router.put('/:id', (req, res) => {
   let { numeroRecotizacion, cotizacion_id, descripcion_doc, revicion, cantidad_doc, HHUnidades, total, observacion, HH_asociado, proveerdor, viatico,numero_documento,list_docs_id,valorHora,totalValorHora} = req.body;
   if(numeroRecotizacion===''){numeroRecotizacion=null};
@@ -135,10 +154,8 @@ router.put('/:id', (req, res) => {
   });
 });
 
-
 router.get('/codigoUnificador/:code/:code2', (req, res) => {
   const { code,code2 } = req.params;
-  console.log(code2);
   if(code2===''){code2=1};
   if(code2===0){code2=1};
   const query =`
