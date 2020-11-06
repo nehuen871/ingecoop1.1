@@ -79,7 +79,6 @@ router.post('/', (req, res) => {
       res.json({status: 'datosControl Saved'});
     } else {
       res.json(err);
-      console.log(err);
     }
   });
 
@@ -125,7 +124,6 @@ router.put('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'datosControl Updated'});
     } else {
-      console.log(err);
       res.json(err);
     }
   });

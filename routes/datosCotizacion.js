@@ -104,10 +104,8 @@ router.post('/datosCotizacionTotales', (req, res) => {
   `;
   mysqlConnection.query(query,[cotizacion_id], (err, rows, fields) => {
     if(!err) {
-      console.log(rows);
       res.json(rows);
     } else {
-      console.log(rows);
       res.json(err);
     }
   });

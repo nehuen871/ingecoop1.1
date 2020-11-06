@@ -44,12 +44,14 @@ async function onAfterSaveCell(row, cellName, cellValue) {
     case "cantidad_doc":
       resultado = Number(row.cantidad_doc) * Number(row.HHUnidades);
       row.total = resultado;
+      resultado2 = Number(row.valorHora) * Number(row.total);
+      row.totalValorHora = resultado2;
       updateTotales(row);
       break;
     case "HHUnidades":
       resultado = Number(row.cantidad_doc) * Number(row.HHUnidades);
-      resultado2 = Number(row.valorHora) * Number(row.total);
       row.total = resultado;
+      resultado2 = Number(row.valorHora) * Number(row.total);
       row.totalValorHora = resultado2;
       updateTotales(row);
       break;
@@ -90,7 +92,6 @@ async function updateTotales(row) {
   try {
       const fetchResponse = await fetch(`/datosCotizacion/datosCotizacionTotales`, settings);
       const data = await fetchResponse.json();
-      console.log(data);
   } catch (e) {
     console.log(e);
   }

@@ -8,7 +8,7 @@ CREATE PROCEDURE `cotizacionTotales` (
 )
 BEGIN
     DECLARE _totalHH,_totalDinero INT DEFAULT 0;
-    SELECT sum(total) as totalHH,sum(totalValorHora) totalDinero INTO _totalHH,_totalDinero FROM datosCotizacion where cotizacion_id = 21;
+    SELECT sum(total) as totalHH,sum(totalValorHora) totalDinero INTO _totalHH,_totalDinero FROM datosCotizacion where cotizacion_id = _id;
     
     UPDATE cotizacion
     SET

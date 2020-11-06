@@ -10,7 +10,6 @@ router.get('/', (req, res) => {
       res.json(rows);
     } else {
       res.json(err);
-      console.log(err);
     }
   });
 });
@@ -19,10 +18,8 @@ router.get('/codigoUnificador/:code', (req, res) => {
   mysqlConnection.query('SELECT control.*, cotizacion.titulo_cotiazacion as tituloCotiazacion FROM control join cotizacion on cotizacion.id = control.cotizacion_id WHERE control.codigo_unificador = ? order by fecha_emision_proyectada DESC LIMIT 1',[code], (err, rows, fields) => {
     if(!err) {
       res.json(rows);
-      console.log(rows);
     } else {
       res.json(err);
-      console.log(err);
     }
   });
 });
@@ -36,7 +33,6 @@ router.post('/getControlById', (req, res) => {
       res.json(rows);
     } else {
       res.json(err);
-      console.log(err);
     }
   });
 });
@@ -68,7 +64,6 @@ where control.id = ?;`;
       res.json(rows);
     } else {
       res.json(err);
-      console.log(err);
     }
   });
 });
@@ -86,7 +81,6 @@ router.post('/getListDocsFormControl', (req, res) => {
       res.json(rows);
     } else {
       res.json(err);
-      console.log(err);
     }
   });
 });
@@ -104,7 +98,6 @@ router.post('/getListDocsFormCotizacion', (req, res) => {
       res.json(rows);
     } else {
       res.json(err);
-      console.log(err);
     }
   });
 });
@@ -117,7 +110,6 @@ router.get('/:id', (req, res) => {
       res.json(rows[0]);
     } else {
       res.json(err);
-      console.log(err);
     }
   });
 });
@@ -130,7 +122,6 @@ router.delete('/:id', (req, res) => {
       res.json({status: 'control Deleted'});
     } else {
       res.json(err);
-      console.log(err);
     }
   });
 });
@@ -154,7 +145,6 @@ router.post('/', (req, res) => {
     if(!err) {
       res.json({status: 'control Saved'});
     } else {
-      console.log(err);
       res.json(err);
     }
   });
@@ -180,7 +170,6 @@ router.put('/:id', (req, res) => {
     if(!err) {
       res.json({status: 'control Updated'});
     } else {
-      console.log(err);
       res.json(err); 
     }
   });

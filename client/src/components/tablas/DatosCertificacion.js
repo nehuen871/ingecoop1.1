@@ -62,11 +62,11 @@ async function onAfterSaveCell(row, cellName, cellValue) {
       row.certificacion_control_id = row.codigoControl;
       break;
     case "porcentajeAvancePrecente":
-      resultado = Number(row.porcentajeAvancePrecente) + Number(row.porcentajeAvanceAcumulado);
-       resultado2 = Number(row.porcentajeAvancePrecente) / Number(row.cantidadDeHoras);
-       resultado3 = resultado2 * Number(row.costoHoraDoc);
-       row.total_certificacion = resultado2;
-       row.totalPlataCerificada = resultado3;
+        resultado = Number(row.porcentajeAvancePrecente) + Number(row.porcentajeAvanceAcumulado);
+        resultado2 = Number(row.porcentajeAvancePrecente) / Number(row.cantidadDeHoras);
+        row.total_certificacion = resultado2;
+        resultado3 = resultado2 * Number(row.costoHoraDoc);
+        row.totalPlataCerificada = resultado3;
       break;
     default:
       // code block
