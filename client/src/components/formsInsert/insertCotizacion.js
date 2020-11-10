@@ -4,40 +4,41 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../styles/react-bootstrap-table.css';
 
 
-let optionsSelect = [
-];
+let optionsSelect = [];
 let jobs = [];
+let inserts = [];
 const selectRowProp = {
   mode: 'checkbox',
-  onSelect: onRowSelect
+  onSelect: (row, isSelect, rowIndex, e) => {
+    if(row.cantidadDedocs === "" || row.cantidadDedocs === null || row.cantidadDedocs === undefined){
+      alert("Primero tiene que agregar la cantidad de documentos");
+      return false;
+    }else{
+      if(isSelect){
+        inserts.push({
+          id: row.id,
+          nombre: row.nombre,
+          cantidadDedocs: row.cantidadDedocs,
+          unidad_hh: row.unidad_hh,
+          especialidad: row.especialidad,
+          tipodocumento: row.tipodocumento,
+          idCoti: row.idCoti,
+          titulo_documento: row.titulo_documento
+        });
+      }else{
+        for( var i = 0; i < inserts.length; i++){ 
+          if ( inserts[i].id === row.id) { 
+            inserts.splice(i, 1); 
+          }
+        }
+      }
+    }
+  }
 };
 const cellEditProp = {
   mode: 'click',
-  blurToSave: true,
-  afterSaveCell: onAfterSaveCell
+  blurToSave: true
 };
-
-async function onRowSelect(row, isSelected, e) {
-  let a = Number(row.cantidadDedocs);
-  console.log(row);
-  for(let i = 0; i< a; i++){
-    const settings = {
-      method: 'POST',
-      body: JSON.stringify(row),
-      headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-      }
-    };
-    try {
-        const fetchResponse = await fetch(`/datosCotizacion/datosCotizacionInsert`, settings);
-        const data = await fetchResponse.json();
-        console.log(data);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
 
 async function onAfterSaveCell(row, cellName, cellValue) {
   const settings = {
@@ -155,6 +156,7 @@ export default class insertCotizacion extends Component {
     this.callApiDroopCotizacion()
       .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
+    this.searchData = this.searchData.bind(this);
   }
 
   formatType(cell) {
@@ -170,7 +172,7 @@ export default class insertCotizacion extends Component {
       jobs.push({
         id: data[i].id,
         nombre: data[i].nombre,
-        cantidad_de_doc: data[i].cantidad_de_doc,
+        cantidadDedocs: data[i].cantidadDedocs,
         unidad_hh: data[i].unidad_hh,
         especialidad: data[i].especialidad,
         tipodocumento: data[i].tipodocumento,
@@ -206,6 +208,31 @@ export default class insertCotizacion extends Component {
     this.asignarIdCoti(selectedOption);
   };
   
+  searchData = async () => {
+    if(window.confirm('Desea generar los datos?')){
+      for(let i = 0; i< inserts.length; i++){
+        for(let a = 0; a< inserts[i].cantidadDedocs; a++){
+          const settings = {
+            method: 'POST',
+            body: JSON.stringify(inserts[i]),
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            }
+          };
+          try {
+              const fetchResponse = await fetch(`/datosCotizacion/datosCotizacionInsert`, settings);
+              const data = await fetchResponse.json();
+          } catch (e) {
+            console.log(e);
+          }
+        }
+      }
+      alert("Datos Generados");
+    }
+  }
+
+
   render() {
     const { selectedOption } = this.state;
     return (
@@ -224,6 +251,7 @@ export default class insertCotizacion extends Component {
         <TableHeaderColumn width='200' dataField='cantidadDedocs' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>Cantidad de documentos</TableHeaderColumn>
         <TableHeaderColumn hidden width='200' dataField='idCoti' editable={ { type: 'input' } } filter={ {  type: 'TextFilter', delay: 1000  } }>idCoti</TableHeaderColumn>
       </BootstrapTable>
+      <button onClick={this.searchData} className="btn btn-primary">Insertar Datos</button>
       </div>
     );
   }

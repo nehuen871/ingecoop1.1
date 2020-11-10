@@ -94,12 +94,12 @@ export default class SideBar extends Component {
                 </li>
                 <li>
                 <Link to="/generarDatosCopiaControlContainer">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i> Generar copia de control
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Generar nuevo control
                 </Link>
                 </li>
                 <li>
                 <Link to="/generarDatosCopiaCertificacionContainer">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i> Generar copia de certificacion
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Generar nueva certificacion
                 </Link>
                 </li>
                 <li>

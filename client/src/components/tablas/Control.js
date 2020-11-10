@@ -7,6 +7,7 @@ import moment from 'moment';
 
 let jobs = [];
 let jobTypes = [];
+let selectTedROW = [];
 
 const cellEditProp = {
   mode: 'click',
@@ -14,7 +15,20 @@ const cellEditProp = {
   afterSaveCell: onAfterSaveCell
 };
 const selectRowProp = {
-  mode: 'checkbox'
+  mode: 'checkbox',
+  onSelect: (row, isSelect, rowIndex, e) => {
+    if(isSelect){
+      selectTedROW.push({
+        id: row.id
+      });
+    }else{
+      for( var i = 0; i < selectTedROW.length; i++){ 
+        if ( selectTedROW[i].id === row.id) { 
+          selectTedROW.splice(i, 1); 
+        }
+      }
+    }
+  }
 };
 function jobStatusValidator(value, row) {
   const nan = isNaN(parseInt(value, 10));
@@ -31,6 +45,26 @@ function erroHandrle(data){
     default:
       // code block
   } 
+}
+async function newControlCopia() {
+  if(window.confirm('Desea generar los datos?')){
+      console.log(selectTedROW[0]);
+      let settings = {
+        method: 'POST',
+        body: JSON.stringify(selectTedROW[0]),
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+      };
+      try {
+        let fetchResponse = await fetch(`/control/copiaControl`, settings);
+        let data = await fetchResponse.json();
+      } catch (e) {
+        console.log(e);
+      }
+    alert("Datos Generados");
+  }
 }
 async function onAfterSaveCell(row, cellName, cellValue) {
   if(cellName === "fecha_emision_proyectada"){
@@ -233,17 +267,22 @@ export default class control extends React.Component {
       });
     }
   }
-
+  newControl = async () => {
+    newControlCopia();
+  }
   render() {
     return (
-      <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp } >
-        <TableHeaderColumn width='200' dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Codigo unificado</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='cotizacion_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>Cotizacion</TableHeaderColumn>
-        <TableHeaderColumn width='200' hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'TextFilter', delay: 1000 } }>Titulo de cotizacion</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='fecha_emision_proyectada' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de emision proyectada</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='fecha_calificaion' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de calificacion</TableHeaderColumn>
-      </BootstrapTable>
+      <div>
+        <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp } >
+          <TableHeaderColumn width='200' dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
+          <TableHeaderColumn width='200' dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Codigo unificado</TableHeaderColumn>
+          <TableHeaderColumn width='200' dataField='cotizacion_id' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>Cotizacion</TableHeaderColumn>
+          <TableHeaderColumn width='200' hiddenOnInsert dataField='tituloCotiazacion' editable={ { type: 'select', options: { values: jobTypes } } } filter={ { type: 'TextFilter', delay: 1000 } }>Titulo de cotizacion</TableHeaderColumn>
+          <TableHeaderColumn width='200' dataField='fecha_emision_proyectada' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de emision proyectada</TableHeaderColumn>
+          <TableHeaderColumn width='200' dataField='fecha_calificaion' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de calificacion</TableHeaderColumn>
+        </BootstrapTable>
+        <button onClick={this.newControl} className="btn btn-primary">Generar Nuevo Control</button>
+      </div>
     );
   }
 }

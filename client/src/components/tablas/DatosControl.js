@@ -55,7 +55,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
       row.list_docs_id = row.nombreDocumento;
       break;
     case "porcentajeAvancePrecente":
-      resultado = Number(row.porcentajeAvancePrecente) + Number(row.porcentajeAvanceAcumulado);
+      resultado = Number(row.porcentajeAvancePrecente) + Number(row.porcentajeAvanceAnterior);
       break;
     default:
       // code block
@@ -63,6 +63,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
   if(resultado > 100){
     alert("El avance acumulado no puede ser mayor a 100");
   }else{
+    row.porcentajeAvanceAcumulado = resultado;
     const settings = {
       method: 'PUT',
       body: JSON.stringify(row),
@@ -322,8 +323,7 @@ export default class datosControl extends React.Component {
         <TableHeaderColumn width='200' dataField='revicion' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Revision</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='cantidad_doc' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Cantidad de documentos</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='HHUnidades' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>HH Unidades</TableHeaderColumn>
-        <TableHeaderColumn width='200' dataField='total' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total</TableHeaderColumn>
-        
+        <TableHeaderColumn width='200' dataField='total' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>Total</TableHeaderColumn>   
         <TableHeaderColumn width='200' dataField='porcentajeAvanceAnterior' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvanceAnterior</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='porcentajeAvancePrecente' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvancePrecente</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='porcentajeAvanceAcumulado' editable={ { validator: jobStatusValidator,type: 'input' } } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } }>porcentajeAvanceAcumulado</TableHeaderColumn>

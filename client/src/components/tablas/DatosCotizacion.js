@@ -4,6 +4,7 @@ import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../styles/react-bootstrap-table.css';
 
+
 let jobs = [];
 let jobTypesCotizacion = [];
 let jobTypesDocumentos = [];

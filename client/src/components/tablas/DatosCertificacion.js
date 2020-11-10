@@ -62,7 +62,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
       row.certificacion_control_id = row.codigoControl;
       break;
     case "porcentajeAvancePrecente":
-        resultado = Number(row.porcentajeAvancePrecente) + Number(row.porcentajeAvanceAcumulado);
+        resultado = Number(row.porcentajeAvancePrecente) + Number(row.porcentajeAvanceAnterior);
         resultado2 = Number(row.porcentajeAvancePrecente) / Number(row.cantidadDeHoras);
         row.total_certificacion = resultado2;
         resultado3 = resultado2 * Number(row.costoHoraDoc);
@@ -74,6 +74,7 @@ async function onAfterSaveCell(row, cellName, cellValue) {
   if(resultado > 100){
     alert("El avance acumulado no puede ser mayor a 100");
   }else{
+    row.porcentajeAvanceAcumulado = resultado;
     const settings = {
       method: 'PUT',
       body: JSON.stringify(row),

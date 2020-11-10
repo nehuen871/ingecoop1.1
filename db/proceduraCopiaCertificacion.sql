@@ -46,17 +46,17 @@ BEGIN
     SELECT COUNT(*) as total INTO _countTotal FROM datosCertificacion WHERE datosCertificacion.certificacion_id = _id;
 
     INSERT INTO certificacion (control_id, control_cotizacion_id,numeroDePedido, proyecto, especialidad, fechaDeEmision, moneda,codigo_unificador)
-    VALUES (_control_id,_control_cotizacion_id,_numeroDePedido,_proyecto,_especialidad,_fechaDeEmision,_moneda,_codigo_unificador_certi);
+    VALUES (_control_id,_control_cotizacion_id,_numeroDePedido,_proyecto,_especialidad,NOW(),_moneda,_codigo_unificador_certi);
     SET _idCertificacion = LAST_INSERT_ID();
 
     simple_loop: LOOP
     SET _a=_a+1;
     SELECT list_docs_id INTO _list_docs_id FROM datosCertificacion WHERE certificacion_id = _id LIMIT _count,1;
     SELECT certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs,porcentajeAvance,porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada INTO _certificacion_id,_certificacion_control_id,_certificacion_control_cotizacion_id,_costoHoraDoc,_cantidadDeHoras,_cantidadDeDocs,_porcentajeAvance,_porcentajeAvanceAnterior,_porcentajeAvancePrecente,_porcentajeAvanceAcumulado,_horasCertificadas,_total_certificacion,_numero_documento,_list_docs_id,_totalPlataCerificada FROM  datosCertificacion WHERE certificacion_id = _id LIMIT _count,1;
-    SELECT porcentajeAvancePrecente + porcentajeAvanceAcumulado INTO _porcentajeAvanceAcumuladoSUM FROM datosCertificacion WHERE certificacion_id = _id LIMIT _count,1;
+    SELECT porcentajeAvanceAcumulado INTO _porcentajeAvanceAcumuladoSUM FROM datosCertificacion WHERE certificacion_id = _id LIMIT _count,1;
     SET _count = _count + 1;
     INSERT INTO datosCertificacion (certificacion_id,certificacion_control_id, certificacion_control_cotizacion_id, costoHoraDoc, cantidadDeHoras, cantidadDeDocs,porcentajeAvance,porcentajeAvanceAnterior,porcentajeAvancePrecente,porcentajeAvanceAcumulado, horasCertificadas, total_certificacion,numero_documento,list_docs_id,totalPlataCerificada)
-    VALUES (_idCertificacion,_certificacion_control_id,_certificacion_control_cotizacion_id,_costoHoraDoc,_cantidadDeHoras,_cantidadDeDocs,0,_porcentajeAvancePrecente,0,_porcentajeAvanceAcumuladoSUM,_horasCertificadas,_total_certificacion,_numero_documento,_list_docs_id,_totalPlataCerificada);
+    VALUES (_idCertificacion,_certificacion_control_id,_certificacion_control_cotizacion_id,_costoHoraDoc,_cantidadDeHoras,_cantidadDeDocs,0,_porcentajeAvanceAcumuladoSUM,0,0,_horasCertificadas,_total_certificacion,_numero_documento,_list_docs_id,_totalPlataCerificada);
     IF _a = _countTotal THEN
         LEAVE simple_loop;
     END IF;

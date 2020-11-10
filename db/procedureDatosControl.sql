@@ -17,7 +17,7 @@ CREATE PROCEDURE `datoControlAddOrEdit` (
   IN _control_id INT(10),
   IN _control_cotizacion_id INT(10),
   IN _numero_documento VARCHAR(255),
-  IN _numero_remito INT(11),
+  IN _numero_remito VARCHAR(255),
   IN _fecha_envio_remito DATE,
   IN _list_docs_id INT(11),
   IN _porcentajeAvance INT(11),

@@ -39,6 +39,7 @@ router.delete('/:id', (req, res) => {
 });
 
 router.post('/datosCotizacionInsert', (req, res) => {
+  console.log(req.body);
   let {id,idCoti} = req.body;
   const query =`
   SET @id = ?;
