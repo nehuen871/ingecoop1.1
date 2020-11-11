@@ -9,13 +9,28 @@ import moment from 'moment';
 let jobs = [];
 let jobTypesCotizacion = [];
 let jobTypesControl = [];
+let selectTedROW = [];
+
 const cellEditProp = {
   mode: 'click',
   blurToSave: true,
   afterSaveCell: onAfterSaveCell
 };
 const selectRowProp = {
-  mode: 'checkbox'
+  mode: 'checkbox',
+  onSelect: (row, isSelect, rowIndex, e) => {
+    if(isSelect){
+      selectTedROW.push({
+        id: row.id
+      });
+    }else{
+      for( var i = 0; i < selectTedROW.length; i++){ 
+        if ( selectTedROW[i].id === row.id) { 
+          selectTedROW.splice(i, 1); 
+        }
+      }
+    }
+  }
 };
 function erroHandrle(data){
   switch(data.errno) {
@@ -35,6 +50,26 @@ function jobStatusValidator(value, row) {
     return 'Job Status must be a integer!';
   }
   return true;
+}
+async function newCertificacionCopia() {
+  if(window.confirm('Desea generar los datos?')){
+      console.log(selectTedROW[0]);
+      let settings = {
+        method: 'POST',
+        body: JSON.stringify(selectTedROW[0]),
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+      };
+      try {
+        let fetchResponse = await fetch(`/certificacion/copiaCertificacion`, settings);
+        let data = await fetchResponse.json();
+      } catch (e) {
+        console.log(e);
+      }
+    alert("Datos Generados");
+  }
 }
 
 async function onAfterSaveCell(row, cellName, cellValue) {
@@ -256,11 +291,15 @@ export default class certificacion extends React.Component {
     }
   }
 
+  newCertificacion = async () => {
+    newCertificacionCopia();
+  }
 
   render() {
     // custom attributes on editor
     return (
-      <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
+      <div>
+        <BootstrapTable data={ jobs } cellEdit={ cellEditProp } insertRow={ true } pagination={ true } options={ options } exportCSV={ true } deleteRow={ true } selectRow={ selectRowProp }>
         <TableHeaderColumn width='200' dataField='id' isKey={ true } autoValue={ true } filter={ { type: 'NumberFilter', delay: 1000, numberComparators: [ '=', '>', '<=' ] } } hidden>ID</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='codigo_unificador' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Codigo unificado</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='control_id' editable={ { validator: jobStatusValidator,type: 'select', options: { values: jobTypesControl } } } filter={ { type: 'TextFilter', delay: 1000 } } hidden>Control</TableHeaderColumn>
@@ -272,7 +311,9 @@ export default class certificacion extends React.Component {
         <TableHeaderColumn width='200' dataField='especialidad' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Especialidad</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='fechaDeEmision' editable={ { type: 'date' } } filter={ { type: 'DateFilter' } }>Fecha de emision</TableHeaderColumn>
         <TableHeaderColumn width='200' dataField='moneda' editable={ { type: 'input' } } filter={ { type: 'TextFilter', delay: 1000 } }>Moneda</TableHeaderColumn>
-      </BootstrapTable>
+        </BootstrapTable>
+        <button onClick={this.newCertificacion} className="btn btn-primary">Generar Nueva certificacion</button>
+      </div>
     );
   }
 }
