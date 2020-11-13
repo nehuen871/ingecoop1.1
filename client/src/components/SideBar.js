@@ -12,6 +12,26 @@ export default class SideBar extends Component {
             <ul className="sidebar-navigation">
                 <li className="header">Navigation</li>
                 <li>
+                <Link to="/codigoUnificadorContainer">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Busqueda Codigo Unificador
+                </Link>
+                </li>
+                <li>
+                    <Link to="/containerCotizacion">
+                        <i className="fa fa-users" aria-hidden="true"></i>Listado de Cotizacion
+                    </Link>
+                </li>
+                <li>
+                <Link to="/containerInsert">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Insertar datos de cotizacion
+                </Link>
+                </li>
+                <li>
+                <Link to="/generarDatosControlContainer">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Generar Datos Control
+                </Link>
+                </li>
+                <li>
                     <Link to="/containerProyecto">
                         <i className="fa fa-home" aria-hidden="true"></i>Listado de Proyecto
                     </Link>
@@ -22,10 +42,37 @@ export default class SideBar extends Component {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/containerCotizacion">
-                        <i className="fa fa-users" aria-hidden="true"></i>Listado de Cotizacion
+                    <Link to="/containerList_Docs">
+                        <i className="fa fa-info-circle" aria-hidden="true"></i> Lista de documentos
                     </Link>
                 </li>
+                
+                
+            </ul>
+            </div>
+      );
+    }
+}
+
+
+/**
+ * <li>
+                <Link to="/searchRemitos">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Remitos
+                </Link>
+                </li>
+                <li>
+                <Link to="/searchCertificacion">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i> Certificacion
+                </Link>
+                </li>
+ * 
+ */
+
+
+
+ /**
+                
                 <li>
                     <Link to="/containerControl">
                         <i className="fa fa-cog" aria-hidden="true"></i>Listado de Control
@@ -47,11 +94,6 @@ export default class SideBar extends Component {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/containerList_Docs">
-                        <i className="fa fa-info-circle" aria-hidden="true"></i> Lista de documentos
-                    </Link>
-                </li>
-                <li>
                     <Link to="/containerRemitos">
                         <i className="fa fa-info-circle" aria-hidden="true"></i> Lista de remitos
                     </Link>
@@ -66,17 +108,11 @@ export default class SideBar extends Component {
                         <i className="fa fa-info-circle" aria-hidden="true"></i> Lista de Datos de Remitos
                     </Link>
                 </li>
+  
+  */
+
+  /**
                 <li className="header">Busquedas</li>
-                <li>
-                <Link to="/codigoUnificadorContainer">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i> Busqueda Codigo Unificador
-                </Link>
-                </li>
-                <li>
-                <Link to="/generarDatosControlContainer">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i> Generar Datos Control
-                </Link>
-                </li>
                 <li>
                 <Link to="/generarDatosRecotizacionContainer">
                     <i className="fa fa-info-circle" aria-hidden="true"></i> Generar Recotizacio
@@ -102,28 +138,4 @@ export default class SideBar extends Component {
                     <i className="fa fa-info-circle" aria-hidden="true"></i> Generar nueva certificacion
                 </Link>
                 </li>
-                <li>
-                <Link to="/containerInsert">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i> Insertar datos de cotizacion
-                </Link>
-                </li>
-            </ul>
-            </div>
-      );
-    }
-}
-
-
-/**
- * <li>
-                <Link to="/searchRemitos">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i> Remitos
-                </Link>
-                </li>
-                <li>
-                <Link to="/searchCertificacion">
-                    <i className="fa fa-info-circle" aria-hidden="true"></i> Certificacion
-                </Link>
-                </li>
- * 
- */
+   */

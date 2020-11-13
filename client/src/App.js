@@ -32,7 +32,7 @@ render() {
         <div id="sideBar" className="col-sm-2"><SideBar /></div>
         <div id="Container" className="col-md-10">
         <Switch>
-          <Route exact path="/" component={containerProyecto} />
+          <Route exact path="/" component={codigoUnificadorContainer} />
           <Route path="/codigoUnificadorContainer" component={codigoUnificadorContainer} />
           <Route path="/generarDatosControlContainer" component={generarDatosControlContainer} />
           <Route path="/generarDatosCopiaControlContainer" component={generarDatosCopiaControlContainer} />
