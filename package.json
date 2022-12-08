@@ -12,12 +12,12 @@
     "eject": "concurrently --kill-others-on-fail \"npm run server\" \"npm run eject\""
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "cookie-parser": "~1.4.4",
     "csurf": "^1.9.0",
     "debug": "~2.6.9",
     "ejs": "^2.7.4",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "express-flash": "^0.0.2",
     "express-layout": "^0.1.0",
     "express-session": "^1.15.6",
